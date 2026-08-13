@@ -1,0 +1,743 @@
+.home {
+  overflow: hidden;
+}
+
+
+/* ============================================
+   HERO
+   ============================================ */
+
+.hero {
+
+  position: relative;
+
+  min-height: 650px;
+
+  display: flex;
+
+  align-items: center;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--tm-wine-dark),
+      var(--tm-purple-dark)
+    );
+
+  overflow: hidden;
+}
+
+
+/*
+ * Posteriormente aquí colocaremos
+ * la imagen real del proyecto.
+ */
+
+.hero::before {
+
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    radial-gradient(
+      circle at 75% 30%,
+      rgba(217, 130, 130, .35),
+      transparent 35%
+    );
+
+  pointer-events: none;
+}
+
+
+.hero-overlay {
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0, 0, 0, .65),
+      rgba(0, 0, 0, .25)
+    );
+}
+
+
+.hero-content {
+
+  position: relative;
+
+  z-index: 2;
+
+  max-width: 760px;
+
+  color: white;
+}
+
+
+.hero-label {
+
+  display: inline-block;
+
+  margin-bottom: 18px;
+
+  font-size: 13px;
+
+  letter-spacing: 2px;
+
+  font-weight: 700;
+
+  opacity: .85;
+}
+
+
+.hero h1 {
+
+  max-width: 760px;
+
+  margin: 0;
+
+  font-size:
+    clamp(42px, 6vw, 72px);
+
+  line-height: 1.05;
+
+  letter-spacing: -2px;
+}
+
+
+.hero p {
+
+  max-width: 620px;
+
+  margin:
+    26px 0 34px;
+
+  font-size: 20px;
+
+  line-height: 1.6;
+
+  color:
+    rgba(255, 255, 255, .88);
+}
+
+
+.hero-actions {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+
+  flex-wrap: wrap;
+}
+
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+
+.btn {
+
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  min-height: 50px;
+
+  padding:
+    0 24px;
+
+  border-radius:
+    12px;
+
+  text-decoration: none;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  transition:
+    transform var(--tm-transition),
+    box-shadow var(--tm-transition),
+    background var(--tm-transition);
+}
+
+
+.btn:hover {
+
+  transform:
+    translateY(-2px);
+}
+
+
+.btn-primary {
+
+  background:
+    var(--tm-wine);
+
+  color:
+    white;
+
+  box-shadow:
+    0 8px 20px
+    rgba(0, 0, 0, .18);
+}
+
+
+.btn-primary:hover {
+
+  background:
+    var(--tm-wine-dark);
+}
+
+
+.btn-glass {
+
+  color: white;
+
+  background:
+    rgba(255, 255, 255, .10);
+
+  border:
+    1px solid rgba(255, 255, 255, .30);
+
+  backdrop-filter:
+    blur(10px);
+}
+
+
+/* ============================================
+   BENEFITS
+   ============================================ */
+
+.benefits-section {
+
+  padding:
+    90px 0;
+
+  background:
+    var(--tm-cream);
+}
+
+
+.section-heading {
+
+  max-width: 700px;
+
+  margin-bottom: 32px;
+}
+
+
+.section-label {
+
+  display: inline-block;
+
+  color:
+    var(--tm-wine);
+
+  font-size: 12px;
+
+  font-weight: 800;
+
+  letter-spacing: 2px;
+}
+
+
+.section-heading h2 {
+
+  margin:
+    8px 0 12px;
+
+  font-size: 42px;
+
+  line-height: 1.15;
+}
+
+
+.section-heading p {
+
+  margin: 0;
+
+  color:
+    var(--tm-gray-500);
+
+  font-size: 17px;
+
+  line-height: 1.6;
+}
+
+
+/* ============================================
+   SEARCH
+   ============================================ */
+
+.search-box {
+
+  max-width: 720px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  padding:
+    7px 18px;
+
+  margin-bottom: 18px;
+
+  background:
+    white;
+
+  border:
+    1px solid var(--tm-gray-100);
+
+  border-radius:
+    14px;
+
+  box-shadow:
+    var(--tm-shadow-sm);
+}
+
+
+.search-icon {
+
+  font-size: 24px;
+
+  color:
+    var(--tm-gray-500);
+}
+
+
+.search-box input {
+
+  width: 100%;
+
+  height: 50px;
+
+  border: 0;
+
+  outline: 0;
+
+  background: transparent;
+
+  color:
+    var(--tm-gray-900);
+
+  font-size: 15px;
+}
+
+
+.search-box input::placeholder {
+
+  color:
+    var(--tm-gray-400);
+}
+
+
+/* ============================================
+   FILTERS
+   ============================================ */
+
+.filters {
+
+  display: flex;
+
+  gap: 10px;
+
+  margin-bottom: 34px;
+
+  overflow-x: auto;
+
+  scrollbar-width: none;
+}
+
+
+.filters::-webkit-scrollbar {
+  display: none;
+}
+
+
+.filter {
+
+  flex-shrink: 0;
+
+  padding:
+    10px 16px;
+
+  border:
+    1px solid var(--tm-gray-200);
+
+  border-radius:
+    100px;
+
+  background:
+    white;
+
+  color:
+    var(--tm-gray-600);
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  transition:
+    all var(--tm-transition);
+}
+
+
+.filter:hover {
+
+  border-color:
+    var(--tm-wine);
+
+  color:
+    var(--tm-wine);
+}
+
+
+.filter.active {
+
+  background:
+    var(--tm-wine);
+
+  border-color:
+    var(--tm-wine);
+
+  color:
+    white;
+}
+
+
+/* ============================================
+   SERVICE GRID
+   ============================================ */
+
+.services-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 24px;
+}
+
+
+/* ============================================
+   SERVICE CARD
+   ============================================ */
+
+.service-card {
+
+  overflow: hidden;
+
+  background:
+    white;
+
+  border:
+    1px solid rgba(0, 0, 0, .05);
+
+  border-radius:
+    var(--tm-radius-lg);
+
+  box-shadow:
+    var(--tm-shadow-sm);
+
+  transition:
+    transform var(--tm-transition),
+    box-shadow var(--tm-transition);
+}
+
+
+.service-card:hover {
+
+  transform:
+    translateY(-5px);
+
+  box-shadow:
+    var(--tm-shadow-md);
+}
+
+
+.service-image {
+
+  height: 190px;
+
+  display: grid;
+
+  place-items: center;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--tm-lavender),
+      var(--tm-coral)
+    );
+
+  color:
+    white;
+
+  font-size: 13px;
+}
+
+
+.service-content {
+
+  padding: 20px;
+}
+
+
+.discount {
+
+  display: inline-flex;
+
+  padding:
+    6px 10px;
+
+  border-radius:
+    8px;
+
+  background:
+    var(--tm-wine-light);
+
+  color:
+    var(--tm-wine);
+
+  font-size: 12px;
+
+  font-weight: 800;
+}
+
+
+.service-content h3 {
+
+  margin:
+    14px 0 4px;
+
+  font-size: 21px;
+}
+
+
+.service-name {
+
+  margin: 0;
+
+  color:
+    var(--tm-gray-500);
+
+  font-size: 14px;
+}
+
+
+.location {
+
+  margin:
+    15px 0;
+
+  color:
+    var(--tm-gray-600);
+
+  font-size: 14px;
+}
+
+
+.service-footer {
+
+  padding-top: 14px;
+
+  border-top:
+    1px solid var(--tm-gray-100);
+
+  color:
+    var(--tm-gray-500);
+
+  font-size: 12px;
+}
+
+
+/* ============================================
+   BUSINESS CTA
+   ============================================ */
+
+.business-cta {
+
+  padding:
+    0 0 90px;
+
+  background:
+    var(--tm-cream);
+}
+
+
+.business-card {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 40px;
+
+  padding:
+    55px;
+
+  border-radius:
+    var(--tm-radius-xl);
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--tm-wine),
+      var(--tm-purple)
+    );
+
+  color:
+    white;
+
+  box-shadow:
+    var(--tm-shadow-md);
+}
+
+
+.business-card .section-label {
+
+  color:
+    rgba(255, 255, 255, .72);
+}
+
+
+.business-card h2 {
+
+  margin:
+    10px 0;
+
+  font-size: 34px;
+}
+
+
+.business-card p {
+
+  margin: 0;
+
+  max-width: 600px;
+
+  color:
+    rgba(255, 255, 255, .78);
+
+  line-height: 1.6;
+}
+
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 900px) {
+
+  .services-grid {
+
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+
+  .business-card {
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    padding: 40px;
+  }
+
+}
+
+
+@media (max-width: 600px) {
+
+  .hero {
+
+    min-height: 600px;
+  }
+
+
+  .hero h1 {
+
+    font-size: 42px;
+
+    letter-spacing: -1px;
+  }
+
+
+  .hero p {
+
+    font-size: 17px;
+  }
+
+
+  .hero-actions {
+
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+
+  .hero-actions .btn {
+
+    width: 100%;
+  }
+
+
+  .benefits-section {
+
+    padding:
+      64px 0;
+  }
+
+
+  .section-heading h2 {
+
+    font-size: 32px;
+  }
+
+
+  .services-grid {
+
+    grid-template-columns:
+      1fr;
+  }
+
+
+  .business-cta {
+
+    padding-bottom:
+      64px;
+  }
+
+
+  .business-card {
+
+    padding: 30px;
+
+    border-radius:
+      var(--tm-radius-lg);
+  }
+
+
+  .business-card h2 {
+
+    font-size: 28px;
+  }
+
+}
