@@ -1,277 +1,193 @@
 <section class="home">
-
   <!-- ==========================================
        HERO
        ========================================== -->
 
   <section class="hero">
-
     <div class="hero-overlay"></div>
 
     <div class="tm-container hero-content">
+      <span class="hero-label"> RED DE APOYO PARA MUJERES </span>
 
-      <span class="hero-label">
-        RED DE APOYO PARA MUJERES
-      </span>
-
-      <h1>
-        Beneficios que conectan
-        a nuestra comunidad
-      </h1>
+      <h1>Beneficios que conectan a nuestra comunidad</h1>
 
       <p>
-        Descubre comercios, servicios y beneficios
-        pensados para mujeres cerca de ti.
+        Descubre comercios, servicios y beneficios pensados para mujeres cerca
+        de ti.
       </p>
 
       <div class="hero-actions">
-
-        <a
-          routerLink="/beneficios"
-          class="btn btn-primary"
-        >
+        <a routerLink="/beneficios" class="btn btn-primary">
           Explorar beneficios
         </a>
 
-        <a
-          routerLink="/registro"
-          class="btn btn-glass"
-        >
-          Registrar comercio
-        </a>
-
+        <a routerLink="/registro" class="btn btn-glass"> Registrar comercio </a>
       </div>
-
     </div>
-
   </section>
-
 
   <!-- ==========================================
        BENEFITS
        ========================================== -->
 
   <section class="benefits-section">
-
     <div class="tm-container">
-
       <div class="section-heading">
+        <span class="section-label"> DESCUBRE </span>
 
-        <span class="section-label">
-          DESCUBRE
-        </span>
+        <h2>Beneficios cerca de ti</h2>
 
-        <h2>
-          Beneficios cerca de ti
-        </h2>
-
-        <p>
-          Encuentra servicios y comercios que
-          forman parte de nuestra red.
-        </p>
-
+        <p>Encuentra servicios y comercios que forman parte de nuestra red.</p>
       </div>
-
 
       <div class="search-box">
+        <span class="search-icon"> ⌕ </span>
 
-        <span class="search-icon">
-          ⌕
-        </span>
-
-        <input
-          type="search"
-          placeholder="Buscar servicios o comercios..."
-        />
-
+        <input type="search" placeholder="Buscar servicios o comercios..." />
       </div>
-
 
       <div class="filters">
+        <button type="button" class="filter active">Más cercanos</button>
 
-        <button
-          type="button"
-          class="filter active"
-        >
-          Más cercanos
-        </button>
+        <button type="button" class="filter">Más recientes</button>
 
-        <button
-          type="button"
-          class="filter"
-        >
-          Más recientes
-        </button>
-
-        <button
-          type="button"
-          class="filter"
-        >
-          Mayor descuento
-        </button>
-
+        <button type="button" class="filter">Mayor descuento</button>
       </div>
-
 
       <!-- TEMPORAL: posteriormente vendrá de Strapi -->
 
       <div class="services-grid">
-
-        <article class="service-card">
-
+        <article class="service-card" *ngFor="let service of services">
+          <!-- IMAGEN DEL COMERCIO -->
           <div class="service-image">
+            <img
+              *ngIf="
+                getBusinessImage(service) as imageUrl;
+                else imagePlaceholder
+              "
+              [src]="imageUrl"
+              [alt]="service.business.name"
+            />
 
-            <span>
-              Imagen del comercio
+            <!-- PLACEHOLDER -->
+            <ng-template #imagePlaceholder>
+              <div class="image-placeholder">
+                <span class="placeholder-icon"> ✦ </span>
+
+                <small> Beneficio para mujeres </small>
+              </div>
+            </ng-template>
+
+            <!-- DESCUENTO -->
+            <span
+              class="discount"
+              *ngIf="service.discountType === 'PERCENTAGE'; else fixedDiscount"
+            >
+              {{ service.discountValue }}% OFF
             </span>
 
+            <ng-template #fixedDiscount>
+              <span class="discount">
+                ${{ service.discountValue | number: "1.0-2" }} OFF
+              </span>
+            </ng-template>
           </div>
 
+          <!-- CONTENIDO -->
           <div class="service-content">
-
-            <span class="discount">
-              20% OFF
-            </span>
-
+            <!-- COMERCIO -->
             <h3>
-              Clínica María
+              {{ service.business.name }}
             </h3>
 
+            <!-- SERVICIO -->
             <p class="service-name">
-              Servicio de ejemplo
+              {{ service.name }}
             </p>
 
-            <p class="location">
-              📍 Cerca de ti
+            <!-- DESCRIPCIÓN -->
+            <p class="service-description" *ngIf="service.description">
+              {{ service.description }}
             </p>
 
-            <div class="service-footer">
-              Vigencia: 31/12/2026
+            <!-- UBICACIÓN -->
+            <p class="location" *ngIf="service.business.address">
+              <lucide-icon [img]="mapPin"></lucide-icon>
+              {{ service.business.address }}
+            </p>
+
+            <p class="location" *ngIf="!service.business.address">
+              <lucide-icon [img]="mapPin"></lucide-icon>
+              Cerca de ti
+            </p>
+
+            <!-- PRECIO -->
+            <div class="service-prices">
+              <span class="price-label"> Precio normal </span>
+
+              <span class="original-price">
+                ${{ service.price | number: "1.0-2" }}
+              </span>
+
+              <span class="price-arrow"> → </span>
+
+              <span class="final-price">
+                ${{ service.finalPrice | number: "1.0-2" }}
+              </span>
             </div>
 
-          </div>
-
-        </article>
-
-
-        <article class="service-card">
-
-          <div class="service-image">
-
-            <span>
-              Imagen del comercio
-            </span>
-
-          </div>
-
-          <div class="service-content">
-
-            <span class="discount">
-              15% OFF
-            </span>
-
-            <h3>
-              Restaurante X
-            </h3>
-
-            <p class="service-name">
-              Servicio de ejemplo
-            </p>
-
-            <p class="location">
-              📍 Cerca de ti
-            </p>
-
-            <div class="service-footer">
-              Vigencia: 30/11/2026
+            <!-- AHORRO -->
+            <div class="saving" *ngIf="service.discountAmount > 0">
+              Ahorras
+              <strong> ${{ service.discountAmount | number: "1.0-2" }} </strong>
             </div>
 
-          </div>
-
-        </article>
-
-
-        <article class="service-card">
-
-          <div class="service-image">
-
-            <span>
-              Imagen del comercio
-            </span>
-
-          </div>
-
-          <div class="service-content">
-
-            <span class="discount">
-              30% OFF
-            </span>
-
-            <h3>
-              Salón de belleza
-            </h3>
-
-            <p class="service-name">
-              Servicio de ejemplo
-            </p>
-
-            <p class="location">
-              📍 Cerca de ti
-            </p>
-
+            <!-- VIGENCIA -->
             <div class="service-footer">
-              Vigencia: 15/12/2026
+              Vigencia:
+
+              {{ service.validFrom | date: "dd/MM/yyyy" }}
+
+              -
+
+              {{ service.validUntil | date: "dd/MM/yyyy" }}
             </div>
 
+            <!-- BOTÓN -->
+            <button
+              type="button"
+              class="service-button"
+              (click)="viewService(service.documentId)"
+            >
+              Ver detalle
+            </button>
           </div>
-
         </article>
-
       </div>
-
     </div>
-
   </section>
-
 
   <!-- ==========================================
        BUSINESS CTA
        ========================================== -->
 
   <section class="business-cta">
-
     <div class="tm-container">
-
       <div class="business-card">
-
         <div>
+          <span class="section-label"> PARA COMERCIOS </span>
 
-          <span class="section-label">
-            PARA COMERCIOS
-          </span>
-
-          <h2>
-            Forma parte de nuestra red
-          </h2>
+          <h2>Forma parte de nuestra red</h2>
 
           <p>
-            Ofrece beneficios a mujeres de tu comunidad
-            y haz crecer tu negocio.
+            Ofrece beneficios a mujeres de tu comunidad y haz crecer tu negocio.
           </p>
-
         </div>
 
-        <a
-          routerLink="/registro"
-          class="btn btn-primary"
-        >
+        <a routerLink="/registro" class="btn btn-primary">
           Registrar mi comercio
         </a>
-
       </div>
-
     </div>
-
   </section>
-
 </section>

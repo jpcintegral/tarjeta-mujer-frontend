@@ -1,0 +1,383 @@
+/* ========================================= */
+/* PÁGINA */
+/* ========================================= */
+
+.auth-page {
+  min-height: calc(100vh - 80px);
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding: 50px 20px;
+
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(151, 112, 135, 0.12),
+      transparent 35%
+    ),
+    linear-gradient(135deg, #f8f3f5 0%, #f4eef2 50%, #eee5eb 100%);
+}
+
+/* ========================================= */
+/* CARD */
+/* ========================================= */
+
+.auth-card {
+  width: 100%;
+
+  max-width: 440px;
+
+  padding: 42px 40px;
+
+  background: #ffffff;
+
+  border-radius: 24px;
+
+  box-shadow:
+    0 18px 45px rgba(75, 35, 60, 0.12),
+    0 4px 12px rgba(75, 35, 60, 0.05);
+}
+
+/* ========================================= */
+/* HEADER */
+/* ========================================= */
+
+.auth-header {
+  margin-bottom: 32px;
+
+  text-align: center;
+}
+
+.auth-logo {
+  width: 58px;
+
+  height: 58px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  margin: 0 auto 18px;
+
+  border-radius: 18px;
+
+  background: linear-gradient(135deg, #71345b, #96708d);
+
+  color: #ffffff;
+
+  font-size: 1.7rem;
+
+  box-shadow: 0 8px 20px rgba(113, 52, 91, 0.22);
+}
+
+.auth-header h1 {
+  margin: 0 0 9px;
+
+  color: #3f3039;
+
+  font-size: 2rem;
+
+  font-weight: 800;
+
+  line-height: 1.2;
+}
+
+.auth-header p {
+  max-width: 320px;
+
+  margin: 0 auto;
+
+  color: #70656c;
+
+  font-size: 0.92rem;
+
+  line-height: 1.6;
+}
+
+/* ========================================= */
+/* FORMULARIO */
+/* ========================================= */
+
+.login-form {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 20px;
+}
+
+/* ========================================= */
+/* GRUPO */
+/* ========================================= */
+
+.form-group {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 7px;
+}
+
+.form-group label {
+  color: #4f434b;
+
+  font-size: 0.82rem;
+
+  font-weight: 700;
+
+  letter-spacing: 0.2px;
+}
+
+/* ========================================= */
+/* INPUTS */
+/* ========================================= */
+
+.form-group input {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  padding: 13px 15px;
+
+  border: 1px solid #ddd3d9;
+
+  border-radius: 11px;
+
+  outline: none;
+
+  background: #ffffff;
+
+  color: #3f3039;
+
+  font-family: inherit;
+
+  font-size: 0.92rem;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.form-group input::placeholder {
+  color: #aaa0a7;
+}
+
+.form-group input:hover {
+  border-color: #c4b3bd;
+}
+
+.form-group input:focus {
+  border-color: #8a526f;
+
+  background: #fffdfd;
+
+  box-shadow: 0 0 0 3px rgba(138, 82, 111, 0.1);
+}
+
+/* ========================================= */
+/* INPUT INVÁLIDO */
+/* ========================================= */
+
+.form-group input.ng-invalid.ng-touched {
+  border-color: #c4778d;
+
+  box-shadow: 0 0 0 3px rgba(196, 119, 141, 0.08);
+}
+
+/* ========================================= */
+/* ERROR DE CAMPO */
+/* ========================================= */
+
+.form-error {
+  margin-top: 1px;
+
+  color: #a6536d;
+
+  font-size: 0.76rem;
+
+  line-height: 1.4;
+}
+
+/* ========================================= */
+/* ERROR LOGIN */
+/* ========================================= */
+
+.login-error {
+  padding: 12px 14px;
+
+  border: 1px solid #ead0d8;
+
+  border-radius: 10px;
+
+  background: #fbf0f3;
+
+  color: #984c65;
+
+  font-size: 0.82rem;
+
+  line-height: 1.5;
+
+  text-align: center;
+}
+
+/* ========================================= */
+/* BOTÓN */
+/* ========================================= */
+
+.auth-button {
+  width: 100%;
+
+  min-height: 48px;
+
+  margin-top: 4px;
+
+  padding: 12px 20px;
+
+  border: none;
+
+  border-radius: 11px;
+
+  background: linear-gradient(135deg, #71345b, #8a526f);
+
+  color: #ffffff;
+
+  font-family: inherit;
+
+  font-size: 0.9rem;
+
+  font-weight: 700;
+
+  letter-spacing: 0.2px;
+
+  cursor: pointer;
+
+  box-shadow: 0 7px 18px rgba(113, 52, 91, 0.2);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.auth-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+
+  box-shadow: 0 10px 22px rgba(113, 52, 91, 0.25);
+}
+
+.auth-button:active:not(:disabled) {
+  transform: translateY(0);
+
+  box-shadow: 0 5px 12px rgba(113, 52, 91, 0.18);
+}
+
+.auth-button:disabled {
+  opacity: 0.6;
+
+  cursor: not-allowed;
+
+  box-shadow: none;
+}
+
+/* ========================================= */
+/* REGISTRO */
+/* ========================================= */
+
+.auth-register {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 5px;
+
+  margin-top: 8px;
+
+  color: #80747b;
+
+  font-size: 0.82rem;
+
+  text-align: center;
+}
+
+.auth-register a {
+  color: #71345b;
+
+  font-weight: 700;
+
+  text-decoration: none;
+
+  transition: color 0.2s ease;
+}
+
+.auth-register a:hover {
+  color: #4f2941;
+
+  text-decoration: underline;
+}
+
+/* ========================================= */
+/* RESPONSIVE */
+/* ========================================= */
+
+@media (max-width: 600px) {
+  .auth-page {
+    min-height: calc(100vh - 65px);
+
+    padding: 30px 15px;
+  }
+
+  .auth-card {
+    max-width: none;
+
+    padding: 34px 25px;
+
+    border-radius: 20px;
+  }
+
+  .auth-header {
+    margin-bottom: 28px;
+  }
+
+  .auth-header h1 {
+    font-size: 1.75rem;
+  }
+
+  .auth-header p {
+    font-size: 0.88rem;
+  }
+
+  .auth-logo {
+    width: 52px;
+
+    height: 52px;
+
+    border-radius: 16px;
+
+    font-size: 1.5rem;
+  }
+}
+
+/* ========================================= */
+/* PANTALLAS MUY PEQUEÑAS */
+/* ========================================= */
+
+@media (max-width: 380px) {
+  .auth-card {
+    padding: 30px 20px;
+  }
+
+  .auth-register {
+    flex-direction: column;
+
+    gap: 3px;
+  }
+}

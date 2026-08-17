@@ -1,0 +1,507 @@
+.woman-dashboard {
+  width: 100%;
+}
+
+/* ========================================= */
+/* BIENVENIDA */
+/* ========================================= */
+
+.welcome-section {
+  margin-bottom: 30px;
+}
+
+.eyebrow {
+  color: #977087;
+
+  font-size: 0.75rem;
+
+  font-weight: 800;
+
+  text-transform: uppercase;
+
+  letter-spacing: 1px;
+}
+
+.welcome-section h1 {
+  margin: 8px 0 8px;
+
+  color: #3f3039;
+
+  font-size: 2rem;
+}
+
+.welcome-section p {
+  margin: 0;
+
+  color: #70656c;
+
+  font-size: 0.95rem;
+}
+
+/* ========================================= */
+/* CARD */
+/* ========================================= */
+
+.card-summary {
+  overflow: hidden;
+
+  background: #ffffff;
+
+  border-radius: 20px;
+
+  box-shadow: 0 10px 30px rgba(75, 35, 60, 0.08);
+}
+
+.card-header {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  padding: 20px 25px;
+
+  background: linear-gradient(135deg, #71345b, #96708d);
+
+  color: #ffffff;
+}
+
+.card-label {
+  font-size: 1rem;
+
+  font-weight: 800;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.8px;
+}
+
+.card-status {
+  padding: 6px 12px;
+
+  border-radius: 20px;
+
+  background: rgba(255, 255, 255, 0.18);
+
+  font-size: 0.7rem;
+
+  font-weight: 800;
+}
+
+.card-body {
+  padding: 28px 25px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 30px;
+}
+
+.card-information {
+  display: flex;
+
+  gap: 50px;
+}
+
+.information-item {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 7px;
+}
+
+.label {
+  color: #a2979e;
+
+  font-size: 0.7rem;
+
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.5px;
+}
+
+.information-item strong {
+  color: #4f434b;
+
+  font-size: 0.95rem;
+}
+
+.card-link {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  color: #71345b;
+
+  font-size: 0.9rem;
+
+  font-weight: 700;
+
+  text-decoration: none;
+
+  white-space: nowrap;
+}
+
+.card-link:hover {
+  color: #4f2340;
+}
+
+@media (max-width: 700px) {
+  .welcome-section h1 {
+    font-size: 1.7rem;
+  }
+
+  .card-body {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .card-information {
+    width: 100%;
+
+    flex-direction: column;
+
+    gap: 18px;
+  }
+}
+
+.woman-dashboard {
+  min-height: calc(100vh - 140px);
+
+  padding: 45px 20px 70px;
+
+  background: #faf7f9;
+}
+
+.dashboard-container {
+  width: 100%;
+
+  max-width: 1050px;
+
+  margin: 0 auto;
+}
+
+/* ========================================= */
+/* BIENVENIDA */
+/* ========================================= */
+
+.welcome {
+  margin-bottom: 30px;
+}
+
+.welcome-label {
+  color: #977087;
+
+  font-size: 0.8rem;
+
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  letter-spacing: 1px;
+}
+
+.welcome h1 {
+  margin: 8px 0;
+
+  color: #3f3039;
+
+  font-size: 2.2rem;
+}
+
+.welcome p {
+  margin: 0;
+
+  color: #70656c;
+
+  line-height: 1.6;
+}
+
+/* ========================================= */
+/* TARJETA RESUMEN */
+/* ========================================= */
+
+.card-summary {
+  padding: 30px;
+
+  border-radius: 20px;
+
+  background: #ffffff;
+
+  box-shadow: 0 10px 30px rgba(75, 35, 60, 0.08);
+}
+
+.card-summary-header {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin-bottom: 25px;
+
+  color: #977087;
+
+  font-size: 0.75rem;
+
+  font-weight: 800;
+
+  letter-spacing: 1px;
+}
+
+/* ========================================= */
+/* ESTADO */
+/* ========================================= */
+
+.status {
+  padding: 6px 12px;
+
+  border-radius: 20px;
+
+  background: #edf7f0;
+
+  color: #327044;
+
+  font-size: 0.7rem;
+}
+
+.status.expired {
+  background: #f8e8eb;
+
+  color: #9a4054;
+}
+
+/* ========================================= */
+/* INFORMACIÓN */
+/* ========================================= */
+
+.card-information {
+  display: grid;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 30px;
+
+  margin: 25px 0;
+}
+
+.card-information div {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 7px;
+}
+
+.label {
+  color: #a2979e;
+
+  font-size: 0.72rem;
+
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.5px;
+}
+
+.card-information strong {
+  color: #453943;
+
+  font-size: 1rem;
+}
+
+/* ========================================= */
+/* ACCIONES */
+/* ========================================= */
+
+.card-actions {
+  display: flex;
+
+  gap: 12px;
+
+  margin-top: 25px;
+}
+
+.card-actions button,
+.setup-card button {
+  padding: 12px 20px;
+
+  border-radius: 10px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.primary,
+.setup-card button {
+  border: none;
+
+  background: #71345b;
+
+  color: #ffffff;
+}
+
+.secondary {
+  border: 1px solid #71345b;
+
+  background: transparent;
+
+  color: #71345b;
+}
+
+/* ========================================= */
+/* SETUP */
+/* ========================================= */
+
+.setup-card {
+  padding: 40px;
+
+  text-align: center;
+
+  border-radius: 20px;
+
+  background: #ffffff;
+
+  box-shadow: 0 10px 30px rgba(75, 35, 60, 0.08);
+}
+
+.setup-icon {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 60px;
+
+  height: 60px;
+
+  margin: 0 auto 20px;
+
+  border-radius: 50%;
+
+  background: #f5e9ef;
+
+  color: #71345b;
+
+  font-size: 1.5rem;
+}
+
+.setup-card h2 {
+  margin: 0 0 10px;
+
+  color: #3f3039;
+}
+
+.setup-card p {
+  max-width: 600px;
+
+  margin: 0 auto 25px;
+
+  color: #70656c;
+
+  line-height: 1.6;
+}
+
+/* ========================================= */
+/* LOADING */
+/* ========================================= */
+
+.loading {
+  padding: 60px;
+
+  text-align: center;
+
+  color: #70656c;
+}
+
+/* ========================================= */
+/* ERROR */
+/* ========================================= */
+
+.error-message {
+  margin-bottom: 20px;
+
+  padding: 14px 18px;
+
+  border-radius: 10px;
+
+  background: #f8e8eb;
+
+  color: #9a4054;
+}
+
+/* ========================================= */
+/* RESPONSIVE */
+/* ========================================= */
+
+@media (max-width: 700px) {
+  .woman-dashboard {
+    padding: 30px 15px 50px;
+  }
+
+  .welcome h1 {
+    font-size: 1.8rem;
+  }
+
+  .card-summary {
+    padding: 22px;
+  }
+
+  .card-information {
+    grid-template-columns: 1fr;
+
+    gap: 18px;
+  }
+
+  .card-actions {
+    flex-direction: column;
+  }
+
+  .card-actions button {
+    width: 100%;
+  }
+}
+
+/* ========================================= */
+/* BUTTON */
+/* ========================================= */
+
+.primary-button {
+  padding: 12px 20px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background: #71345b;
+
+  color: #ffffff;
+
+  font-size: 0.9rem;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.primary-button:hover {
+  background: #5d294b;
+
+  transform: translateY(-1px);
+}

@@ -1,1 +1,228 @@
-<p>service-detail works!</p>
+<section
+  class="service-detail-page"
+  *ngIf="!loading && !error && service as currentService"
+>
+  <article class="service-detail-card">
+    <!-- ========================================= -->
+    <!-- IMAGEN / BANNER -->
+    <!-- ========================================= -->
+
+    <div class="detail-image">
+      <!-- IMAGEN DEL COMERCIO -->
+      <img
+        *ngIf="getBusinessImage() as imageUrl; else imagePlaceholder"
+        [src]="imageUrl"
+        [alt]="currentService.business.name"
+      />
+
+      <!-- PLACEHOLDER -->
+      <ng-template #imagePlaceholder>
+        <div class="image-placeholder">
+          <span class="placeholder-icon"> ✦ </span>
+
+          <span>
+            {{ currentService.business.name }}
+          </span>
+
+          <small> Beneficio para mujeres </small>
+        </div>
+      </ng-template>
+
+      <!-- ========================================= -->
+      <!-- DESCUENTO -->
+      <!-- ========================================= -->
+
+      <span
+        class="discount"
+        *ngIf="currentService.discountType === 'PERCENTAGE'; else fixedDiscount"
+      >
+        {{ currentService.discountValue }}% OFF
+      </span>
+
+      <ng-template #fixedDiscount>
+        <span class="discount">
+          ${{ currentService.discountValue | number: "1.0-2" }} OFF
+        </span>
+      </ng-template>
+    </div>
+
+    <!-- ========================================= -->
+    <!-- CONTENIDO -->
+    <!-- ========================================= -->
+
+    <div class="detail-content">
+      <!-- ========================================= -->
+      <!-- COMERCIO -->
+      <!-- ========================================= -->
+
+      <span class="business-name">
+        {{ currentService.business.name }}
+      </span>
+
+      <!-- ========================================= -->
+      <!-- SERVICIO -->
+      <!-- ========================================= -->
+
+      <h1>
+        {{ currentService.name }}
+      </h1>
+
+      <!-- ========================================= -->
+      <!-- DESCRIPCIÓN DEL SERVICIO -->
+      <!-- ========================================= -->
+
+      <p class="description" *ngIf="currentService.description">
+        {{ currentService.description }}
+      </p>
+
+      <!-- ========================================= -->
+      <!-- PRECIO -->
+      <!-- ========================================= -->
+
+      <div class="detail-prices">
+        <!-- PRECIO REGULAR -->
+
+        <div class="price-original">
+          <span class="price-label"> Precio regular </span>
+
+          <span class="original-price">
+            ${{ currentService.price | number: "1.0-2" }}
+          </span>
+        </div>
+
+        <!-- FLECHA -->
+
+        <span class="price-arrow"> → </span>
+
+        <!-- PRECIO CON BENEFICIO -->
+
+        <div class="price-final">
+          <span class="price-label"> Precio con beneficio </span>
+
+          <span class="final-price">
+            ${{ currentService.finalPrice | number: "1.0-2" }}
+          </span>
+        </div>
+      </div>
+
+      <!-- ========================================= -->
+      <!-- AHORRO -->
+      <!-- ========================================= -->
+
+      <div class="saving" *ngIf="currentService.discountAmount > 0">
+        <span> Ahorras </span>
+
+        <strong>
+          ${{ currentService.discountAmount | number: "1.0-2" }}
+        </strong>
+      </div>
+
+      <!-- ========================================= -->
+      <!-- INFORMACIÓN DEL SERVICIO -->
+      <!-- ========================================= -->
+
+      <div class="detail-info">
+        <!-- ========================================= -->
+        <!-- VIGENCIA -->
+        <!-- ========================================= -->
+
+        <div class="info-item">
+          <span class="info-label"> Vigencia </span>
+
+          <span class="info-value">
+            {{ currentService.validFrom | date: "dd/MM/yyyy" }}
+
+            -
+
+            {{ currentService.validUntil | date: "dd/MM/yyyy" }}
+          </span>
+        </div>
+
+        <!-- ========================================= -->
+        <!-- UBICACIÓN -->
+        <!-- ========================================= -->
+
+        <div class="info-item">
+          <span class="info-label"> Ubicación </span>
+
+          <span
+            class="info-value"
+            *ngIf="currentService.business.address; else noAddress"
+          >
+            <lucide-icon [img]="mapPin"></lucide-icon>
+            {{ currentService.business.address }}
+          </span>
+
+          <ng-template #noAddress>
+            <span class="info-value">
+              <lucide-icon [img]="mapPin"></lucide-icon>Ubicación no disponible
+            </span>
+          </ng-template>
+        </div>
+
+        <!-- ========================================= -->
+        <!-- TELÉFONO -->
+        <!-- ========================================= -->
+
+        <div class="info-item" *ngIf="currentService.business.phone">
+          <span class="info-label"> Teléfono </span>
+
+          <span class="info-value">
+            {{ currentService.business.phone }}
+          </span>
+        </div>
+
+        <!-- ========================================= -->
+        <!-- CORREO -->
+        <!-- ========================================= -->
+
+        <div class="info-item" *ngIf="currentService.business.email">
+          <span class="info-label"> Correo </span>
+
+          <span class="info-value">
+            {{ currentService.business.email }}
+          </span>
+        </div>
+
+        <!-- ========================================= -->
+        <!-- SITIO WEB -->
+        <!-- ========================================= -->
+
+        <div class="info-item" *ngIf="currentService.business.website">
+          <span class="info-label"> Sitio web </span>
+
+          <span class="info-value">
+            {{ currentService.business.website }}
+          </span>
+        </div>
+      </div>
+
+      <!-- ========================================= -->
+      <!-- SOBRE EL COMERCIO -->
+      <!-- ========================================= -->
+
+      <div
+        class="business-description"
+        *ngIf="currentService.business.description"
+      >
+        <h2>Sobre {{ currentService.business.name }}</h2>
+
+        <p>
+          {{ currentService.business.description }}
+        </p>
+      </div>
+
+      <!-- ========================================= -->
+      <!-- ACCIONES -->
+      <!-- ========================================= -->
+
+      <div class="detail-actions">
+        <button type="button" class="back-button" (click)="goBack()">
+          <span> ← </span>
+
+          Volver a beneficios
+        </button>
+      </div>
+    </div>
+  </article>
+</section>

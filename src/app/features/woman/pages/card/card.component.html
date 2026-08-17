@@ -1,0 +1,197 @@
+<section class="card-page">
+  <!-- ========================================= -->
+  <!-- LOADING -->
+  <!-- ========================================= -->
+
+  <div class="loading" *ngIf="loading">Cargando tu tarjeta...</div>
+
+  <!-- ========================================= -->
+  <!-- ERROR -->
+  <!-- ========================================= -->
+
+  <div class="error-message" *ngIf="!loading && errorMessage">
+    {{ errorMessage }}
+  </div>
+
+  <!-- ========================================= -->
+  <!-- CONTENIDO -->
+  <!-- ========================================= -->
+
+  <ng-container *ngIf="!loading">
+    <!-- ========================================= -->
+    <!-- SIN TARJETA -->
+    <!-- ========================================= -->
+
+    <article class="empty-card" *ngIf="!cardExists">
+      <div class="empty-icon">♡</div>
+
+      <h2>Todavía no tienes una tarjeta</h2>
+
+      <p>Cuando completes tu perfil podrás generar tu Tarjeta de la Mujer.</p>
+
+      <button type="button" class="primary-button" (click)="goToProfile()">
+        Ir a mi perfil
+      </button>
+    </article>
+
+    <!-- ========================================= -->
+    <!-- TARJETA -->
+    <!-- ========================================= -->
+
+    <ng-container *ngIf="cardExists && card">
+      <!-- ENCABEZADO -->
+
+      <div class="page-header">
+        <span class="eyebrow"> MI TARJETA </span>
+
+        <h1>Mi tarjeta de la Mujer</h1>
+
+        <p>
+          Presenta esta tarjeta para acceder a los beneficios disponibles en los
+          comercios participantes.
+        </p>
+      </div>
+
+      <!-- ========================================= -->
+      <!-- TARJETA DIGITAL -->
+      <!-- ========================================= -->
+
+      <article class="digital-card">
+        <!-- CABECERA -->
+
+        <div class="card-header">
+          <div class="brand">
+            <span class="brand-icon"> ♡ </span>
+
+            <div>
+              <strong> Tarjeta de la Mujer </strong>
+
+              <small> Red de apoyo para mujeres </small>
+            </div>
+          </div>
+
+          <span class="status">
+            {{ card.statusCard }}
+          </span>
+        </div>
+
+        <!-- ========================================= -->
+        <!-- CONTENIDO -->
+        <!-- ========================================= -->
+
+        <div class="card-body">
+          <!-- INFORMACIÓN MUJER -->
+
+          <div class="woman-info">
+            <span class="section-label"> TITULAR </span>
+
+            <h2>
+              {{ profile?.firstName }}
+              {{ profile?.lastName }}
+              {{ profile?.secondLastName }}
+            </h2>
+
+            <p>Mujer registrada</p>
+          </div>
+
+          <!-- ========================================= -->
+          <!-- QR -->
+          <!-- ========================================= -->
+
+          <div class="qr-section">
+            <div class="qr-container">
+              <!-- QR REAL -->
+
+              <div class="qr-code" *ngIf="qrToken && !generatingQr">
+                <qrcode
+                  [qrdata]="qrToken"
+                  [width]="220"
+                  [errorCorrectionLevel]="'M'"
+                  [elementType]="'canvas'"
+                >
+                </qrcode>
+              </div>
+
+              <!-- GENERANDO QR -->
+
+              <div class="qr-loading" *ngIf="generatingQr">
+                Generando código QR...
+              </div>
+            </div>
+
+            <span class="qr-label">
+              <p>Escanea para verificar</p>
+            </span>
+          </div>
+        </div>
+
+        <!-- ========================================= -->
+        <!-- INFORMACIÓN TARJETA -->
+        <!-- ========================================= -->
+
+        <div class="card-information">
+          <!-- FOLIO -->
+
+          <div class="info-item">
+            <span class="info-label"> FOLIO </span>
+
+            <strong>
+              {{ card.folio }}
+            </strong>
+          </div>
+
+          <!-- VIGENCIA -->
+
+          <div class="info-item">
+            <span class="info-label"> VIGENCIA </span>
+
+            <strong>
+              {{ card.issuedAt | date: "dd/MM/yyyy" }}
+
+              -
+
+              {{ card.expiresAt | date: "dd/MM/yyyy" }}
+            </strong>
+          </div>
+
+          <!-- ESTADO -->
+
+          <div class="info-item">
+            <span class="info-label"> ESTADO </span>
+
+            <strong class="active-text">
+              {{ card.statusCard }}
+            </strong>
+          </div>
+        </div>
+      </article>
+
+      <!-- ========================================= -->
+      <!-- ACCIONES -->
+      <!-- ========================================= -->
+
+      <div class="card-actions">
+        <button type="button" class="secondary-button" (click)="renewCard()">
+          ⟳ Renovar tarjeta
+        </button>
+      </div>
+
+      <!-- ========================================= -->
+      <!-- AVISO -->
+      <!-- ========================================= -->
+
+      <div class="card-notice">
+        <span class="notice-icon"> ✓ </span>
+
+        <div>
+          <strong> Tu tarjeta está activa </strong>
+
+          <p>
+            Puedes utilizarla en los comercios participantes de Tarjeta de la
+            Mujer.
+          </p>
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+</section>

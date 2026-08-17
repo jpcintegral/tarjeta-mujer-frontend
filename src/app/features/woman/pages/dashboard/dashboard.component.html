@@ -1,0 +1,139 @@
+<section class="woman-dashboard">
+  <div class="dashboard-container">
+    <!-- ===================================== -->
+    <!-- LOADING -->
+    <!-- ===================================== -->
+
+    <div class="loading" *ngIf="loading">Cargando tu información...</div>
+
+    <!-- ===================================== -->
+    <!-- ERROR -->
+    <!-- ===================================== -->
+
+    <div class="error-message" *ngIf="errorMessage">
+      {{ errorMessage }}
+    </div>
+
+    <!-- ===================================== -->
+    <!-- CONTENIDO -->
+    <!-- ===================================== -->
+
+    <ng-container *ngIf="!loading">
+      <!-- =================================== -->
+      <!-- BIENVENIDA -->
+      <!-- =================================== -->
+
+      <div class="welcome" *ngIf="hasProfile">
+        <span class="welcome-label"> Bienvenida a tu espacio </span>
+
+        <h1>
+          Hola,
+          {{ profile?.firstName }}
+        </h1>
+
+        <p>Aquí puedes administrar tu perfil y tu Tarjeta de la Mujer.</p>
+      </div>
+
+      <!-- =================================== -->
+      <!-- SIN PERFIL -->
+      <!-- =================================== -->
+
+      <article class="setup-card" *ngIf="!hasProfile">
+        <div class="setup-icon">♡</div>
+
+        <h2>Completa tu perfil</h2>
+
+        <p>
+          Para obtener tu Tarjeta de la Mujer primero necesitamos registrar
+          algunos datos de tu perfil.
+        </p>
+        <div class="form-actions">
+          <button
+            type="button"
+            class="primary-button"
+            (click)="registerProfile()"
+          >
+            Registrar mi perfil
+          </button>
+        </div>
+      </article>
+
+      <!-- =================================== -->
+      <!-- SIN TARJETA -->
+      <!-- =================================== -->
+
+      <article class="card-summary" *ngIf="hasProfile && !hasCard">
+        <div class="card-summary-header">
+          <span> MI TARJETA </span>
+        </div>
+
+        <h2>Genera tu Tarjeta de la Mujer</h2>
+
+        <p>
+          Tu tarjeta digital te permitirá identificarte y utilizar los
+          beneficios disponibles en la red.
+        </p>
+        <div class="form-actions">
+          <button type="button" class="primary-button" (click)="generateCard()">
+            Generar mi tarjeta
+          </button>
+        </div>
+      </article>
+
+      <!-- =================================== -->
+      <!-- TARJETA EXISTENTE -->
+      <!-- =================================== -->
+
+      <article class="card-summary" *ngIf="hasProfile && hasCard && card">
+        <div class="card-summary-header">
+          <span> MI TARJETA </span>
+
+          <span class="status" [class.expired]="cardExpired">
+            {{ cardExpired ? "VENCIDA" : card.statusCard }}
+          </span>
+        </div>
+
+        <div class="card-information">
+          <div>
+            <span class="label"> Folio </span>
+
+            <strong>
+              {{ card.folio }}
+            </strong>
+          </div>
+
+          <div>
+            <span class="label"> Vigencia </span>
+
+            <strong>
+              {{ card.issuedAt | date: "dd/MM/yyyy" }}
+
+              -
+
+              {{ card.expiresAt | date: "dd/MM/yyyy" }}
+            </strong>
+          </div>
+        </div>
+
+        <!-- ================================= -->
+        <!-- ACCIONES -->
+        <!-- ================================= -->
+
+        <div class="card-actions">
+          <button type="button" class="primary" (click)="viewCard()">
+            Ver mi tarjeta →
+          </button>
+
+          <button
+            *ngIf="cardExpired"
+            type="button"
+            class="secondary"
+            (click)="renewCard()"
+          >
+            Renovar tarjeta
+          </button>
+        </div>
+      </article>
+    </ng-container>
+  </div>
+</section>

@@ -1,5 +1,30 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 
+import { inject } from '@angular/core';
+
+import { AuthService } from '../services/auth.service';
+
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  return next(req);
+  const authService = inject(AuthService);
+
+  const token = authService.getToken();
+
+  /**
+   * Si no existe JWT,
+   * enviamos la petición normalmente.
+   */
+  if (!token) {
+    return next(req);
+  }
+
+  /**
+   * Agregamos Authorization.
+   */
+  const authReq = req.clone({
+    setHeaders: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return next(authReq);
 };

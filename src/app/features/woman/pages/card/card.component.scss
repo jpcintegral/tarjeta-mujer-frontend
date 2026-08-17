@@ -1,0 +1,886 @@
+.card-page {
+  width: 100%;
+}
+
+/* ========================================= */
+/* HEADER */
+/* ========================================= */
+
+.page-header {
+  margin-bottom: 30px;
+}
+
+.eyebrow {
+  color: #977087;
+
+  font-size: 0.75rem;
+
+  font-weight: 800;
+
+  text-transform: uppercase;
+
+  letter-spacing: 1px;
+}
+
+.page-header h1 {
+  margin: 8px 0;
+
+  color: #3f3039;
+
+  font-size: 2rem;
+}
+
+.page-header p {
+  margin: 0;
+
+  color: #70656c;
+}
+
+/* ========================================= */
+/* EMPTY */
+/* ========================================= */
+
+.empty-card {
+  min-height: 320px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding: 30px;
+
+  background: #ffffff;
+
+  border-radius: 20px;
+
+  box-shadow: 0 10px 30px rgba(75, 35, 60, 0.08);
+
+  text-align: center;
+}
+
+.empty-icon {
+  width: 65px;
+
+  height: 65px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  margin-bottom: 15px;
+
+  border-radius: 50%;
+
+  background: #f5e9ef;
+
+  color: #71345b;
+
+  font-size: 1.7rem;
+}
+
+.empty-card h2 {
+  margin: 0 0 10px;
+
+  color: #3f3039;
+}
+
+.empty-card p {
+  max-width: 500px;
+
+  margin: 0 0 25px;
+
+  color: #70656c;
+
+  line-height: 1.6;
+}
+
+/* ========================================= */
+/* BUTTON */
+/* ========================================= */
+
+.primary-button,
+.renew-button {
+  padding: 12px 20px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background: #71345b;
+
+  color: #ffffff;
+
+  font-size: 0.9rem;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.primary-button:hover,
+.renew-button:hover {
+  background: #5d294b;
+
+  transform: translateY(-1px);
+}
+
+/* ========================================= */
+/* DIGITAL CARD */
+/* ========================================= */
+
+.digital-card {
+  overflow: hidden;
+
+  background: #ffffff;
+
+  border-radius: 22px;
+
+  //box-shadow: 0 12px 35px rgba(75, 35, 60, 0.1);
+}
+
+.digital-card-header {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  padding: 28px;
+
+  background: linear-gradient(135deg, #71345b, #96708d);
+
+  color: #ffffff;
+}
+
+.card-brand {
+  font-size: 0.75rem;
+
+  font-weight: 800;
+
+  text-transform: uppercase;
+
+  letter-spacing: 1px;
+
+  opacity: 0.8;
+}
+
+.digital-card-header h2 {
+  margin: 7px 0 0;
+
+  font-size: 1.5rem;
+}
+
+.card-status {
+  padding: 7px 13px;
+
+  border-radius: 20px;
+
+  background: rgba(255, 255, 255, 0.18);
+
+  font-size: 0.7rem;
+
+  font-weight: 800;
+}
+
+/* ========================================= */
+/* DATA */
+/* ========================================= */
+
+.card-data {
+  display: grid;
+
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  gap: 25px;
+
+  padding: 30px;
+}
+
+.data-item {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 7px;
+}
+
+.data-item span {
+  color: #a2979e;
+
+  font-size: 0.7rem;
+
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.5px;
+}
+
+.data-item strong {
+  color: #4f434b;
+
+  font-size: 0.95rem;
+}
+
+/* ========================================= */
+/* QR */
+/* ========================================= */
+
+.qr-section {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  padding: 20px 30px 30px;
+
+  border-top: 1px solid #eee6eb;
+
+  text-align: center;
+}
+
+.qr-placeholder {
+  width: 180px;
+
+  height: 180px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  margin-bottom: 15px;
+
+  border: 1px solid #ddd;
+
+  background: #ffffff;
+
+  color: #71345b;
+
+  font-size: 1.5rem;
+
+  font-weight: 800;
+}
+
+.qr-section p {
+  max-width: 400px;
+
+  margin: 0;
+
+  color: #70656c;
+
+  font-size: 0.85rem;
+
+  line-height: 1.5;
+}
+
+/* ========================================= */
+/* ACTIONS */
+/* ========================================= */
+
+.card-actions {
+  display: flex;
+
+  justify-content: center;
+
+  padding: 0 30px 30px;
+}
+
+/* ========================================= */
+/* RESPONSIVE */
+/* ========================================= */
+
+@media (max-width: 700px) {
+  .page-header h1 {
+    font-size: 1.7rem;
+  }
+
+  .digital-card-header {
+    align-items: flex-start;
+
+    flex-direction: column;
+
+    gap: 15px;
+  }
+
+  .card-data {
+    grid-template-columns: 1fr;
+
+    padding: 25px 20px;
+  }
+
+  .qr-section {
+    padding-left: 20px;
+
+    padding-right: 20px;
+  }
+}
+
+.card-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px 70px;
+}
+
+/* ========================================= */
+/* HEADER */
+/* ========================================= */
+
+.page-header {
+  margin-bottom: 30px;
+}
+
+.eyebrow {
+  display: block;
+  margin-bottom: 8px;
+
+  color: #977087;
+
+  font-size: 0.75rem;
+  font-weight: 800;
+
+  letter-spacing: 1.5px;
+}
+
+.page-header h1 {
+  margin: 0;
+
+  color: #3f3039;
+
+  font-size: 2rem;
+  line-height: 1.2;
+}
+
+.page-header p {
+  max-width: 650px;
+
+  margin: 12px 0 0;
+
+  color: #70656c;
+
+  line-height: 1.6;
+}
+
+/* ========================================= */
+/* TARJETA */
+/* ========================================= */
+
+.digital-card {
+  overflow: hidden;
+
+  border-radius: 24px;
+
+  background: #ffffff;
+
+  box-shadow: 20px 35px 15px rgba(75, 35, 60, 0.12);
+}
+
+/* ========================================= */
+/* HEADER TARJETA */
+/* ========================================= */
+
+.card-header {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  padding: 24px 28px;
+
+  background: linear-gradient(135deg, #71345b, #96708d);
+
+  color: #ffffff;
+}
+
+.brand {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+}
+
+.brand-icon {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 42px;
+  height: 42px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.15);
+
+  font-size: 1.4rem;
+}
+
+.brand strong {
+  display: block;
+
+  font-size: 1rem;
+}
+
+.brand small {
+  display: block;
+
+  margin-top: 3px;
+
+  opacity: 0.8;
+
+  font-size: 0.72rem;
+}
+
+.status {
+  padding: 7px 13px;
+
+  border: 1px solid rgba(255, 255, 255, 0.3);
+
+  border-radius: 20px;
+
+  background: rgba(255, 255, 255, 0.14);
+
+  font-size: 0.7rem;
+
+  font-weight: 800;
+
+  letter-spacing: 0.8px;
+}
+
+/* ========================================= */
+/* BODY */
+/* ========================================= */
+
+.card-body {
+  display: grid;
+
+  grid-template-columns: 1fr 260px;
+
+  align-items: center;
+
+  gap: 30px;
+
+  padding: 35px;
+}
+
+.section-label {
+  color: #a2979e;
+
+  font-size: 0.7rem;
+
+  font-weight: 700;
+
+  letter-spacing: 1px;
+}
+
+.woman-info h2 {
+  margin: 8px 0 5px;
+
+  color: #3f3039;
+
+  font-size: 1.55rem;
+}
+
+.woman-info p {
+  margin: 0;
+
+  color: #8b7d85;
+
+  font-size: 0.9rem;
+}
+
+/* ========================================= */
+/* QR */
+/* ========================================= */
+
+.qr-section {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+}
+
+.qr-container {
+  padding: 12px;
+
+  border: 1px solid #eee6eb;
+
+  border-radius: 14px;
+
+  background: #ffffff;
+
+  box-shadow: 0 5px 18px rgba(75, 35, 60, 0.08);
+}
+
+.qr-code {
+  width: 175px;
+  height: 175px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  background: #ffffff;
+}
+
+.qr-pattern {
+  position: relative;
+
+  width: 150px;
+  height: 150px;
+
+  background:
+    linear-gradient(90deg, #000 8px, transparent 8px) 0 0 / 20px 20px,
+    linear-gradient(#000 8px, transparent 8px) 0 0 / 20px 20px;
+}
+
+/* ========================================= */
+/* QR ESQUINAS */
+/* ========================================= */
+
+.qr-square {
+  position: absolute;
+
+  width: 34px;
+  height: 34px;
+
+  border: 6px solid #000;
+
+  background: #ffffff;
+}
+
+.qr-square::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 6px;
+
+  background: #000;
+}
+
+.top-left {
+  top: 0;
+  left: 0;
+}
+
+.top-right {
+  top: 0;
+  right: 0;
+}
+
+.bottom-left {
+  bottom: 0;
+  left: 0;
+}
+
+/* ========================================= */
+/* QR DOTS */
+/* ========================================= */
+
+.qr-dot {
+  position: absolute;
+
+  width: 8px;
+  height: 8px;
+
+  background: #000;
+}
+
+.dot-1 {
+  top: 45px;
+  left: 48px;
+}
+
+.dot-2 {
+  top: 65px;
+  left: 78px;
+}
+
+.dot-3 {
+  top: 88px;
+  left: 48px;
+}
+
+.dot-4 {
+  top: 105px;
+  left: 72px;
+}
+
+.dot-5 {
+  top: 50px;
+  right: 45px;
+}
+
+.dot-6 {
+  bottom: 45px;
+  right: 48px;
+}
+
+.dot-7 {
+  bottom: 28px;
+  left: 60px;
+}
+
+.dot-8 {
+  top: 78px;
+  right: 20px;
+}
+
+.dot-9 {
+  top: 100px;
+  left: 20px;
+}
+
+.dot-10 {
+  bottom: 20px;
+  right: 22px;
+}
+
+.qr-label {
+  margin-top: 10px;
+
+  color: #8b7d85;
+
+  font-size: 0.72rem;
+
+  font-weight: 600;
+}
+
+/* ========================================= */
+/* INFORMACIÓN */
+/* ========================================= */
+
+.card-information {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 20px;
+
+  padding: 22px 35px;
+
+  border-top: 1px solid #eee6eb;
+
+  background: #faf8f9;
+}
+
+.info-item {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 6px;
+}
+
+.info-label {
+  color: #a2979e;
+
+  font-size: 0.65rem;
+
+  font-weight: 700;
+
+  letter-spacing: 0.7px;
+}
+
+.info-item strong {
+  color: #4f434b;
+
+  font-size: 0.85rem;
+}
+
+.active-text {
+  color: #56856b !important;
+}
+
+/* ========================================= */
+/* ACCIONES */
+/* ========================================= */
+
+.card-actions {
+  display: flex;
+
+  justify-content: flex-end;
+
+  gap: 12px;
+
+  margin-top: 22px;
+}
+
+.card-actions button {
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 7px;
+
+  padding: 11px 18px;
+
+  border-radius: 10px;
+
+  font-size: 0.85rem;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.primary-button {
+  border: 1px solid #71345b;
+
+  background: #71345b;
+
+  color: #ffffff;
+}
+
+.primary-button:hover {
+  background: #5f294b;
+
+  transform: translateY(-1px);
+}
+
+.secondary-button {
+  border: 1px solid #8a526f;
+
+  background: transparent;
+
+  color: #71345b;
+}
+
+.secondary-button:hover {
+  background: #f5e9ef;
+
+  transform: translateY(-1px);
+}
+
+/* ========================================= */
+/* AVISO */
+/* ========================================= */
+
+.card-notice {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 12px;
+
+  margin-top: 25px;
+
+  padding: 16px;
+
+  border: 1px solid #eee6eb;
+
+  border-radius: 12px;
+
+  background: #ffffff;
+}
+
+.notice-icon {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  width: 28px;
+  height: 28px;
+
+  border-radius: 50%;
+
+  background: #e8f3ec;
+
+  color: #56856b;
+
+  font-size: 0.8rem;
+
+  font-weight: 800;
+}
+
+.card-notice strong {
+  display: block;
+
+  color: #4f434b;
+
+  font-size: 0.85rem;
+}
+
+.card-notice p {
+  margin: 3px 0 0;
+
+  color: #8b7d85;
+
+  font-size: 0.78rem;
+
+  line-height: 1.5;
+}
+
+/* ========================================= */
+/* RESPONSIVE */
+/* ========================================= */
+
+@media (max-width: 700px) {
+  .card-page {
+    padding: 25px 14px 50px;
+  }
+
+  .page-header h1 {
+    font-size: 1.65rem;
+  }
+
+  .card-header {
+    padding: 20px;
+  }
+
+  .card-body {
+    grid-template-columns: 1fr;
+
+    padding: 28px 20px;
+  }
+
+  .woman-info {
+    text-align: center;
+  }
+
+  .card-information {
+    grid-template-columns: 1fr;
+
+    padding: 20px;
+  }
+
+  .card-actions {
+    flex-direction: column;
+  }
+
+  .card-actions button {
+    width: 100%;
+  }
+}

@@ -1,0 +1,159 @@
+.woman-layout {
+  min-height: 100vh;
+  background: #faf7f9;
+}
+
+/* ========================================= */
+/* HEADER */
+/* ========================================= */
+
+.woman-header {
+  background: #ffffff;
+  border-bottom: 1px solid #eee6eb;
+}
+
+.header-container {
+  max-width: 1100px;
+
+  margin: 0 auto;
+
+  padding: 18px 20px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 20px;
+}
+
+.brand {
+  color: #71345b;
+
+  font-size: 1.15rem;
+
+  font-weight: 800;
+
+  text-decoration: none;
+}
+
+.user-section {
+  display: flex;
+
+  align-items: center;
+
+  gap: 18px;
+}
+
+.welcome {
+  color: #5f5159;
+
+  font-size: 0.9rem;
+}
+
+.logout-button {
+  padding: 8px 14px;
+
+  border: 1px solid #71345b;
+
+  border-radius: 8px;
+
+  background: transparent;
+
+  color: #71345b;
+
+  cursor: pointer;
+}
+
+.logout-button:hover {
+  background: #71345b;
+
+  color: #ffffff;
+}
+
+/* ========================================= */
+/* NAVIGATION */
+/* ========================================= */
+
+.woman-nav {
+  background: #ffffff;
+
+  border-bottom: 1px solid #eee6eb;
+}
+
+.nav-container {
+  max-width: 1100px;
+
+  margin: 0 auto;
+
+  padding: 0 20px;
+
+  display: flex;
+
+  gap: 30px;
+}
+
+.nav-container a {
+  padding: 15px 0;
+
+  color: #766a72;
+
+  font-size: 0.9rem;
+
+  font-weight: 600;
+
+  text-decoration: none;
+
+  border-bottom: 2px solid transparent;
+}
+
+.nav-container a:hover {
+  color: #71345b;
+}
+
+.nav-container a.active {
+  color: #71345b;
+
+  border-bottom-color: #71345b;
+}
+
+/* ========================================= */
+/* CONTENT */
+/* ========================================= */
+
+.woman-content {
+  max-width: 1100px;
+
+  margin: 0 auto;
+
+  padding: 35px 20px 70px;
+}
+
+/* ========================================= */
+/* RESPONSIVE */
+/* ========================================= */
+
+@media (max-width: 700px) {
+  .header-container {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .user-section {
+    width: 100%;
+
+    justify-content: space-between;
+  }
+
+  .nav-container {
+    overflow-x: auto;
+
+    gap: 22px;
+  }
+
+  .woman-content {
+    padding: 25px 14px 50px;
+  }
+}
