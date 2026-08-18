@@ -5,7 +5,7 @@
 
   <header class="woman-header">
     <div class="header-container">
-      <a routerLink="/mujer/dashboard" class="brand"> Tarjeta de la Mujer </a>
+      <a routerLink="/mujer/dashboard" class="brand"> </a>
 
       <div class="user-section">
         <span class="welcome"> Hola, {{ user?.username }} </span>
@@ -16,26 +16,6 @@
       </div>
     </div>
   </header>
-
-  <!-- ========================================= -->
-  <!-- NAVIGATION -->
-  <!-- ========================================= -->
-
-  <nav class="woman-nav">
-    <div class="nav-container">
-      <a
-        routerLink="/mujer/dashboard"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
-        Inicio
-      </a>
-
-      <a routerLink="/mujer/profile" routerLinkActive="active"> Mi perfil </a>
-
-      <a routerLink="/mujer/card" routerLinkActive="active"> Mi tarjeta </a>
-    </div>
-  </nav>
 
   <!-- ========================================= -->
   <!-- CONTENIDO -->

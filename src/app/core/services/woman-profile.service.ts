@@ -6,6 +6,7 @@ import {
   RegisterWomanProfileRequest,
   WomanProfileResponse,
   CurrentUserResponse,
+  UpdateWomanProfileRequest,
 } from '../models/woman-profile.model';
 
 @Injectable({
@@ -57,6 +58,25 @@ export class WomanProfileService {
 
     return this.http.get<any>(
       `${this.apiUrl}/users/me?populate[woman_profile][populate][digital_card]=true`,
+      {
+        headers,
+      },
+    );
+  }
+
+  update(documentId: string, data: UpdateWomanProfileRequest): Observable<any> {
+    const token = localStorage.getItem('tarjeta_mujer_token');
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    });
+
+    return this.http.put<any>(
+      `${this.apiUrl}/woman-profiles/${documentId}`,
+      {
+        data,
+      },
       {
         headers,
       },

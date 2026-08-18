@@ -43,3 +43,10 @@ export interface CurrentUserResponse {
     statusUserw: string;
   } | null;
 }
+
+export interface UpdateWomanProfileRequest {
+  firstName: string;
+  lastName: string;
+  secondLastName: string;
+  birthDate?: string | null;
+}

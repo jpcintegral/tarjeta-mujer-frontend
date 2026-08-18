@@ -23,9 +23,9 @@
     <!-- ======================================= -->
 
     <div class="page-header">
-      <span class="eyebrow"> Mi cuenta </span>
-
-      <h1>Mi perfil</h1>
+      <h1 class="eyebrow">
+        <span class="eyebrow"> Mi perfil </span>
+      </h1>
 
       <p>Administra la información de tu perfil de mujer.</p>
     </div>
@@ -50,6 +50,10 @@
     <!-- ======================================= -->
 
     <article class="profile-card" *ngIf="profileRegistered && profile">
+      <!-- ===================================== -->
+      <!-- HEADER DEL PERFIL -->
+      <!-- ===================================== -->
+
       <div class="profile-header">
         <div>
           <span class="profile-label"> Perfil de mujer </span>
@@ -57,12 +61,32 @@
           <h2>Información personal</h2>
         </div>
 
-        <span class="status">
-          {{ profile.statusUserw }}
-        </span>
+        <div class="profile-header-actions">
+          <!-- ESTADO -->
+          <span class="status">
+            {{ profile.statusUserw }}
+          </span>
+
+          <!-- EDITAR -->
+          <button
+            type="button"
+            class="secondary-button"
+            *ngIf="!isEditing"
+            (click)="editProfile()"
+          >
+            ✎ Editar perfil
+          </button>
+        </div>
       </div>
 
-      <div class="profile-information">
+      <!-- ===================================== -->
+      <!-- INFORMACIÓN DEL PERFIL -->
+      <!-- SOLO LECTURA -->
+      <!-- ===================================== -->
+
+      <div class="profile-information" *ngIf="!isEditing">
+        <!-- NOMBRE -->
+
         <div class="profile-item">
           <span class="label"> Nombre </span>
 
@@ -70,6 +94,8 @@
             {{ profile.firstName }}
           </strong>
         </div>
+
+        <!-- APELLIDO PATERNO -->
 
         <div class="profile-item">
           <span class="label"> Apellido paterno </span>
@@ -79,6 +105,8 @@
           </strong>
         </div>
 
+        <!-- APELLIDO MATERNO -->
+
         <div class="profile-item">
           <span class="label"> Apellido materno </span>
 
@@ -86,6 +114,8 @@
             {{ profile.secondLastName }}
           </strong>
         </div>
+
+        <!-- FECHA DE NACIMIENTO -->
 
         <div class="profile-item">
           <span class="label"> Fecha de nacimiento </span>
@@ -95,6 +125,158 @@
           </strong>
         </div>
       </div>
+
+      <!-- ===================================== -->
+      <!-- FORMULARIO DE EDICIÓN -->
+      <!-- ===================================== -->
+
+      <form
+        *ngIf="isEditing"
+        [formGroup]="profileForm"
+        (ngSubmit)="updateProfile()"
+        novalidate
+      >
+        <!-- =================================== -->
+        <!-- NOMBRE -->
+        <!-- =================================== -->
+
+        <div class="form-group">
+          <label for="editFirstName"> Nombre </label>
+
+          <input
+            id="editFirstName"
+            type="text"
+            formControlName="firstName"
+            placeholder="Ingresa tu nombre"
+          />
+
+          <div
+            class="field-error"
+            *ngIf="firstName?.touched && firstName?.invalid"
+          >
+            <span *ngIf="firstName?.errors?.['required']">
+              El nombre es obligatorio.
+            </span>
+
+            <span *ngIf="firstName?.errors?.['minlength']">
+              El nombre debe tener al menos 2 caracteres.
+            </span>
+          </div>
+        </div>
+
+        <!-- =================================== -->
+        <!-- APELLIDO PATERNO -->
+        <!-- =================================== -->
+
+        <div class="form-group">
+          <label for="editLastName"> Apellido paterno </label>
+
+          <input
+            id="editLastName"
+            type="text"
+            formControlName="lastName"
+            placeholder="Ingresa tu apellido paterno"
+          />
+
+          <div
+            class="field-error"
+            *ngIf="lastName?.touched && lastName?.invalid"
+          >
+            <span *ngIf="lastName?.errors?.['required']">
+              El apellido paterno es obligatorio.
+            </span>
+
+            <span *ngIf="lastName?.errors?.['minlength']">
+              El apellido debe tener al menos 2 caracteres.
+            </span>
+          </div>
+        </div>
+
+        <!-- =================================== -->
+        <!-- APELLIDO MATERNO -->
+        <!-- =================================== -->
+
+        <div class="form-group">
+          <label for="editSecondLastName"> Apellido materno </label>
+
+          <input
+            id="editSecondLastName"
+            type="text"
+            formControlName="secondLastName"
+            placeholder="Ingresa tu apellido materno"
+          />
+
+          <div
+            class="field-error"
+            *ngIf="secondLastName?.touched && secondLastName?.invalid"
+          >
+            <span *ngIf="secondLastName?.errors?.['required']">
+              El apellido materno es obligatorio.
+            </span>
+
+            <span *ngIf="secondLastName?.errors?.['minlength']">
+              El apellido materno debe tener al menos 2 caracteres.
+            </span>
+          </div>
+        </div>
+
+        <!-- =================================== -->
+        <!-- FECHA DE NACIMIENTO -->
+        <!-- =================================== -->
+
+        <div class="form-group">
+          <label for="editBirthDate"> Fecha de nacimiento </label>
+
+          <input id="editBirthDate" type="date" formControlName="birthDate" />
+
+          <div
+            class="field-error"
+            *ngIf="birthDate?.touched && birthDate?.invalid"
+          >
+            <span *ngIf="birthDate?.errors?.['required']">
+              La fecha de nacimiento es obligatoria.
+            </span>
+          </div>
+        </div>
+
+        <!-- =================================== -->
+        <!-- AVISO DE PRIVACIDAD -->
+        <!-- =================================== -->
+
+        <div class="privacy-notice">
+          <span class="notice-icon"> ✓ </span>
+
+          <div>
+            <strong> Tus datos están protegidos </strong>
+
+            <p>
+              Utilizamos tus datos únicamente para administrar tu perfil y tu
+              Tarjeta de la Mujer.
+            </p>
+          </div>
+        </div>
+
+        <!-- =================================== -->
+        <!-- ACCIONES EDICIÓN -->
+        <!-- =================================== -->
+
+        <div class="form-actions profile-edit-actions">
+          <button
+            type="button"
+            class="secondary-button"
+            (click)="cancelEdit()"
+            [disabled]="saving"
+          >
+            Cancelar
+          </button>
+
+          <button type="submit" class="primary-button" [disabled]="saving">
+            <span *ngIf="!saving"> Guardar cambios </span>
+
+            <span *ngIf="saving"> Guardando... </span>
+          </button>
+        </div>
+      </form>
     </article>
 
     <!-- ======================================= -->
@@ -116,62 +298,8 @@
       </div>
 
       <div class="form-actions">
-        <button type="button" class="primary-button" (click)="goToDashboard()">
+        <button type="button" class="primary-button" (click)="generateCard()">
           Generar mi tarjeta
-        </button>
-      </div>
-    </article>
-
-    <!-- ======================================= -->
-    <!-- PERFIL CON TARJETA -->
-    <!-- ======================================= -->
-
-    <article class="profile-card" *ngIf="profileRegistered && hasCard && card">
-      <div class="profile-header">
-        <div>
-          <span class="profile-label"> Tarjeta de la Mujer </span>
-
-          <h2>
-            {{ card.folio }}
-          </h2>
-        </div>
-
-        <span class="status" [class.expired]="cardExpired">
-          {{ cardExpired ? "VENCIDA" : card.statusCard }}
-        </span>
-      </div>
-
-      <div class="profile-information">
-        <div class="profile-item">
-          <span class="label"> Folio </span>
-
-          <strong>
-            {{ card.folio }}
-          </strong>
-        </div>
-
-        <div class="profile-item">
-          <span class="label"> Vigencia </span>
-
-          <strong>
-            {{ card.issuedAt | date: "dd/MM/yyyy" }}
-            -
-            {{ card.expiresAt | date: "dd/MM/yyyy" }}
-          </strong>
-        </div>
-
-        <div class="profile-item">
-          <span class="label"> Estado </span>
-
-          <strong>
-            {{ cardExpired ? "Vencida" : card.statusCard }}
-          </strong>
-        </div>
-      </div>
-
-      <div class="form-actions">
-        <button type="button" class="primary-button" (click)="viewCard()">
-          Ver mi tarjeta
         </button>
       </div>
     </article>
@@ -185,7 +313,7 @@
     </div>
 
     <!-- ======================================= -->
-    <!-- FORMULARIO -->
+    <!-- FORMULARIO DE REGISTRO -->
     <!-- SOLO SI NO EXISTE PERFIL -->
     <!-- ======================================= -->
 
@@ -203,9 +331,9 @@
       </div>
 
       <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" novalidate>
-        <!-- ======================================= -->
+        <!-- =================================== -->
         <!-- NOMBRE -->
-        <!-- ======================================= -->
+        <!-- =================================== -->
 
         <div class="form-group">
           <label for="firstName"> Nombre </label>
@@ -231,9 +359,9 @@
           </div>
         </div>
 
-        <!-- ======================================= -->
+        <!-- =================================== -->
         <!-- APELLIDO PATERNO -->
-        <!-- ======================================= -->
+        <!-- =================================== -->
 
         <div class="form-group">
           <label for="lastName"> Apellido paterno </label>
@@ -259,9 +387,9 @@
           </div>
         </div>
 
-        <!-- ======================================= -->
+        <!-- =================================== -->
         <!-- APELLIDO MATERNO -->
-        <!-- ======================================= -->
+        <!-- =================================== -->
 
         <div class="form-group">
           <label for="secondLastName"> Apellido materno </label>
@@ -287,9 +415,9 @@
           </div>
         </div>
 
-        <!-- ======================================= -->
+        <!-- =================================== -->
         <!-- FECHA DE NACIMIENTO -->
-        <!-- ======================================= -->
+        <!-- =================================== -->
 
         <div class="form-group">
           <label for="birthDate"> Fecha de nacimiento </label>
@@ -306,9 +434,9 @@
           </div>
         </div>
 
-        <!-- ======================================= -->
+        <!-- =================================== -->
         <!-- PRIVACIDAD -->
-        <!-- ======================================= -->
+        <!-- =================================== -->
 
         <div class="privacy-notice">
           <span class="notice-icon"> ✓ </span>
@@ -323,9 +451,9 @@
           </div>
         </div>
 
-        <!-- ======================================= -->
-        <!-- BOTÓN -->
-        <!-- ======================================= -->
+        <!-- =================================== -->
+        <!-- BOTÓN REGISTRO -->
+        <!-- =================================== -->
 
         <div class="form-actions">
           <button type="submit" class="primary-button" [disabled]="saving">

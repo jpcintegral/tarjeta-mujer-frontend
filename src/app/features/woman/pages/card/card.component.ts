@@ -1,11 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { QRCodeComponent } from 'angularx-qrcode';
 
-import { WomanProfileService } from '../../../../core/services/woman-profile.service';
 import { DigitalCardService } from '../../../../core/services/digital-card.service';
-
 import { DigitalCard } from '../../../../core/models/digital-card.model';
 
 @Component({
@@ -16,136 +14,70 @@ import { DigitalCard } from '../../../../core/models/digital-card.model';
   styleUrl: './card.component.scss',
 })
 export class CardComponent implements OnInit {
-  cardExists = false;
+  // ============================================================
+  // DATOS RECIBIDOS DESDE ACCOUNT
+  // ============================================================
 
-  card: DigitalCard | null = null;
+  @Input() profile: any = null;
 
-  profile: any = null;
+  @Input() card: DigitalCard | null = null;
+
+  @Input() cardExists = false;
+
+  @Input() cardExpired = false;
+
+  // ============================================================
+  // EVENTOS HACIA ACCOUNT
+  // ============================================================
+
+  @Output() cardRenewed = new EventEmitter<DigitalCard>();
+
+  // ============================================================
+  // ESTADO LOCAL
+  // ============================================================
 
   qrToken: string | null = null;
 
-  loading = true;
+  loading = false;
 
   generatingQr = false;
 
   errorMessage = '';
 
   constructor(
-    private readonly womanProfileService: WomanProfileService,
     private readonly digitalCardService: DigitalCardService,
     private readonly router: Router,
   ) {}
 
+  // ============================================================
+  // INICIO
+  // ============================================================
+
   ngOnInit(): void {
-    this.loadCard();
+    if (!this.cardExists || !this.card) {
+      return;
+    }
+
+    this.getValidQr();
   }
 
-  /**
-   * ============================================================
-   * CARGAR PERFIL Y TARJETA
-   * ============================================================
-   *
-   * Obtiene directamente de Strapi:
-   *
-   * user
-   *   └── woman_profile
-   *          └── digital_card
-   */
-  private loadCard(): void {
-    this.loading = true;
-    this.errorMessage = '';
+  // ============================================================
+  // OBTENER QR VIGENTE
+  // ============================================================
+  //
+  // NO genera una nueva versión.
+  //
+  // El backend reconstruye el token vigente utilizando:
+  //
+  // - qrVersion
+  // - documentId de la tarjeta
+  // - expiresAt
+  //
+  // Por lo tanto, entrar nuevamente a la tarjeta no cambia
+  // innecesariamente la versión del QR.
+  // ============================================================
 
-    this.womanProfileService.getMyProfile().subscribe({
-      next: (user) => {
-        this.profile = user?.woman_profile ?? null;
-
-        // ============================================
-        // NO EXISTE PERFIL
-        // ============================================
-
-        if (!this.profile) {
-          this.cardExists = false;
-          this.card = null;
-          this.loading = false;
-
-          return;
-        }
-
-        // ============================================
-        // OBTENER TARJETA
-        // ============================================
-
-        const digitalCard = this.profile?.digital_card ?? null;
-
-        // ============================================
-        // NO EXISTE TARJETA
-        // ============================================
-
-        if (!digitalCard) {
-          this.cardExists = false;
-          this.card = null;
-          this.loading = false;
-
-          return;
-        }
-
-        // ============================================
-        // EXISTE TARJETA
-        // ============================================
-
-        this.card = this.mapCard(digitalCard);
-
-        this.cardExists = true;
-
-        this.loading = false;
-
-        // ============================================
-        // OBTENER QR REAL
-        // ============================================
-
-        this.generateQr();
-      },
-
-      error: (error) => {
-        console.error('Error obteniendo perfil y tarjeta:', error);
-
-        this.profile = null;
-        this.card = null;
-        this.cardExists = false;
-
-        this.errorMessage =
-          error?.error?.message ??
-          'No fue posible obtener la información de tu tarjeta.';
-
-        this.loading = false;
-      },
-    });
-  }
-
-  /**
-   * ============================================================
-   * ADAPTAR TARJETA
-   * ============================================================
-   */
-  private mapCard(item: any): DigitalCard {
-    return {
-      id: item.id,
-      documentId: item.documentId,
-      folio: item.folio,
-      issuedAt: item.issuedAt,
-      expiresAt: item.expiresAt,
-      statusCard: item.statusCard,
-      qrVersion: item.qrVersion,
-      woman_profile: item.woman_profile,
-    };
-  }
-
-  /**
-   * ============================================================
-   * GENERAR / OBTENER QR REAL
-   * ============================================================
-   */
-  generateQr(): void {
+  private getValidQr(): void {
     if (!this.cardExists || !this.card) {
       return;
     }
@@ -155,47 +87,35 @@ export class CardComponent implements OnInit {
     this.errorMessage = '';
 
     this.digitalCardService.getCurrentQr().subscribe({
-      next: (response) => {
-        console.log('Respuesta regeneración QR:', response);
+      next: (response: any) => {
+        console.log('QR vigente:', response);
 
-        /*
-         * El backend puede devolver:
-         *
-         * data.token
-         *
-         * o
-         *
-         * data.qr.token
-         */
-
-        this.qrToken =
-          response?.data?.qr?.token ?? response?.data?.token ?? null;
+        this.qrToken = response?.data?.token ?? null;
 
         if (!this.qrToken) {
-          this.errorMessage = 'No fue posible obtener el código QR.';
+          this.errorMessage = 'No fue posible obtener el código QR vigente.';
         }
 
         this.generatingQr = false;
       },
 
-      error: (error) => {
-        console.error('Error obteniendo QR:', error);
+      error: (error: any) => {
+        console.error('Error obteniendo QR vigente:', error);
 
         this.qrToken = null;
 
         this.errorMessage =
-          error?.error?.message ?? 'No fue posible generar el código QR.';
+          error?.error?.message ?? 'No fue posible obtener el código QR.';
 
         this.generatingQr = false;
       },
     });
   }
 
-  /**
-   * ============================================================
-   * RENOVAR TARJETA
-   * ============================================================
-   */
+  // ============================================================
+  // RENOVAR TARJETA
+  // ============================================================
+
   renewCard(): void {
     if (!this.cardExists) {
       return;
@@ -206,37 +126,55 @@ export class CardComponent implements OnInit {
     this.errorMessage = '';
 
     this.digitalCardService.renew().subscribe({
-      next: (response) => {
-        this.card = response.data;
+      next: (response: any) => {
+        console.log('Tarjeta renovada:', response);
+
+        const renewedCard: DigitalCard | null = response?.data ?? null;
+
+        if (!renewedCard) {
+          this.errorMessage = 'No fue posible obtener la tarjeta renovada.';
+
+          this.loading = false;
+
+          return;
+        }
+
+        // Actualizar tarjeta local
+        this.card = renewedCard;
 
         this.cardExists = true;
 
+        this.cardExpired = false;
+
+        // El QR anterior deja de utilizarse visualmente.
+        this.qrToken = null;
+
         this.loading = false;
 
-        /*
-         * Después de renovar obtenemos nuevamente
-         * el QR correspondiente a la nueva tarjeta.
-         */
-        this.generateQr();
+        // Informar a AccountComponent
+        this.cardRenewed.emit(renewedCard);
+
+        // Obtener el nuevo QR correspondiente a la tarjeta renovada.
+        this.getValidQr();
       },
 
-      error: (error) => {
+      error: (error: any) => {
         console.error('Error renovando tarjeta:', error);
 
         this.errorMessage =
-          error?.error?.message ?? 'No fue posible renovar la tarjeta.';
-
+          error?.error?.error?.message ??
+          error?.error?.message ??
+          'No fue posible renovar la tarjeta.';
         this.loading = false;
       },
     });
   }
 
-  /**
-   * ============================================================
-   * VOLVER AL PERFIL
-   * ============================================================
-   */
+  // ============================================================
+  // VOLVER AL PERFIL
+  // ============================================================
+
   goToProfile(): void {
-    this.router.navigate(['/mujer']);
+    this.router.navigate(['/woman']);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormBuilder,
@@ -9,6 +9,8 @@ import {
 import { Router } from '@angular/router';
 
 import { WomanProfileService } from '../../../../core/services/woman-profile.service';
+import { DigitalCardService } from '../../../../core/services/digital-card.service';
+import { DigitalCard } from '../../../../core/models/digital-card.model';
 
 @Component({
   selector: 'app-profile',
@@ -20,14 +22,16 @@ import { WomanProfileService } from '../../../../core/services/woman-profile.ser
 export class ProfileComponent implements OnInit {
   profileForm: FormGroup;
 
-  profileRegistered = false;
+  @Input() profile: any = null;
 
-  profile: any = null;
+  @Input() profileRegistered = false;
 
-  card: any = null;
+  @Input() hasCard = false;
 
-  hasCard = false;
+  @Input() card: DigitalCard | null = null;
 
+  @Output() profileRegisteredChange = new EventEmitter<any>();
+  @Output() profileUpdated = new EventEmitter<any>();
   cardExpired = false;
 
   submitted = false;
@@ -39,10 +43,12 @@ export class ProfileComponent implements OnInit {
   errorMessage = '';
 
   successMessage = '';
+  isEditing = false;
 
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly womanProfileService: WomanProfileService,
+    private readonly digitalCardService: DigitalCardService,
     private readonly router: Router,
   ) {
     this.profileForm = this.formBuilder.group({
@@ -185,22 +191,22 @@ export class ProfileComponent implements OnInit {
 
     this.womanProfileService.register(this.profileForm.value).subscribe({
       next: (response) => {
+        this.loading = false;
         this.saving = false;
 
-        this.successMessage =
-          response?.message ?? 'Perfil registrado correctamente.';
+        this.successMessage = response.message;
 
         console.log('Perfil registrado:', response);
 
-        /*
-         * Regresamos al dashboard para que se ejecute nuevamente
-         * el flujo consolidado:
-         *
-         * perfil → tarjeta → generar tarjeta
-         */
-        setTimeout(() => {
-          this.router.navigate(['/woman']);
-        }, 1000);
+        const registeredProfile =
+          (response as any)?.data?.woman_profile ??
+          (response as any)?.data ??
+          response;
+
+        this.profile = registeredProfile;
+        this.profileRegistered = true;
+
+        this.profileRegisteredChange.emit(registeredProfile);
       },
 
       error: (error) => {
@@ -227,6 +233,36 @@ export class ProfileComponent implements OnInit {
   }
 
   /**
+   * Generar tarjeta
+   */
+  generateCard(): void {
+    this.loading = true;
+
+    this.digitalCardService.generate().subscribe({
+      next: (response) => {
+        this.card = response.data;
+
+        this.hasCard = true;
+
+        this.cardExpired = false;
+
+        this.loading = false;
+
+        console.log('Tarjeta generada:', response);
+      },
+
+      error: (error) => {
+        console.error('Error generando tarjeta:', error);
+
+        this.errorMessage =
+          error?.error?.message ?? 'No fue posible generar la tarjeta.';
+
+        this.loading = false;
+      },
+    });
+  }
+
+  /**
    * ============================================================
    * VER TARJETA
    * ============================================================
@@ -249,5 +285,100 @@ export class ProfileComponent implements OnInit {
 
   get birthDate() {
     return this.profileForm.get('birthDate');
+  }
+
+  updateProfile(): void {
+    this.submitted = true;
+
+    this.errorMessage = '';
+    this.successMessage = '';
+
+    if (this.profileForm.invalid) {
+      this.profileForm.markAllAsTouched();
+      return;
+    }
+
+    if (!this.profile?.documentId) {
+      this.errorMessage = 'No se encontró el identificador del perfil.';
+
+      return;
+    }
+
+    const data = {
+      firstName: this.profileForm.value.firstName,
+      lastName: this.profileForm.value.lastName,
+      secondLastName: this.profileForm.value.secondLastName,
+      birthDate: this.profileForm.value.birthDate || null,
+    };
+
+    this.saving = true;
+
+    this.womanProfileService.update(this.profile.documentId, data).subscribe({
+      next: (response) => {
+        console.log('Perfil actualizado:', response);
+
+        const updatedProfile = response?.data ?? response;
+
+        this.profile = updatedProfile;
+
+        this.isEditing = false;
+
+        this.saving = false;
+
+        this.successMessage = 'Perfil actualizado correctamente.';
+
+        this.profileUpdated.emit(updatedProfile);
+      },
+
+      error: (error) => {
+        console.error('Error actualizando perfil:', error);
+
+        this.saving = false;
+
+        this.errorMessage =
+          error?.error?.error?.message ??
+          error?.error?.message ??
+          'No fue posible actualizar tu perfil.';
+      },
+    });
+  }
+  editProfile(): void {
+    if (!this.profile) {
+      return;
+    }
+
+    this.profileForm.patchValue({
+      firstName: this.profile.firstName ?? '',
+      lastName: this.profile.lastName ?? '',
+      secondLastName: this.profile.secondLastName ?? '',
+      birthDate: this.profile.birthDate
+        ? this.profile.birthDate.substring(0, 10)
+        : '',
+    });
+
+    this.isEditing = true;
+
+    this.errorMessage = '';
+    this.successMessage = '';
+    this.submitted = false;
+  }
+
+  cancelEdit(): void {
+    if (this.profile) {
+      this.profileForm.patchValue({
+        firstName: this.profile.firstName ?? '',
+        lastName: this.profile.lastName ?? '',
+        secondLastName: this.profile.secondLastName ?? '',
+        birthDate: this.profile.birthDate
+          ? this.profile.birthDate.substring(0, 10)
+          : '',
+      });
+    }
+
+    this.isEditing = false;
+
+    this.errorMessage = '';
+    this.successMessage = '';
+    this.submitted = false;
   }
 }

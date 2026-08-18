@@ -1,1 +1,203 @@
-<p>register works!</p>
+<section class="register-page">
+  <div class="register-container">
+    <!-- ========================================= -->
+    <!-- HEADER -->
+    <!-- ========================================= -->
+
+    <div class="page-header">
+      <span class="eyebrow"> Tarjeta de la Mujer </span>
+
+      <h1>Crear mi cuenta</h1>
+
+      <p>
+        Regístrate para comenzar a formar parte de nuestra red de beneficios.
+      </p>
+    </div>
+
+    <!-- ========================================= -->
+    <!-- MENSAJE ERROR -->
+    <!-- ========================================= -->
+
+    <div class="error-message" *ngIf="errorMessage">
+      {{ errorMessage }}
+    </div>
+
+    <!-- ========================================= -->
+    <!-- MENSAJE ÉXITO -->
+    <!-- ========================================= -->
+
+    <div class="success-message" *ngIf="successMessage">
+      {{ successMessage }}
+    </div>
+
+    <!-- ========================================= -->
+    <!-- FORMULARIO -->
+    <!-- ========================================= -->
+
+    <article class="register-card">
+      <div class="card-title">
+        <div class="title-icon">♡</div>
+
+        <div>
+          <h2>Datos de acceso</h2>
+
+          <p>Utiliza estos datos para ingresar posteriormente a tu cuenta.</p>
+        </div>
+      </div>
+
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" novalidate>
+        <!-- ======================================= -->
+        <!-- USUARIO -->
+        <!-- ======================================= -->
+
+        <div class="form-group">
+          <label for="username"> Usuario </label>
+
+          <input
+            id="username"
+            type="text"
+            formControlName="username"
+            placeholder="Ingresa tu usuario"
+            autocomplete="username"
+          />
+
+          <div
+            class="field-error"
+            *ngIf="username?.touched && username?.invalid"
+          >
+            <span *ngIf="username?.errors?.['required']">
+              El usuario es obligatorio.
+            </span>
+
+            <span *ngIf="username?.errors?.['minlength']">
+              El usuario debe tener al menos 3 caracteres.
+            </span>
+          </div>
+        </div>
+
+        <!-- ======================================= -->
+        <!-- EMAIL -->
+        <!-- ======================================= -->
+
+        <div class="form-group">
+          <label for="email"> Correo electrónico </label>
+
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            placeholder="correo@ejemplo.com"
+            autocomplete="email"
+          />
+
+          <div class="field-error" *ngIf="email?.touched && email?.invalid">
+            <span *ngIf="email?.errors?.['required']">
+              El correo electrónico es obligatorio.
+            </span>
+
+            <span *ngIf="email?.errors?.['email']">
+              Ingresa un correo electrónico válido.
+            </span>
+          </div>
+        </div>
+
+        <!-- ======================================= -->
+        <!-- PASSWORD -->
+        <!-- ======================================= -->
+
+        <div class="form-group">
+          <label for="password"> Contraseña </label>
+
+          <input
+            id="password"
+            type="password"
+            formControlName="password"
+            placeholder="Ingresa tu contraseña"
+            autocomplete="new-password"
+          />
+
+          <div
+            class="field-error"
+            *ngIf="password?.touched && password?.invalid"
+          >
+            <span *ngIf="password?.errors?.['required']">
+              La contraseña es obligatoria.
+            </span>
+
+            <span *ngIf="password?.errors?.['minlength']">
+              La contraseña debe tener al menos 8 caracteres.
+            </span>
+          </div>
+        </div>
+
+        <!-- ======================================= -->
+        <!-- CONFIRMAR PASSWORD -->
+        <!-- ======================================= -->
+
+        <div class="form-group">
+          <label for="passwordConfirmation"> Confirmar contraseña </label>
+
+          <input
+            id="passwordConfirmation"
+            type="password"
+            formControlName="passwordConfirmation"
+            placeholder="Confirma tu contraseña"
+            autocomplete="new-password"
+          />
+
+          <div class="field-error" *ngIf="passwordConfirmation?.touched">
+            <span *ngIf="passwordConfirmation?.errors?.['required']">
+              Debes confirmar tu contraseña.
+            </span>
+
+            <span *ngIf="passwordConfirmation?.value && !passwordsMatch">
+              Las contraseñas no coinciden.
+            </span>
+          </div>
+        </div>
+
+        <!-- ======================================= -->
+        <!-- INFORMACIÓN -->
+        <!-- ======================================= -->
+
+        <div class="privacy-notice">
+          <span class="notice-icon"> ✓ </span>
+
+          <div>
+            <strong> Registro seguro </strong>
+
+            <p>
+              Después de crear tu cuenta podrás completar tu perfil y generar tu
+              Tarjeta de la Mujer.
+            </p>
+          </div>
+        </div>
+
+        <!-- ======================================= -->
+        <!-- BOTÓN -->
+        <!-- ======================================= -->
+
+        <div class="form-actions">
+          <button type="submit" class="primary-button" [disabled]="loading">
+            <span *ngIf="!loading"> Crear mi cuenta </span>
+
+            <span *ngIf="loading"> Creando cuenta... </span>
+          </button>
+        </div>
+      </form>
+
+      <!-- ========================================= -->
+      <!-- LOGIN -->
+      <!-- ========================================= -->
+
+      <div class="login-link">
+        <span> ¿Ya tienes una cuenta? </span>
+
+        <button type="button" class="link-button" (click)="goToLogin()">
+          Iniciar sesión
+        </button>
+      </div>
+    </article>
+  </div>
+</section>
+```

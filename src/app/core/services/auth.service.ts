@@ -4,7 +4,13 @@ import { Observable, tap } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
 
-import { LoginRequest, LoginResponse, AuthUser } from '../models/auth.model';
+import {
+  LoginRequest,
+  LoginResponse,
+  AuthUser,
+  RegisterRequest,
+  RegisterResponse,
+} from '../models/auth.model';
 
 @Injectable({
   providedIn: 'root',
@@ -94,5 +100,15 @@ export class AuthService {
     const user = this.getCurrentUser();
 
     return user?.role?.type ?? null;
+  }
+
+  register(data: RegisterRequest): Observable<RegisterResponse> {
+    return this.http
+      .post<RegisterResponse>(`${this.apiUrl}/local/register`, data)
+      .pipe(
+        tap((response) => {
+          this.saveSession(response.jwt, response.user);
+        }),
+      );
   }
 }

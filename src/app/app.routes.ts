@@ -15,6 +15,7 @@ import { WomanLayoutComponent } from './features/woman/layout/woman-layout/woman
 import { DashboardComponent } from './features/woman/pages/dashboard/dashboard.component';
 import { ProfileComponent } from './features/woman/pages/profile/profile.component';
 import { CardComponent } from './features/woman/pages/card/card.component';
+import { AccountComponent } from './features/woman/pages/account/account.component';
 
 export const routes: Routes = [
   {
@@ -46,7 +47,6 @@ export const routes: Routes = [
 
         component: LoginComponent,
       },
-
       {
         path: 'register',
 
@@ -58,8 +58,12 @@ export const routes: Routes = [
         children: [
           {
             path: '',
-            redirectTo: 'dashboard',
+            redirectTo: 'account',
             pathMatch: 'full',
+          },
+          {
+            path: 'account',
+            component: AccountComponent,
           },
           {
             path: 'dashboard',

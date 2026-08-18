@@ -1,0 +1,50 @@
+<section class="account-page">
+  <!-- ========================================= -->
+  <!-- LOADING GENERAL -->
+  <!-- ========================================= -->
+
+  <div class="loading" *ngIf="loading">Cargando tu información...</div>
+
+  <!-- ========================================= -->
+  <!-- ERROR GENERAL -->
+  <!-- ========================================= -->
+
+  <div class="error-message" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+
+  <!-- ========================================= -->
+  <!-- CONTENIDO -->
+  <!-- ========================================= -->
+
+  <ng-container *ngIf="!loading">
+    <!-- ======================================= -->
+    <!-- PERFIL -->
+    <!-- ======================================= -->
+
+    <section class="account-section">
+      <app-profile
+        [profile]="profile"
+        [profileRegistered]="hasProfile"
+        [hasCard]="hasCard"
+        [card]="card"
+        (profileUpdated)="onProfileUpdated($event)"
+        (profileRegisteredChange)="onProfileRegistered($event)"
+      ></app-profile>
+    </section>
+
+    <!-- ======================================= -->
+    <!-- TARJETA -->
+    <!-- ======================================= -->
+
+    <section class="account-section" *ngIf="hasProfile">
+      <app-card
+        [profile]="profile"
+        [card]="card"
+        [cardExists]="hasCard"
+        [cardExpired]="cardExpired"
+        (cardRenewed)="onCardRenewed($event)"
+      ></app-card>
+    </section>
+  </ng-container>
+</section>

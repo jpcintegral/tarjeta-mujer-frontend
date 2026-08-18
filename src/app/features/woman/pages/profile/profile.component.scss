@@ -492,3 +492,104 @@
 
   transform: none;
 }
+
+/* ============================================================
+   ACCIONES DEL HEADER DEL PERFIL
+   ============================================================ */
+
+.profile-header-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* ============================================================
+   BOTÓN EDITAR / SECUNDARIO
+   ============================================================ */
+
+.secondary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  min-height: 42px;
+  padding: 10px 18px;
+
+  border: 1px solid #d8c6d2;
+  border-radius: 10px;
+
+  background: #ffffff;
+  color: #6f5264;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.secondary-button:hover:not(:disabled) {
+  background: #faf4f7;
+  border-color: #b99aaa;
+  color: #5f4354;
+
+  transform: translateY(-1px);
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+}
+
+.secondary-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.secondary-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ============================================================
+   ACCIONES DEL FORMULARIO DE EDICIÓN
+   ============================================================ */
+
+.profile-edit-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+
+  margin-top: 24px;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 600px) {
+  .profile-header-actions {
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .profile-header-actions .secondary-button {
+    flex: 0 0 auto;
+  }
+
+  .profile-edit-actions {
+    flex-direction: column-reverse;
+    width: 100%;
+  }
+
+  .profile-edit-actions button {
+    width: 100%;
+  }
+}

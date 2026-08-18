@@ -20,3 +20,15 @@ export interface LoginResponse {
   jwt: string;
   user: AuthUser;
 }
+
+// ========================================= // REGISTRO // =========================================
+export interface RegisterRequest {
+  username: string;
+  email: string;
+  password: string;
+  userType: 'WOMAN';
+}
+export interface RegisterResponse {
+  jwt: string;
+  user: AuthUser;
+}

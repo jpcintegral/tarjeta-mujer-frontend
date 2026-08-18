@@ -78,7 +78,7 @@ export class LoginComponent {
 
         this.loading = false;
 
-        this.router.navigate(['/mujer/dashboard']);
+        this.router.navigate(['/mujer/account']);
       },
 
       error: (error) => {

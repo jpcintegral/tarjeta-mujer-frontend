@@ -6,14 +6,6 @@
   <div class="loading" *ngIf="loading">Cargando tu tarjeta...</div>
 
   <!-- ========================================= -->
-  <!-- ERROR -->
-  <!-- ========================================= -->
-
-  <div class="error-message" *ngIf="!loading && errorMessage">
-    {{ errorMessage }}
-  </div>
-
-  <!-- ========================================= -->
   <!-- CONTENIDO -->
   <!-- ========================================= -->
 
@@ -46,10 +38,22 @@
 
         <h1>Mi tarjeta de la Mujer</h1>
 
-        <p>
-          Presenta esta tarjeta para acceder a los beneficios disponibles en los
-          comercios participantes.
-        </p>
+        <!-- ========================================= -->
+        <!-- AVISO -->
+        <!-- ========================================= -->
+
+        <div class="card-notice">
+          <span class="notice-icon"> ✓ </span>
+
+          <div>
+            <strong> Tu tarjeta está activa </strong>
+
+            <p>
+              Puedes utilizarla en los comercios participantes de Tarjeta de la
+              Mujer.
+            </p>
+          </div>
+        </div>
       </div>
 
       <!-- ========================================= -->
@@ -171,25 +175,18 @@
       <!-- ========================================= -->
 
       <div class="card-actions">
-        <button type="button" class="secondary-button" (click)="renewCard()">
-          ⟳ Renovar tarjeta
+        <button
+          type="button"
+          class="secondary-button"
+          (click)="renewCard()"
+          [disabled]="loading"
+        >
+          <span *ngIf="!loading">⟳ Renovar tarjeta</span>
+          <span *ngIf="loading">Renovando tarjeta...</span>
         </button>
-      </div>
 
-      <!-- ========================================= -->
-      <!-- AVISO -->
-      <!-- ========================================= -->
-
-      <div class="card-notice">
-        <span class="notice-icon"> ✓ </span>
-
-        <div>
-          <strong> Tu tarjeta está activa </strong>
-
-          <p>
-            Puedes utilizarla en los comercios participantes de Tarjeta de la
-            Mujer.
-          </p>
+        <div class="card-error" *ngIf="!loading && errorMessage">
+          {{ errorMessage }}
         </div>
       </div>
     </ng-container>
