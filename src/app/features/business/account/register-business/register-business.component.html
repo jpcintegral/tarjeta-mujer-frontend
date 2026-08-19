@@ -1,0 +1,343 @@
+<div class="business-register-page">
+  <article class="business-register-card">
+    <!-- ====================================================== -->
+    <!-- HEADER / BANNER -->
+    <!-- ====================================================== -->
+
+    <header
+      class="register-banner"
+      [class.has-image]="bannerPreview"
+      [style.background-image]="
+        bannerPreview ? 'url(' + bannerPreview + ')' : null
+      "
+    >
+      <div class="banner-overlay"></div>
+
+      <div class="banner-content">
+        <span class="section-kicker"> MI NEGOCIO </span>
+
+        <h1>{{ editing ? "Editar mi negocio" : "Registra tu negocio" }}</h1>
+
+        <p>
+          {{
+            editing
+              ? "Actualiza la información de tu negocio."
+              : "Completa la información para comenzar a ofrecer beneficios."
+          }}
+        </p>
+      </div>
+    </header>
+
+    <!-- ====================================================== -->
+    <!-- FORM -->
+    <!-- ====================================================== -->
+
+    <form
+      [formGroup]="businessForm"
+      (ngSubmit)="onSubmit()"
+      class="business-form"
+    >
+      <!-- ==================================================== -->
+      <!-- ERROR -->
+      <!-- ==================================================== -->
+
+      <div *ngIf="errorMessage" class="error-message">
+        <span class="error-icon"> ! </span>
+
+        <span>
+          {{ errorMessage }}
+        </span>
+      </div>
+
+      <!-- ==================================================== -->
+      <!-- SUCCESS -->
+      <!-- ==================================================== -->
+
+      <div *ngIf="successMessage" class="success-message">
+        <span class="success-icon"> ✓ </span>
+
+        <span>
+          {{ successMessage }}
+        </span>
+      </div>
+
+      <!-- ==================================================== -->
+      <!-- LOGO -->
+      <!-- ==================================================== -->
+
+      <section class="form-section">
+        <div class="section-heading">
+          <div>
+            <span class="section-kicker"> IDENTIDAD </span>
+
+            <h2>Imagen del negocio</h2>
+          </div>
+        </div>
+
+        <div class="image-upload-grid">
+          <!-- LOGO -->
+
+          <div class="image-upload">
+            <label> Logo </label>
+
+            <div class="logo-preview" [class.has-image]="logoPreview">
+              <img
+                *ngIf="logoPreview"
+                [src]="logoPreview"
+                alt="Vista previa del logo"
+              />
+
+              <span *ngIf="!logoPreview"> 🏪 </span>
+            </div>
+
+            <label class="upload-button" for="logo"> SELECCIONAR LOGO </label>
+
+            <input
+              id="logo"
+              type="file"
+              accept="image/*"
+              (change)="onLogoSelected($event)"
+              [disabled]="loading"
+            />
+          </div>
+
+          <!-- BANNER -->
+
+          <div class="image-upload banner-upload">
+            <label> Banner </label>
+
+            <div
+              class="banner-preview"
+              [class.has-image]="bannerPreview"
+              [style.background-image]="
+                bannerPreview ? 'url(' + bannerPreview + ')' : null
+              "
+            >
+              <div *ngIf="!bannerPreview" class="banner-placeholder">🖼️</div>
+            </div>
+
+            <label class="upload-button" for="banner">
+              SELECCIONAR BANNER
+            </label>
+
+            <input
+              id="banner"
+              type="file"
+              accept="image/*"
+              (change)="onBannerSelected($event)"
+              [disabled]="loading"
+            />
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================================================== -->
+      <!-- INFORMATION -->
+      <!-- ==================================================== -->
+
+      <section class="form-section">
+        <div class="section-heading">
+          <div>
+            <span class="section-kicker"> INFORMACIÓN </span>
+
+            <h2>Datos del negocio</h2>
+          </div>
+        </div>
+
+        <!-- NAME -->
+
+        <div class="form-group">
+          <label for="name"> Nombre del negocio </label>
+
+          <input
+            id="name"
+            type="text"
+            formControlName="name"
+            placeholder="Ej. Boutique María"
+            [disabled]="loading"
+          />
+
+          <small
+            *ngIf="name?.invalid && (name?.touched || submitted)"
+            class="field-error"
+          >
+            El nombre del negocio es obligatorio.
+          </small>
+        </div>
+
+        <!-- DESCRIPTION -->
+
+        <div class="form-group">
+          <label for="description"> Descripción </label>
+
+          <textarea
+            id="description"
+            rows="5"
+            formControlName="description"
+            placeholder="Describe brevemente tu negocio..."
+            [disabled]="loading"
+          ></textarea>
+
+          <small
+            *ngIf="description?.invalid && (description?.touched || submitted)"
+            class="field-error"
+          >
+            La descripción es obligatoria.
+          </small>
+        </div>
+      </section>
+
+      <!-- ==================================================== -->
+      <!-- CONTACT -->
+      <!-- ==================================================== -->
+
+      <section class="form-section">
+        <div class="section-heading">
+          <div>
+            <span class="section-kicker"> CONTACTO </span>
+
+            <h2>Información de contacto</h2>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <!-- PHONE -->
+
+          <div class="form-group">
+            <label for="phone"> Teléfono </label>
+
+            <input
+              id="phone"
+              type="tel"
+              formControlName="phone"
+              placeholder="312 123 4567"
+              [disabled]="loading"
+            />
+
+            <small
+              *ngIf="phone?.invalid && (phone?.touched || submitted)"
+              class="field-error"
+            >
+              El teléfono es obligatorio.
+            </small>
+          </div>
+
+          <!-- EMAIL -->
+
+          <div class="form-group">
+            <label for="email"> Correo electrónico </label>
+
+            <input
+              id="email"
+              type="email"
+              formControlName="email"
+              placeholder="contacto@negocio.com"
+              [disabled]="loading"
+            />
+
+            <small
+              *ngIf="email?.invalid && (email?.touched || submitted)"
+              class="field-error"
+            >
+              Ingresa un correo electrónico válido.
+            </small>
+          </div>
+        </div>
+
+        <!-- WEBSITE -->
+
+        <div class="form-group">
+          <label for="website">
+            Sitio web
+            <span>(opcional)</span>
+          </label>
+
+          <input
+            id="website"
+            type="url"
+            formControlName="website"
+            placeholder="https://www.negocio.com"
+            [disabled]="loading"
+          />
+        </div>
+      </section>
+
+      <!-- ==================================================== -->
+      <!-- ADDRESS -->
+      <!-- ==================================================== -->
+
+      <section class="form-section">
+        <div class="section-heading">
+          <div>
+            <span class="section-kicker"> UBICACIÓN </span>
+
+            <h2>Dirección</h2>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="address"> Dirección </label>
+
+          <textarea
+            id="address"
+            rows="3"
+            formControlName="address"
+            placeholder="Calle, número, colonia..."
+            [disabled]="loading"
+          ></textarea>
+        </div>
+      </section>
+
+      <!-- ==================================================== -->
+      <!-- CATEGORY -->
+      <!-- ==================================================== -->
+
+      <section class="form-section">
+        <div class="section-heading">
+          <div>
+            <span class="section-kicker"> CATEGORÍA </span>
+
+            <h2>Categoría del negocio</h2>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="category"> Categoría </label>
+
+          <select id="category" formControlName="category" [disabled]="loading">
+            <option [ngValue]="null">Selecciona una categoría</option>
+          </select>
+
+          <small class="field-help">
+            Las categorías disponibles se cargarán desde el catálogo del
+            sistema.
+          </small>
+        </div>
+      </section>
+
+      <!-- ==================================================== -->
+      <!-- ACTIONS -->
+      <!-- ==================================================== -->
+
+      <div class="form-actions">
+        <button
+          type="button"
+          class="secondary-button"
+          (click)="cancel()"
+          [disabled]="loading"
+        >
+          CANCELAR
+        </button>
+        <button type="submit" class="primary-button" [disabled]="loading">
+          <span *ngIf="!loading">
+            {{ editing ? "GUARDAR CAMBIOS" : "REGISTRAR NEGOCIO" }}
+          </span>
+
+          <span *ngIf="loading">
+            {{ editing ? "GUARDANDO..." : "REGISTRANDO..." }}
+          </span>
+        </button>
+      </div>
+    </form>
+  </article>
+</div>

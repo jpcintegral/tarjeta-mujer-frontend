@@ -1,0 +1,336 @@
+<section class="services-section">
+  <!-- HEADER -->
+  <div class="services-header">
+    <div>
+      <span class="section-label"> BENEFICIOS </span>
+
+      <h2>Mis servicios</h2>
+
+      <p>Administra los beneficios que ofrece tu negocio.</p>
+    </div>
+
+    <button type="button" class="add-service-button" (click)="openCreateForm()">
+      <span>+</span>
+      AGREGAR SERVICIO
+    </button>
+  </div>
+
+  <!-- MENSAJES -->
+  <div *ngIf="successMessage" class="success-message">
+    {{ successMessage }}
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <!-- LOADING -->
+  <div *ngIf="loading" class="services-loading">
+    <div class="spinner"></div>
+
+    <span>Cargando servicios...</span>
+  </div>
+
+  <!-- EMPTY -->
+  <div *ngIf="!loading && services.length === 0" class="empty-services">
+    <div class="empty-icon">✨</div>
+
+    <h3>Aún no tienes servicios</h3>
+
+    <p>Agrega el primer beneficio que ofrecerá tu negocio.</p>
+
+    <button type="button" class="primary-button" (click)="openCreateForm()">
+      + AGREGAR SERVICIO
+    </button>
+  </div>
+
+  <!-- SERVICE CARDS -->
+  <div *ngIf="!loading && services.length > 0" class="services-grid">
+    <article *ngFor="let service of services" class="service-card">
+      <!-- IMAGE -->
+      <div class="service-image">
+        <div class="service-image-placeholder">
+          <span>✨</span>
+        </div>
+      </div>
+
+      <!-- CONTENT -->
+      <div class="service-content">
+        <h3>
+          {{ service.name }}
+        </h3>
+
+        <p *ngIf="service.description" class="service-description">
+          {{ service.description }}
+        </p>
+
+        <!-- PRICE -->
+        <div *ngIf="service.price != null" class="service-prices">
+          <span class="original-price">
+            ${{ service.price | number: "1.2-2" }}
+          </span>
+
+          <!-- PERCENTAGE DISCOUNT -->
+          <ng-container
+            *ngIf="
+              service.discountType === 'PERCENTAGE' &&
+              service.discountValue != null
+            "
+          >
+            <strong class="final-price">
+              $
+              {{
+                service.price - (service.price * service.discountValue) / 100
+                  | number: "1.2-2"
+              }}
+            </strong>
+
+            <span class="discount-badge">
+              {{ service.discountValue }}% OFF
+            </span>
+
+            <div class="saving">
+              Ahorras $
+              {{
+                (service.price * service.discountValue) / 100 | number: "1.2-2"
+              }}
+            </div>
+          </ng-container>
+
+          <!-- FIXED AMOUNT DISCOUNT -->
+          <ng-container
+            *ngIf="
+              service.discountType === 'FIXED_AMOUNT' &&
+              service.discountValue != null
+            "
+          >
+            <strong class="final-price">
+              $
+              {{ service.price - service.discountValue | number: "1.2-2" }}
+            </strong>
+
+            <span class="discount-badge">
+              ${{ service.discountValue | number: "1.2-2" }} OFF
+            </span>
+
+            <div class="saving">
+              Ahorras $
+              {{ service.discountValue | number: "1.2-2" }}
+            </div>
+          </ng-container>
+        </div>
+        <!-- VALIDITY -->
+
+        <div
+          *ngIf="service.validFrom || service.validUntil"
+          class="service-validity"
+        >
+          <span class="validity-icon"></span>
+
+          <div>
+            <small>Vigencia</small>
+
+            <strong>
+              <ng-container *ngIf="service.validFrom">
+                {{ service.validFrom | date: "dd/MM/yyyy" }}
+              </ng-container>
+
+              <span *ngIf="service.validFrom && service.validUntil"> — </span>
+
+              <ng-container *ngIf="service.validUntil">
+                {{ service.validUntil | date: "dd/MM/yyyy" }}
+              </ng-container>
+            </strong>
+          </div>
+        </div>
+        <!-- STATUS -->
+        <div class="service-status">
+          <span class="status-dot" [class.active]="service.active"></span>
+
+          {{ service.active ? "ACTIVO" : "INACTIVO" }}
+        </div>
+
+        <!-- ACTIONS -->
+        <div class="service-actions">
+          <button
+            type="button"
+            class="secondary-button"
+            (click)="openEditForm(service)"
+          >
+            EDITAR
+          </button>
+          <button
+            type="button"
+            class="danger-button"
+            (click)="toggleServiceStatus(service)"
+          >
+            {{ service.active ? "DESACTIVAR" : "ACTIVAR" }}
+          </button>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <!-- CREATE MODAL -->
+  <div *ngIf="showCreateForm" class="modal-backdrop">
+    <div class="service-modal">
+      <!-- MODAL HEADER -->
+      <div class="modal-header">
+        <div>
+          <span class="section-label">
+            {{ editingService ? "EDITAR BENEFICIO" : "NUEVO BENEFICIO" }}
+          </span>
+
+          <h2>
+            {{ editingService ? "Editar servicio" : "Agregar servicio" }}
+          </h2>
+        </div>
+
+        <button type="button" class="close-button" (click)="closeCreateForm()">
+          ×
+        </button>
+      </div>
+
+      <!-- FORM -->
+      <form (ngSubmit)="createService()" #serviceForm="ngForm">
+        <!-- NAME -->
+        <div class="form-group">
+          <label for="service-name"> Nombre del servicio </label>
+
+          <input
+            id="service-name"
+            type="text"
+            name="name"
+            [(ngModel)]="form.name"
+            placeholder="Ej. Corte de cabello"
+            required
+            [disabled]="saving"
+          />
+        </div>
+
+        <!-- DESCRIPTION -->
+        <div class="form-group">
+          <label for="service-description"> Descripción </label>
+
+          <textarea
+            id="service-description"
+            name="description"
+            [(ngModel)]="form.description"
+            rows="4"
+            placeholder="Describe el beneficio..."
+            required
+            [disabled]="saving"
+          ></textarea>
+        </div>
+
+        <!-- PRICE -->
+        <div class="form-group">
+          <label for="service-price"> Precio </label>
+
+          <input
+            id="service-price"
+            type="number"
+            name="price"
+            [(ngModel)]="form.price"
+            min="0"
+            step="0.01"
+            placeholder="0.00"
+            required
+            [disabled]="saving"
+          />
+        </div>
+        <!-- VALIDITY -->
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="valid-from"> Válido desde </label>
+
+            <input
+              id="valid-from"
+              type="date"
+              name="validFrom"
+              [(ngModel)]="form.validFrom"
+              [disabled]="saving"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="valid-until"> Válido hasta </label>
+
+            <input
+              id="valid-until"
+              type="date"
+              name="validUntil"
+              [(ngModel)]="form.validUntil"
+              [disabled]="saving"
+            />
+          </div>
+        </div>
+        <!-- DISCOUNT TYPE -->
+        <div class="form-group">
+          <label for="discount-type"> Tipo de descuento </label>
+
+          <select
+            id="discount-type"
+            name="discountType"
+            [(ngModel)]="form.discountType"
+            [disabled]="true"
+          >
+            <option value="PERCENTAGE">Porcentaje</option>
+            >
+          </select>
+        </div>
+
+        <!-- DISCOUNT VALUE -->
+        <div class="form-group">
+          <label for="discount-value">
+            {{
+              form.discountType === "PERCENTAGE"
+                ? "Descuento (%)"
+                : "Descuento ($)"
+            }}
+          </label>
+
+          <input
+            id="discount-value"
+            type="number"
+            name="discountValue"
+            [(ngModel)]="form.discountValue"
+            min="0"
+            [max]="form.discountType === 'PERCENTAGE' ? 100 : null"
+            step="0.01"
+            placeholder="10"
+            required
+            [disabled]="saving"
+          />
+        </div>
+
+        <!-- ACTIONS -->
+        <div class="modal-actions">
+          <button
+            type="button"
+            class="secondary-button"
+            (click)="closeCreateForm()"
+            [disabled]="saving"
+          >
+            CANCELAR
+          </button>
+
+          <button
+            type="submit"
+            class="primary-button"
+            [disabled]="saving || serviceForm.invalid"
+          >
+            {{
+              saving
+                ? "GUARDANDO..."
+                : editingService
+                  ? "GUARDAR CAMBIOS"
+                  : "CREAR SERVICIO"
+            }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

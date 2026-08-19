@@ -1,0 +1,228 @@
+<div class="business-page">
+  <!-- ==============================
+       LOADING
+  =============================== -->
+
+  <div *ngIf="loading" class="business-loading">
+    <div class="loading-spinner"></div>
+
+    <p>Cargando información del negocio...</p>
+  </div>
+
+  <!-- ==============================
+       ERROR
+  =============================== -->
+
+  <div *ngIf="!loading && errorMessage" class="business-error">
+    <div class="error-icon">!</div>
+
+    <h2>No fue posible cargar el negocio</h2>
+
+    <p>
+      {{ errorMessage }}
+    </p>
+
+    <button type="button" (click)="loadBusiness()">REINTENTAR</button>
+  </div>
+
+  <!-- SIN NEGOCIO -->
+
+  <section
+    *ngIf="!loading && !errorMessage && !business"
+    class="empty-business"
+  >
+    <div class="empty-business-icon">-</div>
+
+    <span class="section-kicker"> MI NEGOCIO </span>
+
+    <h1>Registra tu negocio</h1>
+
+    <p>
+      Todavía no tienes un negocio registrado. Registra tu negocio para comenzar
+      a ofrecer beneficios a las mujeres que utilizan la Tarjeta de la Mujer.
+    </p>
+
+    <button
+      type="button"
+      class="primary-button"
+      (click)="goToBusinessRegister()"
+    >
+      REGISTRAR MI NEGOCIO
+    </button>
+  </section>
+
+  <!-- ==============================
+       BUSINESS
+  =============================== -->
+
+  <article *ngIf="!loading && business" class="business-card">
+    <!-- ==============================
+         HEADER / BANNER
+    =============================== -->
+
+    <header
+      class="business-banner"
+      [class.has-image]="!!getBannerUrl()"
+      [style.background-image]="
+        getBannerUrl() ? 'url(' + getBannerUrl() + ')' : null
+      "
+    >
+      <div class="banner-overlay"></div>
+
+      <div class="banner-content">
+        <!-- LOGO -->
+
+        <div class="business-logo">
+          <img
+            *ngIf="getLogoUrl()"
+            [src]="getLogoUrl()!"
+            [alt]="business.name"
+          />
+
+          <div *ngIf="!getLogoUrl()" class="business-logo-placeholder">
+            <span> 🏪 </span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ==============================
+         BUSINESS INFORMATION
+    =============================== -->
+
+    <section class="business-info">
+      <!-- HEADING -->
+
+      <div class="business-heading">
+        <div>
+          <h1>
+            {{ business.name }}
+          </h1>
+
+          <p *ngIf="business.category?.name" class="business-category">
+            {{ business.category?.name }}
+          </p>
+        </div>
+
+        <div class="business-status-container">
+          <span
+            class="business-status"
+            [ngClass]="getStatusClass(business.statusBusiness)"
+          >
+            <span class="status-dot"></span>
+
+            {{ getStatusLabel(business.statusBusiness) }}
+          </span>
+
+          <button
+            type="button"
+            class="business-edit-button"
+            (click)="goToBusinessEdit()"
+          >
+            EDITAR INFORMACIÓN
+          </button>
+        </div>
+      </div>
+
+      <!-- DESCRIPTION -->
+
+      <p *ngIf="business.description" class="business-description">
+        {{ business.description }}
+      </p>
+
+      <!-- ==============================
+           CONTACT
+      =============================== -->
+
+      <div class="business-contact">
+        <!-- PHONE -->
+
+        <div *ngIf="business.phone" class="contact-item">
+          <span class="contact-icon"> ☎ </span>
+
+          <div>
+            <small> Teléfono </small>
+
+            <strong>
+              {{ business.phone }}
+            </strong>
+          </div>
+        </div>
+
+        <!-- EMAIL -->
+
+        <div *ngIf="business.email" class="contact-item">
+          <span class="contact-icon"> ✉ </span>
+
+          <div>
+            <small> Email </small>
+
+            <strong>
+              {{ business.email }}
+            </strong>
+          </div>
+        </div>
+
+        <!-- WEBSITE -->
+
+        <div *ngIf="business.website" class="contact-item">
+          <span class="contact-icon"> 🌐 </span>
+
+          <div>
+            <small> Sitio web </small>
+
+            <strong>
+              {{ business.website }}
+            </strong>
+          </div>
+        </div>
+
+        <!-- ADDRESS -->
+
+        <div *ngIf="fullAddress" class="contact-item">
+          <span class="contact-icon"> 📍 </span>
+
+          <div>
+            <small> Dirección </small>
+
+            <strong>
+              {{ fullAddress }}
+            </strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==============================
+           REJECTION
+      =============================== -->
+
+      <div
+        *ngIf="
+          business.statusBusiness === 'REJECTED' && business.rejectionReason
+        "
+        class="rejection-message"
+      >
+        <strong> Motivo del rechazo </strong>
+
+        <p>
+          {{ business.rejectionReason }}
+        </p>
+      </div>
+    </section>
+
+    <!-- =================================================
+         SERVICES
+         COMPONENTE INDEPENDIENTE
+    ================================================== -->
+
+    <section class="business-services">
+      <app-business-services
+        *ngIf="business.documentId"
+        [businessId]="business.documentId"
+        [services]="business.services ?? []"
+        (servicesChanged)="onServicesChanged($event)"
+      >
+      </app-business-services>
+    </section>
+  </article>
+</div>

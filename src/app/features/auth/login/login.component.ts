@@ -66,7 +66,7 @@ export class LoginComponent {
       password: this.loginForm.get('password')?.value,
     };
 
-    this.authService.login(credentials).subscribe({
+    this.authService.login(credentials, 'WOMAN').subscribe({
       next: (response) => {
         console.log('LOGIN RESPONSE:', response);
 
@@ -87,7 +87,9 @@ export class LoginComponent {
         this.loading = false;
 
         this.errorMessage =
-          error?.error?.message ||
+          error?.error?.error?.message ??
+          error?.error?.message ??
+          error?.message ??
           'No fue posible iniciar sesión. Verifica tu correo y contraseña.';
       },
     });

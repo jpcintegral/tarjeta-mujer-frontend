@@ -1,0 +1,438 @@
+.business-register-page {
+  min-height: 100vh;
+  padding: 30px 20px 60px;
+  background: #f7f5f7;
+}
+
+.business-register-card {
+  width: min(100%, 900px);
+  margin: 0 auto;
+  overflow: hidden;
+  background: #fff;
+  border-radius: 22px;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+}
+
+// ============================================================
+// BANNER
+// ============================================================
+
+.register-banner {
+  position: relative;
+  min-height: 250px;
+
+  display: flex;
+  align-items: flex-end;
+
+  padding: 35px;
+
+  background: linear-gradient(135deg, #9d6b87, #d9a7bc);
+
+  background-size: cover;
+  background-position: center;
+}
+
+.banner-overlay {
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.15));
+}
+
+.banner-content {
+  position: relative;
+  z-index: 1;
+
+  color: #fff;
+
+  max-width: 650px;
+}
+
+.section-kicker {
+  display: block;
+
+  margin-bottom: 7px;
+
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+
+  opacity: 0.8;
+}
+
+.banner-content h1 {
+  margin: 0 0 8px;
+
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+}
+
+.banner-content p {
+  margin: 0;
+
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+// ============================================================
+// FORM
+// ============================================================
+
+.business-form {
+  padding: 35px;
+}
+
+.form-section {
+  padding: 25px 0;
+
+  border-bottom: 1px solid #eee;
+}
+
+.form-section:first-child {
+  padding-top: 0;
+}
+
+.form-section:last-of-type {
+  border-bottom: 0;
+}
+
+.section-heading {
+  margin-bottom: 22px;
+}
+
+.section-heading h2 {
+  margin: 0;
+
+  font-size: 1.35rem;
+  color: #333;
+}
+
+// ============================================================
+// FORM GROUP
+// ============================================================
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  font-size: 0.88rem;
+  font-weight: 600;
+
+  color: #444;
+}
+
+.form-group label span {
+  font-weight: 400;
+  color: #999;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  box-sizing: border-box;
+
+  padding: 13px 14px;
+
+  border: 1px solid #ddd;
+  border-radius: 10px;
+
+  background: #fff;
+
+  font-family: inherit;
+  font-size: 0.95rem;
+
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+
+  border-color: #b47c9b;
+
+  box-shadow: 0 0 0 3px rgba(180, 124, 155, 0.12);
+}
+
+textarea {
+  resize: vertical;
+}
+
+.form-grid {
+  display: grid;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 18px;
+}
+
+// ============================================================
+// IMAGES
+// ============================================================
+
+.image-upload-grid {
+  display: grid;
+
+  grid-template-columns: 220px 1fr;
+
+  gap: 25px;
+}
+
+.image-upload > label:first-child {
+  display: block;
+
+  margin-bottom: 8px;
+
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.logo-preview {
+  width: 150px;
+  height: 150px;
+
+  margin-bottom: 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  border-radius: 18px;
+
+  background: #f1edf1;
+
+  font-size: 3rem;
+}
+
+.logo-preview img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.banner-preview {
+  width: 100%;
+  height: 150px;
+
+  margin-bottom: 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  border-radius: 15px;
+
+  background: linear-gradient(135deg, #e8d9e1, #d6c1cc);
+
+  background-size: cover;
+  background-position: center;
+}
+
+.banner-placeholder {
+  font-size: 2.5rem;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.upload-button {
+  display: inline-block !important;
+
+  padding: 9px 13px;
+
+  border-radius: 8px;
+
+  background: #f2edf0;
+
+  color: #754d65;
+
+  cursor: pointer;
+
+  font-size: 0.75rem !important;
+  font-weight: 700 !important;
+}
+
+// ============================================================
+// BUTTONS
+// ============================================================
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+
+  padding-top: 25px;
+}
+
+.primary-button,
+.secondary-button {
+  border: 0;
+  border-radius: 10px;
+
+  padding: 13px 20px;
+
+  font-size: 0.82rem;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s,
+    opacity 0.2s;
+}
+
+.primary-button {
+  background: #8f5f7c;
+  color: #fff;
+}
+
+.secondary-button {
+  background: #eee;
+  color: #555;
+}
+
+.primary-button:hover:not(:disabled),
+.secondary-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+// ============================================================
+// MESSAGES
+// ============================================================
+
+.error-message,
+.success-message {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  margin-bottom: 22px;
+
+  padding: 13px 15px;
+
+  border-radius: 10px;
+
+  font-size: 0.9rem;
+}
+
+.error-message {
+  background: #fff0f0;
+  color: #a43b3b;
+}
+
+.success-message {
+  background: #eef9f1;
+  color: #28733b;
+}
+
+.error-icon,
+.success-icon {
+  width: 24px;
+  height: 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  font-weight: 700;
+}
+
+.error-icon {
+  background: #d9534f;
+  color: #fff;
+}
+
+.success-icon {
+  background: #48a868;
+  color: #fff;
+}
+
+.field-error {
+  display: block;
+
+  margin-top: 5px;
+
+  color: #c44949;
+}
+
+.field-help {
+  display: block;
+
+  margin-top: 6px;
+
+  color: #888;
+}
+
+// ============================================================
+// RESPONSIVE
+// ============================================================
+
+@media (max-width: 700px) {
+  .business-register-page {
+    padding: 0 0 40px;
+  }
+
+  .business-register-card {
+    border-radius: 0;
+  }
+
+  .register-banner {
+    min-height: 230px;
+
+    padding: 25px 20px;
+  }
+
+  .business-form {
+    padding: 25px 20px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .image-upload-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .logo-preview {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .banner-preview {
+    height: 130px;
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+  }
+
+  .primary-button,
+  .secondary-button {
+    width: 100%;
+  }
+}
