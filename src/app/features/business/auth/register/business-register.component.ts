@@ -162,7 +162,7 @@ export class BusinessRegisterComponent {
         // ====================================================
 
         setTimeout(() => {
-          this.router.navigate(['/business/login']);
+          this.router.navigate(['/business/acount']);
         }, 800);
       },
 

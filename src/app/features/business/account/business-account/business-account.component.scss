@@ -626,3 +626,134 @@
     width: 100%;
   }
 }
+
+.logout-button {
+  padding: 7px 14px;
+
+  border: 1px solid #a85578;
+  border-radius: 7px;
+
+  background: transparent;
+
+  color: #a85578;
+
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.logout-button:hover {
+  background: #8f4562;
+  border-color: #8f4562;
+  color: #fff;
+}
+
+.scan-card-button {
+  padding: 7px 14px;
+
+  border: 1px solid #a85578;
+  border-radius: 7px;
+
+  background: transparent;
+
+  color: #a85578;
+
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.scan-card-button:hover {
+  background: #a85578;
+  color: #ffffff;
+}
+
+.scan-card-button:active {
+  transform: translateY(1px);
+}
+
+@media (max-width: 600px) {
+  .business-status-container {
+    align-items: stretch;
+  }
+
+  .scan-card-button {
+    width: 100%;
+  }
+}
+
+/* =========================================
+   BUSINESS HEADING
+========================================= */
+
+.business-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.business-title {
+  min-width: 0;
+}
+
+.business-heading h1 {
+  margin: 0;
+  font-size: 30px;
+  line-height: 1.2;
+  font-weight: 700;
+  color: #29252a;
+}
+
+.business-category {
+  margin: 8px 0 0;
+  font-size: 14px;
+  color: #777;
+}
+
+/* =========================================
+   BUSINESS ACTIONS
+========================================= */
+
+.business-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.business-action-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+
+  padding: 9px 15px;
+  border: 0;
+  border-radius: 9px;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}

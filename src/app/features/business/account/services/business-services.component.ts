@@ -1,25 +1,40 @@
-import { Component, Input, EventEmitter, Output } from '@angular/core';
+import {
+  Component,
+  Input,
+  EventEmitter,
+  Output,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
 import { BusinessService } from '../../../../core/models/business-service.model';
-
 import { BusinessServiceService } from '../../../../core/services/business-service.service';
 import { BusinessServiceRelation } from '../../../../core/models/business.model';
+import { LucideAngularModule, Search } from 'lucide-angular';
+
 @Component({
   selector: 'app-business-services',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, LucideAngularModule],
   templateUrl: './business-services.component.html',
   styleUrl: './business-services.component.scss',
 })
-export class BusinessServicesComponent {
+export class BusinessServicesComponent implements OnChanges {
+  readonly Search = Search;
   @Input() businessId?: string | number;
 
   @Input() services: BusinessServiceRelation[] = [];
+
+  filteredServices: BusinessServiceRelation[] = [];
+
+  searchTerm = '';
+
   editingService: BusinessServiceRelation | null = null;
+
   @Output() servicesChanged = new EventEmitter<BusinessServiceRelation[]>();
+
   loading = false;
 
   saving = false;
@@ -44,6 +59,11 @@ export class BusinessServicesComponent {
     private readonly businessServiceService: BusinessServiceService,
   ) {}
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['services']) {
+      this.filterServices();
+    }
+  }
   openCreateForm(): void {
     this.editingService = null;
 
@@ -76,11 +96,25 @@ export class BusinessServicesComponent {
     };
   }
 
+  filterServices(): void {
+    const term = this.searchTerm.trim().toLowerCase();
+
+    if (!term) {
+      this.filteredServices = [...this.services];
+      return;
+    }
+
+    this.filteredServices = this.services.filter((service) =>
+      (service.name ?? '').toLowerCase().includes(term),
+    );
+  }
+
   createService(): void {
     if (this.editingService) {
       this.updateService();
       return;
     }
+
     if (!this.businessId) {
       return;
     }
@@ -130,7 +164,9 @@ export class BusinessServicesComponent {
       discountType: this.form.discountType,
 
       discountValue: this.form.discountValue,
+
       validFrom: this.form.validFrom || null,
+
       validUntil: this.form.validUntil || null,
 
       active: true,
@@ -145,10 +181,15 @@ export class BusinessServicesComponent {
         this.successMessage = 'Servicio creado correctamente.';
 
         this.resetForm();
+
         const createdService = response?.data ?? response;
 
         if (createdService) {
           this.services = [...this.services, createdService];
+
+          this.filterServices();
+
+          this.servicesChanged.emit(this.services);
         }
       },
 
@@ -213,6 +254,8 @@ export class BusinessServicesComponent {
           this.successMessage = newStatus
             ? 'Servicio activado correctamente.'
             : 'Servicio desactivado correctamente.';
+
+          this.filterServices();
         },
 
         error: (error) => {
@@ -227,6 +270,7 @@ export class BusinessServicesComponent {
         },
       });
   }
+
   openEditForm(service: BusinessServiceRelation): void {
     this.editingService = service;
 
@@ -314,10 +358,12 @@ export class BusinessServicesComponent {
               : service,
           );
 
-          // Actualiza el estado local
           this.services = updatedServices;
 
-          // Informa al BusinessAccountComponent
+          this.filteredServices = [...updatedServices];
+
+          this.filterServices();
+
           this.servicesChanged.emit(updatedServices);
 
           this.saving = false;
@@ -342,5 +388,10 @@ export class BusinessServicesComponent {
             'No fue posible actualizar el servicio.';
         },
       });
+  }
+
+  clearSearch(): void {
+    this.searchTerm = '';
+    this.filteredServices = [...this.services];
   }
 }

@@ -41,22 +41,63 @@
       </div>
 
       <div class="search-box">
-        <span class="search-icon"> ⌕ </span>
+        <span class="search-icon">⌕</span>
 
-        <input type="search" placeholder="Buscar servicios o comercios..." />
+        <input
+          type="search"
+          [(ngModel)]="search"
+          (keyup.enter)="onSearch()"
+          placeholder="Buscar servicios o comercios..."
+        />
+
+        <button type="button" class="search-button" (click)="onSearch()">
+          Buscar
+        </button>
       </div>
 
       <div class="filters">
-        <button type="button" class="filter active">Más cercanos</button>
+        <button
+          type="button"
+          class="filter"
+          [class.active]="sort === 'createdAt'"
+          (click)="onSortChange('createdAt')"
+        >
+          Más recientes
+        </button>
 
-        <button type="button" class="filter">Más recientes</button>
-
-        <button type="button" class="filter">Mayor descuento</button>
+        <button
+          type="button"
+          class="filter"
+          [class.active]="sort === 'discountValue'"
+          (click)="onSortChange('discountValue')"
+        >
+          Mayor descuento
+        </button>
       </div>
 
       <!-- TEMPORAL: posteriormente vendrá de Strapi -->
+      <div
+        class="empty-services"
+        *ngIf="!loading && services.length === 0 && !error"
+      >
+        <div class="empty-services-icon">⌕</div>
 
-      <div class="services-grid">
+        <h3>No encontramos beneficios</h3>
+
+        <p>
+          No encontramos servicios o comercios que coincidan con tu búsqueda.
+        </p>
+
+        <button
+          type="button"
+          class="empty-services-button"
+          *ngIf="search"
+          (click)="search = ''; onSearch()"
+        >
+          Ver todos los beneficios
+        </button>
+      </div>
+      <div class="services-grid" *ngIf="services.length > 0">
         <article class="service-card" *ngFor="let service of services">
           <!-- IMAGEN DEL COMERCIO -->
           <div class="service-image">

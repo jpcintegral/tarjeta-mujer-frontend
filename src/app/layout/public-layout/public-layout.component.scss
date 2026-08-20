@@ -1,14 +1,11 @@
 .public-layout {
   min-height: 100vh;
-
   display: flex;
   flex-direction: column;
 }
 
-
 .page-content {
   flex: 1;
-
   padding-top: var(--tm-header-height);
 }
 
@@ -17,49 +14,37 @@
    ============================================ */
 
 .site-header {
-
   position: fixed;
-
   top: 0;
   left: 0;
   right: 0;
-
   z-index: 1000;
 
   height: var(--tm-header-height);
 
-  background:
-    rgba(255, 255, 255, 0.94);
+  background: rgba(255, 255, 255, 0.94);
 
   backdrop-filter: blur(14px);
 
-  border-bottom:
-    1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
 
-
 .header-inner {
-
   height: 100%;
 
   display: flex;
-
   align-items: center;
-
   justify-content: space-between;
 
   gap: 30px;
 }
-
 
 /* ============================================
    BRAND
    ============================================ */
 
 .brand {
-
   display: flex;
-
   align-items: center;
 
   gap: 10px;
@@ -71,53 +56,57 @@
   flex-shrink: 0;
 }
 
-
 .brand-icon {
+  width: 38px !important;
+  height: 38px !important;
 
-  width: 38px;
-  height: 38px;
+  min-width: 38px;
+  min-height: 38px;
+  max-width: 38px;
+  max-height: 38px;
 
-  display: grid;
+  display: block;
 
-  place-items: center;
+  overflow: hidden;
 
   border-radius: 12px;
 
-  background:
-    linear-gradient(
-      135deg,
-      var(--tm-wine),
-      var(--tm-purple)
-    );
+  flex: 0 0 38px;
 
-  color: white;
-
-  font-size: 21px;
-
-  box-shadow:
-    0 5px 14px
-    rgba(114, 47, 75, .22);
+  box-shadow: 0 5px 14px rgba(114, 47, 75, 0.22);
 }
 
+.brand-icon img {
+  display: block;
 
+  width: 38px !important;
+  height: 38px !important;
+
+  min-width: 38px;
+  min-height: 38px;
+  max-width: 38px;
+  max-height: 38px;
+
+  object-fit: cover;
+
+  margin: 0;
+  padding: 0;
+
+  border: 0;
+}
 .brand-name {
-
   font-size: 16px;
-
   font-weight: 700;
 
   white-space: nowrap;
 }
 
-
 /* ============================================
-   NAVIGATION
+   DESKTOP NAVIGATION
    ============================================ */
 
 .desktop-navigation {
-
   display: flex;
-
   align-items: center;
 
   gap: 28px;
@@ -125,36 +114,27 @@
   margin-left: auto;
 }
 
-
 .desktop-navigation a {
-
   position: relative;
 
-  padding:
-    26px 0;
+  padding: 26px 0;
 
   text-decoration: none;
 
   color: var(--tm-gray-600);
 
   font-size: 14px;
-
   font-weight: 500;
 
-  transition:
-    color var(--tm-transition);
+  transition: color var(--tm-transition);
 }
-
 
 .desktop-navigation a:hover,
 .desktop-navigation a.active {
-
   color: var(--tm-wine);
 }
 
-
 .desktop-navigation a.active::after {
-
   content: "";
 
   position: absolute;
@@ -171,84 +151,65 @@
   background: var(--tm-wine);
 }
 
-
 /* ============================================
    HEADER ACTIONS
    ============================================ */
 
 .header-actions {
-
   display: flex;
-
   align-items: center;
 
   gap: 16px;
 }
 
-
 .login-link {
-
   text-decoration: none;
 
   color: var(--tm-gray-700);
 
   font-size: 14px;
-
   font-weight: 600;
 }
 
-
 .header-button {
-
   display: inline-flex;
 
   align-items: center;
-
   justify-content: center;
 
   min-height: 42px;
 
-  padding:
-    0 18px;
+  padding: 0 18px;
 
-  border-radius:
-    10px;
+  border-radius: 10px;
 
-  background:
-    var(--tm-wine);
+  background: var(--tm-wine);
 
   color: white;
 
   text-decoration: none;
 
   font-size: 14px;
-
   font-weight: 600;
 
-  box-shadow:
-    var(--tm-shadow-sm);
+  box-shadow: var(--tm-shadow-sm);
 
   transition:
     transform var(--tm-transition),
     background var(--tm-transition);
 }
 
-
 .header-button:hover {
-
   transform: translateY(-1px);
 
-  background:
-    var(--tm-wine-dark);
+  background: var(--tm-wine-dark);
 }
 
-
 /* ============================================
-   MOBILE
+   MOBILE MENU BUTTON
    ============================================ */
 
 .mobile-menu-button {
-
   display: none;
 
   width: 42px;
@@ -258,54 +219,50 @@
 
   border-radius: 10px;
 
-  background:
-    var(--tm-gray-50);
+  background: var(--tm-gray-50);
 
-  color:
-    var(--tm-gray-800);
+  color: var(--tm-gray-800);
 
   font-size: 22px;
+
+  cursor: pointer;
 }
 
+/* ============================================
+   MOBILE NAVIGATION
+   ============================================ */
+
+.mobile-navigation {
+  display: none;
+}
 
 /* ============================================
    FOOTER
    ============================================ */
 
 .site-footer {
-
   margin-top: auto;
 
-  background:
-    var(--tm-gray-900);
+  background: var(--tm-gray-900);
 
-  color:
-    white;
+  color: white;
 }
 
-
 .footer-grid {
-
   display: grid;
 
-  grid-template-columns:
-    2fr 1fr 1fr 1.4fr;
+  grid-template-columns: 2fr 1fr 1fr 1.4fr;
 
   gap: 50px;
 
-  padding:
-    70px 0;
+  padding: 70px 0;
 }
 
-
 .footer-brand {
-
   max-width: 380px;
 }
 
-
 .footer-logo {
-
   display: flex;
 
   align-items: center;
@@ -317,29 +274,22 @@
   font-size: 18px;
 }
 
-
 .footer-logo .brand-icon {
-
   width: 34px;
   height: 34px;
 
   font-size: 18px;
 }
 
-
 .footer-brand p {
-
   margin: 0;
 
-  color:
-    rgba(255, 255, 255, .65);
+  color: rgba(255, 255, 255, 0.65);
 
   line-height: 1.7;
 }
 
-
 .footer-column {
-
   display: flex;
 
   flex-direction: column;
@@ -349,97 +299,145 @@
   gap: 10px;
 }
 
-
 .footer-column h3 {
-
-  margin:
-    0 0 8px;
+  margin: 0 0 8px;
 
   font-size: 14px;
 
   color: white;
 }
 
-
 .footer-column a {
-
-  color:
-    rgba(255, 255, 255, .62);
+  color: rgba(255, 255, 255, 0.62);
 
   text-decoration: none;
 
   font-size: 14px;
 
-  transition:
-    color var(--tm-transition);
+  transition: color var(--tm-transition);
 }
-
 
 .footer-column a:hover {
-
   color: white;
 }
-
 
 /* ============================================
    FOOTER BOTTOM
    ============================================ */
 
 .footer-bottom {
+  padding: 18px 0;
 
-  padding:
-    18px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 
-  border-top:
-    1px solid rgba(255, 255, 255, .08);
-
-  color:
-    rgba(255, 255, 255, .5);
+  color: rgba(255, 255, 255, 0.5);
 
   font-size: 13px;
 }
-
 
 /* ============================================
    RESPONSIVE
    ============================================ */
 
 @media (max-width: 900px) {
-
   .desktop-navigation,
   .header-actions {
-
     display: none;
   }
 
-
   .mobile-menu-button {
-
     display: grid;
 
     place-items: center;
+
+    cursor: pointer;
   }
 
+  .mobile-navigation {
+    position: fixed;
+
+    top: var(--tm-header-height);
+    left: 0;
+    right: 0;
+
+    z-index: 999;
+
+    display: flex;
+
+    flex-direction: column;
+
+    padding: 14px 20px 20px;
+
+    background: rgba(255, 255, 255, 0.98);
+
+    backdrop-filter: blur(14px);
+
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  }
+
+  .mobile-navigation a {
+    display: flex;
+
+    align-items: center;
+
+    min-height: 48px;
+
+    padding: 0 10px;
+
+    color: var(--tm-gray-700);
+
+    text-decoration: none;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  .mobile-navigation a:hover,
+  .mobile-navigation a.active {
+    color: var(--tm-wine);
+  }
+
+  .mobile-navigation a:last-child {
+    border-bottom: 0;
+  }
+
+  .mobile-navigation .mobile-register-button {
+    justify-content: center;
+
+    margin-top: 12px;
+
+    border-radius: 10px;
+
+    background: var(--tm-wine);
+
+    color: white;
+  }
+
+  .mobile-navigation .mobile-register-button:hover {
+    background: var(--tm-wine-dark);
+
+    color: white;
+  }
 
   .footer-grid {
-
-    grid-template-columns:
-      1fr 1fr;
+    grid-template-columns: 1fr 1fr;
   }
-
 }
 
+/* ============================================
+   SMALL MOBILE
+   ============================================ */
 
 @media (max-width: 600px) {
-
   .footer-grid {
-
     grid-template-columns: 1fr;
 
     gap: 35px;
 
-    padding:
-      50px 0;
+    padding: 50px 0;
   }
-
 }

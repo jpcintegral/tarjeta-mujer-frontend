@@ -1,49 +1,99 @@
 <div class="public-layout">
+  <!-- HEADER -->
   <header class="site-header">
     <div class="tm-container header-inner">
-      <a routerLink="/" class="brand" aria-label="Tarjeta de la Mujer - Inicio">
-        <span class="brand-icon"> ♡ </span>
-
+      <!-- BRAND -->
+      <a
+        routerLink="/"
+        class="brand"
+        aria-label="Tarjeta de la Mujer - Inicio"
+        (click)="closeMobileMenu()"
+      >
+        <span class="brand-icon">
+          <img src="/images/otro-colima.jpg" alt="Tarjeta de la Mujer" />
+        </span>
         <span class="brand-name"> Tarjeta de la Mujer </span>
       </a>
 
+      <!-- DESKTOP NAVIGATION -->
       <nav class="desktop-navigation" aria-label="Navegación principal">
         <a
           routerLink="/"
           routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }"
         >
-          Inicio
+          Beneficios
         </a>
-
-        <a routerLink="/beneficios" routerLinkActive="active"> Beneficios </a>
 
         <a routerLink="/business/register" routerLinkActive="active">
           Registrar comercio
         </a>
       </nav>
 
+      <!-- DESKTOP ACTIONS -->
       <div class="header-actions">
         <a routerLink="/login" class="login-link"> Iniciar sesión </a>
-
-        <a routerLink="/registro" class="header-button"> Crear cuenta </a>
       </div>
 
-      <button type="button" class="mobile-menu-button" aria-label="Abrir menú">
-        ☰
+      <!-- MOBILE MENU BUTTON -->
+      <button
+        type="button"
+        class="mobile-menu-button"
+        [attr.aria-label]="mobileMenuOpen ? 'Cerrar menú' : 'Abrir menú'"
+        [attr.aria-expanded]="mobileMenuOpen"
+        (click)="toggleMobileMenu()"
+      >
+        {{ mobileMenuOpen ? "✕" : "☰" }}
       </button>
     </div>
   </header>
 
+  <!-- MOBILE NAVIGATION -->
+  <nav
+    *ngIf="mobileMenuOpen"
+    class="mobile-navigation"
+    aria-label="Navegación móvil"
+  >
+    <a
+      routerLink="/"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      (click)="closeMobileMenu()"
+    >
+      Beneficios
+    </a>
+
+    <a
+      routerLink="/business/register"
+      routerLinkActive="active"
+      (click)="closeMobileMenu()"
+    >
+      Registrar comercio
+    </a>
+
+    <a
+      routerLink="/login"
+      routerLinkActive="active"
+      (click)="closeMobileMenu()"
+    >
+      Iniciar sesión
+    </a>
+  </nav>
+
+  <!-- CONTENT -->
   <main class="page-content">
     <router-outlet></router-outlet>
   </main>
 
+  <!-- FOOTER -->
   <footer class="site-footer">
     <div class="tm-container footer-grid">
+      <!-- FOOTER BRAND -->
       <div class="footer-brand">
         <div class="footer-logo">
-          <span class="brand-icon"> ♡ </span>
+          <span class="brand-icon">
+            <img src="/images/otro-colima.jpg" alt="Tarjeta de la Mujer" />
+          </span>
 
           <strong> Tarjeta de la Mujer </strong>
         </div>
@@ -54,6 +104,7 @@
         </p>
       </div>
 
+      <!-- PLATFORM -->
       <div class="footer-column">
         <h3>Plataforma</h3>
 
@@ -64,6 +115,7 @@
         <a routerLink="/business/register"> Registrar comercio </a>
       </div>
 
+      <!-- INFORMATION -->
       <div class="footer-column">
         <h3>Información</h3>
 
@@ -72,14 +124,17 @@
         <a href="#"> Términos y condiciones </a>
       </div>
 
+      <!-- CONTACT -->
       <div class="footer-column">
         <h3>Contacto</h3>
+
         <a href="mailto:contacto&#64;tarjetadelamujer.mx">
           contacto&#64;tarjetadelamujer.mx
         </a>
       </div>
     </div>
 
+    <!-- FOOTER BOTTOM -->
     <div class="footer-bottom">
       <div class="tm-container">
         © 2026 Tarjeta de la Mujer. Todos los derechos reservados.

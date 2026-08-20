@@ -88,7 +88,7 @@ export class AuthService {
            * Validamos el rol ANTES de guardar
            * cualquier sesión.
            */
-          console.log('LOGIN RESPONSE:', response);
+
           if (!this.isValidContext(response.user, context)) {
             return throwError(
               () => new Error(this.getInvalidContextMessage(context)),

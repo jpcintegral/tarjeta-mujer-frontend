@@ -38,6 +38,7 @@ export class HomeComponent implements OnInit {
   total = 0;
 
   pageCount = 0;
+  sort = 'createdAt';
 
   readonly mapPin = MapPin;
 
@@ -118,5 +119,25 @@ export class HomeComponent implements OnInit {
       this.publicServiceService.getImageUrl(service.business.banner, 'small') ??
       this.publicServiceService.getImageUrl(service.business.logo, 'medium')
     );
+  }
+
+  onSortChange(sort: string): void {
+    if (this.sort === sort) {
+      return;
+    }
+
+    this.sort = sort;
+
+    if (sort === 'discountValue') {
+      this.services.sort((a, b) => {
+        return Number(b.discountValue ?? 0) - Number(a.discountValue ?? 0);
+      });
+
+      return;
+    }
+
+    // Fecha -> backend
+    this.page = 1;
+    this.loadServices();
   }
 }

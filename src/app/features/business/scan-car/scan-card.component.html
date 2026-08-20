@@ -1,0 +1,36 @@
+<div class="scan-card-page">
+  <article class="scan-card">
+    <header class="scan-header">
+      <span class="section-kicker"> TARJETA MUJER </span>
+
+      <h1>Escanear tarjeta</h1>
+
+      <p>Apunta la cámara al código QR de la tarjeta de la mujer.</p>
+    </header>
+
+    <div class="scanner-container">
+      <ngx-scanner-qrcode
+        #scanner="scanner"
+        [config]="config"
+        (event)="onScan($event)"
+      ></ngx-scanner-qrcode>
+    </div>
+
+    <div *ngIf="loading" class="scan-message">Validando tarjeta...</div>
+
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+
+    <div class="scan-actions">
+      <button
+        type="button"
+        class="secondary-button"
+        (click)="cancel()"
+        [disabled]="loading"
+      >
+        CANCELAR
+      </button>
+    </div>
+  </article>
+</div>

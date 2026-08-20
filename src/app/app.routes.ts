@@ -20,9 +20,13 @@ import { BusinessAccountComponent } from './features/business/account/business-a
 import { BusinessLoginComponent } from './features/business/auth/login/business-login.component';
 import { BusinessRegisterComponent } from './features/business/auth/register/business-register.component';
 import { RegisterBusinessComponent } from './features/business/account/register-business/register-business.component';
+import { SelectServiceComponent } from './features/business/select-service/select-service.component';
 
 import { authGuard } from './core/guards/auth.guard';
 import { roleGuard } from './core/guards/role.guard';
+import { ScanCardComponent } from './features/business/scan-car/scan-card.component';
+import { CardValidationComponent } from './features/business/card-validation/card-validation.component';
+import { ConfirmDiscountComponent } from './features/business/confirm-discount/confirm-discount.component';
 
 export const routes: Routes = [
   {
@@ -59,6 +63,7 @@ export const routes: Routes = [
 
         component: RegisterComponent,
       },
+
       {
         path: 'business/account',
         component: BusinessAccountComponent,
@@ -79,7 +84,22 @@ export const routes: Routes = [
         path: 'business/register-business',
         component: RegisterBusinessComponent,
       },
-
+      {
+        path: 'business/scan-card',
+        component: ScanCardComponent,
+      },
+      {
+        path: 'business/card-validation',
+        component: CardValidationComponent,
+      },
+      {
+        path: 'business/select-service',
+        component: SelectServiceComponent,
+      },
+      {
+        path: 'business/confirm-discount',
+        component: ConfirmDiscountComponent,
+      },
       {
         path: 'mujer',
         component: WomanLayoutComponent,

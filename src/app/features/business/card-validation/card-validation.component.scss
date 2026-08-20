@@ -1,0 +1,186 @@
+.card-validation-page {
+  min-height: 100%;
+  padding: 2rem 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.card-validation-card {
+  width: 100%;
+  max-width: 720px;
+  background: #ffffff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+
+.validation-header {
+  padding: 2.5rem 2rem;
+  text-align: center;
+  background: #f8f5f7;
+
+  .section-kicker {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: #8b6478;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2f2630;
+  }
+
+  p {
+    margin: 0.75rem 0 0;
+    color: #6f646c;
+    font-size: 0.95rem;
+  }
+}
+
+/* ============================================================
+   CONTENT
+   ============================================================ */
+
+.validation-content {
+  padding: 2rem;
+}
+
+.validation-success {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  background: #e9f7ef;
+
+  color: #2f8f5b;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.validation-data {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.data-item {
+  padding: 1rem 1.1rem;
+  border: 1px solid #ece7ea;
+  border-radius: 12px;
+  background: #faf9fa;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.data-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #8b6478;
+}
+
+.data-item strong {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #332c32;
+  word-break: break-word;
+}
+
+/* ============================================================
+   ACTIONS
+   ============================================================ */
+
+.form-actions {
+  padding: 1.5rem 2rem 2rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.primary-button,
+.secondary-button {
+  min-height: 44px;
+  padding: 0 1.4rem;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.primary-button {
+  border: none;
+  background: #8b6478;
+  color: #ffffff;
+}
+
+.primary-button:hover {
+  background: #765368;
+}
+
+.secondary-button {
+  border: 1px solid #d8cfd5;
+  background: #ffffff;
+  color: #5d5159;
+}
+
+.secondary-button:hover {
+  background: #f8f5f7;
+}
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 600px) {
+  .card-validation-page {
+    padding: 1rem;
+  }
+
+  .card-validation-card {
+    border-radius: 16px;
+  }
+
+  .validation-header {
+    padding: 2rem 1.25rem;
+
+    h1 {
+      font-size: 1.6rem;
+    }
+  }
+
+  .validation-content {
+    padding: 1.25rem;
+  }
+
+  .form-actions {
+    padding: 1rem 1.25rem 1.5rem;
+    flex-direction: column-reverse;
+  }
+
+  .primary-button,
+  .secondary-button {
+    width: 100%;
+  }
+}

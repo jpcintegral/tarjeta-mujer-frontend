@@ -8,7 +8,7 @@ import {
 import { BusinessService } from '../../../../core/services/business.service';
 import { BusinessServicesComponent } from '../services/business-services.component';
 import { Router, RouterLink } from '@angular/router';
-
+import { AuthService } from '../../../../core/services/auth.service';
 @Component({
   selector: 'app-business-account',
   standalone: true,
@@ -22,7 +22,10 @@ export class BusinessAccountComponent implements OnInit {
   loading = true;
   errorMessage = '';
   private readonly router = inject(Router);
-  constructor(private readonly businessService: BusinessService) {}
+  constructor(
+    private readonly businessService: BusinessService,
+    private readonly authService: AuthService,
+  ) {}
 
   ngOnInit(): void {
     this.loadBusiness();
@@ -60,13 +63,7 @@ export class BusinessAccountComponent implements OnInit {
       return null;
     }
 
-    return (
-      banner.formats?.large?.url ??
-      banner.formats?.medium?.url ??
-      banner.formats?.small?.url ??
-      banner.url ??
-      null
-    );
+    return this.businessService.getImageUrl(banner, 'large');
   }
 
   getLogoUrl(): string | null {
@@ -76,12 +73,7 @@ export class BusinessAccountComponent implements OnInit {
       return null;
     }
 
-    return (
-      logo.formats?.small?.url ??
-      logo.formats?.thumbnail?.url ??
-      logo.url ??
-      null
-    );
+    return this.businessService.getImageUrl(logo, 'small');
   }
 
   getStatusLabel(status?: Business['statusBusiness']): string {
@@ -149,5 +141,14 @@ export class BusinessAccountComponent implements OnInit {
     this.router.navigate(['/business/register-business'], {
       queryParams: { edit: 'true' },
     });
+  }
+
+  logout(): void {
+    this.authService.logout('BUSINESS');
+
+    this.router.navigate(['/auth/login']);
+  }
+  scanCard(): void {
+    this.router.navigate(['/business/scan-card']);
   }
 }

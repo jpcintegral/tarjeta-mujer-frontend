@@ -21,6 +21,23 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   }
 
   // ============================================================
+  // RESPETAR AUTHORIZATION EXPLÍCITO
+  //
+  // IMPORTANTE:
+  //
+  // El login obtiene un JWT NUEVO desde /auth/local
+  // y posteriormente /users/me utiliza ese JWT
+  // antes de guardarlo en localStorage.
+  //
+  // Si aquí obtenemos el token del localStorage,
+  // podríamos reemplazar el JWT nuevo por uno vencido.
+  // ============================================================
+
+  if (req.headers.has('Authorization')) {
+    return next(req);
+  }
+
+  // ============================================================
   // DETERMINAR CONTEXTO POR RUTA
   // ============================================================
 

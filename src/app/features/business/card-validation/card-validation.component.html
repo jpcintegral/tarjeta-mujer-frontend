@@ -1,0 +1,63 @@
+<div class="card-validation-page">
+  <article class="card-validation-card">
+    <header class="validation-header">
+      <span class="section-kicker"> TARJETA MUJER </span>
+
+      <h1>Tarjeta válida</h1>
+
+      <p>La tarjeta fue validada correctamente.</p>
+    </header>
+
+    <section class="validation-content">
+      <div class="validation-success">✓</div>
+
+      <div class="validation-data">
+        <div class="data-item">
+          <span class="data-label">Mujer</span>
+
+          <strong>
+            {{
+              validation?.data?.woman?.firstName ??
+                validation?.woman?.firstName ??
+                "Información no disponible"
+            }}
+          </strong>
+        </div>
+
+        <div class="data-item">
+          <span class="data-label">Folio</span>
+
+          <strong>
+            {{
+              validation?.data?.card?.folio ??
+                validation?.card?.folio ??
+                "Información no disponible"
+            }}
+          </strong>
+        </div>
+
+        <div class="data-item">
+          <span class="data-label">Vigencia</span>
+
+          <strong>
+            {{
+              validation?.data?.card?.expiresAt ??
+                validation?.card?.expiresAt ??
+                "Información no disponible"
+            }}
+          </strong>
+        </div>
+      </div>
+    </section>
+
+    <div class="form-actions">
+      <button type="button" class="secondary-button" (click)="cancel()">
+        CANCELAR
+      </button>
+
+      <button type="button" class="primary-button" (click)="continue()">
+        CONTINUAR
+      </button>
+    </div>
+  </article>
+</div>

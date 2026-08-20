@@ -1,0 +1,280 @@
+<div class="select-service-page">
+  <article class="select-service-card">
+    <!-- HEADER -->
+    <header class="page-header">
+      <span class="section-kicker">TARJETA MUJER</span>
+
+      <h1>Aplicar beneficio</h1>
+
+      <p>Selecciona el beneficio que deseas aplicar a la tarjeta validada.</p>
+    </header>
+
+    <!-- TARJETA VALIDADA -->
+    <section class="validated-card">
+      <div class="validated-icon" aria-hidden="true">✓</div>
+
+      <div class="validated-info">
+        <span class="validated-label"> TARJETA VALIDADA </span>
+
+        <strong class="woman-name">
+          {{
+            validation?.data?.woman?.firstName ??
+              validation?.woman?.firstName ??
+              "Información no disponible"
+          }}
+        </strong>
+
+        <div class="validated-meta">
+          <span>
+            Folio:
+            <strong>
+              {{
+                validation?.data?.card?.folio ??
+                  validation?.card?.folio ??
+                  "N/D"
+              }}
+            </strong>
+          </span>
+
+          <span>
+            Vigencia:
+            <strong>
+              {{
+                validation?.data?.card?.expiresAt ?? validation?.card?.expiresAt
+                  | date: "dd/MM/yyyy"
+              }}
+            </strong>
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICIOS -->
+    <section class="services-section">
+      <!-- HEADER SERVICIOS -->
+      <div class="services-header">
+        <div class="services-heading">
+          <span class="section-kicker"> BENEFICIOS </span>
+
+          <h2>Selecciona un beneficio</h2>
+
+          <p>Elige uno de los beneficios disponibles para esta tarjeta.</p>
+        </div>
+
+        <span *ngIf="!loading && !error" class="services-count">
+          {{ filteredServices.length }}
+          {{ filteredServices.length === 1 ? "beneficio" : "beneficios" }}
+        </span>
+      </div>
+
+      <!-- BUSCADOR -->
+      <div
+        *ngIf="!loading && !error && services.length > 0"
+        class="services-search"
+      >
+        <div class="search-input-wrapper">
+          <span class="search-icon" aria-hidden="true">
+            <lucide-icon [img]="Search"></lucide-icon>
+          </span>
+
+          <input
+            type="text"
+            [(ngModel)]="searchTerm"
+            (input)="filterServices()"
+            placeholder="Buscar beneficio por nombre..."
+            aria-label="Buscar beneficio por nombre"
+          />
+
+          <button
+            *ngIf="searchTerm"
+            type="button"
+            class="clear-search"
+            (click)="clearSearch()"
+            aria-label="Limpiar búsqueda"
+          >
+            ×
+          </button>
+        </div>
+      </div>
+
+      <!-- LOADING -->
+      <div *ngIf="loading" class="loading-state">
+        <span class="loading-spinner" aria-hidden="true"></span>
+
+        <span> Cargando beneficios... </span>
+      </div>
+
+      <!-- ERROR -->
+      <div *ngIf="!loading && error" class="error-state" role="alert">
+        <div class="error-icon" aria-hidden="true">!</div>
+
+        <div>
+          <strong> No fue posible cargar los beneficios </strong>
+
+          <p>
+            {{ error }}
+          </p>
+        </div>
+      </div>
+
+      <!-- LISTA DE SERVICIOS -->
+      <div
+        *ngIf="!loading && !error && filteredServices.length > 0"
+        class="services-list"
+      >
+        <button
+          *ngFor="let service of filteredServices"
+          type="button"
+          class="service-item"
+          [class.selected]="selectedService === service"
+          [attr.aria-pressed]="selectedService === service"
+          (click)="selectService(service)"
+        >
+          <div class="service-content">
+            <!-- NOMBRE + DESCUENTO -->
+            <div class="service-top">
+              <div class="service-title">
+                <h3>
+                  {{ service.name }}
+                </h3>
+
+                <span
+                  *ngIf="service.discountType === 'PERCENTAGE'"
+                  class="discount-badge"
+                >
+                  {{ service.discountValue }}% DESCUENTO
+                </span>
+              </div>
+            </div>
+
+            <!-- DESCRIPCIÓN -->
+            <p
+              *ngIf="service.description"
+              class="service-description"
+              [title]="service.description"
+            >
+              {{ service.description }}
+            </p>
+
+            <!-- PRECIOS -->
+            <div class="service-bottom">
+              <div class="price-block">
+                <span> Precio </span>
+
+                <strong>
+                  {{ service.price | currency: "MXN" : "$" : "1.2-2" }}
+                </strong>
+              </div>
+
+              <span class="price-arrow" aria-hidden="true"> → </span>
+
+              <div class="price-block final">
+                <span> Con beneficio </span>
+
+                <strong>
+                  <ng-container *ngIf="service.discountType === 'PERCENTAGE'">
+                    {{
+                      service.price -
+                        (service.price * service.discountValue) / 100
+                        | currency: "MXN" : "$" : "1.2-2"
+                    }}
+                  </ng-container>
+                </strong>
+              </div>
+
+              <!-- SELECCIÓN -->
+              <span
+                class="selection-indicator"
+                [class.checked]="selectedService === service"
+                aria-hidden="true"
+              >
+                <span *ngIf="selectedService === service"> ✓ </span>
+              </span>
+            </div>
+
+            <!-- VIGENCIA -->
+            <div
+              *ngIf="service.validFrom || service.validUntil"
+              class="service-validity"
+            >
+              <span class="validity-label"> Vigencia: </span>
+
+              <span *ngIf="service.validFrom">
+                {{ service.validFrom | date: "dd/MM/yyyy" }}
+              </span>
+
+              <span
+                *ngIf="service.validFrom && service.validUntil"
+                aria-hidden="true"
+              >
+                —
+              </span>
+
+              <span *ngIf="service.validUntil">
+                {{ service.validUntil | date: "dd/MM/yyyy" }}
+              </span>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <!-- SIN RESULTADOS DE BÚSQUEDA -->
+      <div
+        *ngIf="
+          !loading &&
+          !error &&
+          services.length > 0 &&
+          filteredServices.length === 0
+        "
+        class="empty-search"
+      >
+        <div class="empty-search-icon" aria-hidden="true">
+          <lucide-icon [img]="Search"></lucide-icon>
+        </div>
+
+        <h3>No se encontraron beneficios</h3>
+
+        <p>
+          No hay beneficios que coincidan con
+          <strong>"{{ searchTerm }}"</strong>.
+        </p>
+
+        <button
+          type="button"
+          class="clear-search-button"
+          (click)="clearSearch()"
+        >
+          LIMPIAR BÚSQUEDA
+        </button>
+      </div>
+
+      <!-- SIN SERVICIOS -->
+      <div
+        *ngIf="!loading && !error && services.length === 0"
+        class="empty-state"
+      >
+        <div class="empty-icon" aria-hidden="true">—</div>
+
+        <h3>No hay beneficios disponibles</h3>
+
+        <p>Este negocio no tiene beneficios activos disponibles actualmente.</p>
+      </div>
+    </section>
+
+    <!-- ACCIONES -->
+    <div class="form-actions">
+      <button type="button" class="secondary-button" (click)="cancel()">
+        CANCELAR
+      </button>
+
+      <button
+        type="button"
+        class="primary-button"
+        [disabled]="!selectedService"
+        (click)="continue()"
+      >
+        CONTINUAR
+      </button>
+    </div>
+  </article>
+</div>

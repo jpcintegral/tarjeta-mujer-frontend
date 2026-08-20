@@ -1,0 +1,215 @@
+<div *ngIf="!showSuccessModal" class="confirm-discount-page">
+  <article class="confirm-discount-card">
+    <header class="page-header">
+      <span class="section-kicker">TARJETA MUJER</span>
+
+      <h1>Confirmar beneficio</h1>
+
+      <p>Revisa la información antes de aplicar el beneficio.</p>
+    </header>
+
+    <!-- TARJETA -->
+    <section class="validated-card">
+      <div class="validated-icon">✓</div>
+
+      <div class="validated-info">
+        <span class="validated-label"> TARJETA VALIDADA </span>
+
+        <strong>
+          {{
+            validation?.data?.woman?.firstName ??
+              validation?.woman?.firstName ??
+              "Información no disponible"
+          }}
+          {{
+            validation?.data?.woman?.lastName ??
+              validation?.woman?.lastName ??
+              ""
+          }}
+          {{
+            validation?.data?.woman?.secondLastName ??
+              validation?.woman?.secondLastName ??
+              ""
+          }}
+        </strong>
+
+        <div class="validated-meta">
+          <span>
+            Folio:
+            <strong>
+              {{
+                validation?.data?.card?.folio ??
+                  validation?.card?.folio ??
+                  "N/D"
+              }}
+            </strong>
+          </span>
+
+          <span>
+            Vigencia:
+            <strong>
+              {{
+                validation?.data?.card?.expiresAt ?? validation?.card?.expiresAt
+                  | date: "dd/MM/yyyy"
+              }}
+            </strong>
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- BENEFICIO -->
+    <section class="discount-summary">
+      <span class="section-kicker"> BENEFICIO SELECCIONADO </span>
+
+      <h2>
+        {{ service?.name }}
+      </h2>
+
+      <p *ngIf="service?.description">
+        {{ service?.description }}
+      </p>
+
+      <div class="amount-row">
+        <span>Precio</span>
+
+        <strong>
+          {{ originalAmount | currency: "MXN" : "$" : "1.2-2" }}
+        </strong>
+      </div>
+
+      <div class="amount-row">
+        <span> Descuento ({{ discountLabel }}) </span>
+
+        <strong class="discount">
+          -{{ discountAmount | currency: "MXN" : "$" : "1.2-2" }}
+        </strong>
+      </div>
+
+      <div class="total-row">
+        <span>Total a pagar</span>
+
+        <strong>
+          {{ finalAmount | currency: "MXN" : "$" : "1.2-2" }}
+        </strong>
+      </div>
+    </section>
+
+    <!-- ERROR -->
+    <div *ngIf="error" class="error-state" role="alert">
+      <strong> No fue posible aplicar el beneficio </strong>
+
+      <p>
+        {{ error }}
+      </p>
+    </div>
+
+    <!-- ACCIONES -->
+    <div class="form-actions">
+      <button
+        type="button"
+        class="secondary-button"
+        [disabled]="loading"
+        (click)="cancel()"
+      >
+        CANCELAR
+      </button>
+
+      <button
+        type="button"
+        class="primary-button"
+        [disabled]="loading"
+        (click)="applyDiscount()"
+      >
+        <span *ngIf="!loading"> APLICAR DESCUENTO </span>
+
+        <span *ngIf="loading"> APLICANDO... </span>
+      </button>
+    </div>
+  </article>
+</div>
+
+<!-- ============================================================
+     MODAL DESCUENTO APLICADO
+     ============================================================ -->
+
+<div *ngIf="showSuccessModal" class="modal-backdrop success-modal-backdrop">
+  <div
+    class="success-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="discount-success-title"
+  >
+    <!-- HEADER -->
+    <div class="success-modal-header">
+      <div class="success-icon">✓</div>
+
+      <div>
+        <span class="section-label"> OPERACIÓN COMPLETADA </span>
+
+        <h2 id="discount-success-title">Descuento aplicado</h2>
+      </div>
+    </div>
+
+    <!-- MENSAJE -->
+    <div class="success-message-content">
+      <p>
+        El beneficio se aplicó correctamente a la tarjeta de la beneficiaria.
+      </p>
+    </div>
+
+    <!-- INFORMACIÓN -->
+    <div class="discount-summary">
+      <div class="summary-row">
+        <span>Beneficio</span>
+
+        <strong>
+          {{ discountResult?.data?.service?.name }}
+        </strong>
+      </div>
+
+      <div class="summary-row">
+        <span>Precio original</span>
+
+        <strong>
+          {{
+            discountResult?.data?.service?.originalPrice
+              | currency: "MXN" : "$" : "1.2-2"
+          }}
+        </strong>
+      </div>
+
+      <div class="summary-row discount-row">
+        <span>Descuento</span>
+
+        <strong>
+          -
+          {{
+            discountResult?.data?.service?.discountAmount
+              | currency: "MXN" : "$" : "1.2-2"
+          }}
+        </strong>
+      </div>
+
+      <div class="summary-divider"></div>
+
+      <div class="summary-row final-row">
+        <span>Total con beneficio</span>
+
+        <strong>
+          {{
+            discountResult?.data?.service?.finalAmount
+              | currency: "MXN" : "$" : "1.2-2"
+          }}
+        </strong>
+      </div>
+    </div>
+
+    <!-- ACCIÓN -->
+    <div class="success-modal-actions">
+      <button type="button" class="primary-button" (click)="acceptDiscount()">
+        ACEPTAR
+      </button>
+    </div>
+  </div>
+</div>

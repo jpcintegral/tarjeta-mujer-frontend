@@ -35,7 +35,11 @@
     <!-- ======================================= -->
 
     <article class="profile-card empty-profile" *ngIf="!profileRegistered">
-      <div class="empty-icon">♡</div>
+      <div class="empty-icon">
+        <span class="brand-icon">
+          <img src="/images/otro-colima.jpg" alt="Tarjeta de la Mujer" />
+        </span>
+      </div>
 
       <h2>Completa tu perfil</h2>
 
@@ -285,8 +289,6 @@
 
     <article class="profile-card" *ngIf="profileRegistered && !hasCard">
       <div class="card-title">
-        <div class="title-icon">♡</div>
-
         <div>
           <h2>Tarjeta de la Mujer</h2>
 
@@ -319,8 +321,6 @@
 
     <article class="profile-card" *ngIf="!profileRegistered">
       <div class="card-title">
-        <div class="title-icon">♡</div>
-
         <div>
           <h2>Datos personales</h2>
 

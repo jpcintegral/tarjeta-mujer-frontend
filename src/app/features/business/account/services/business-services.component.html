@@ -44,132 +44,168 @@
     </button>
   </div>
 
-  <!-- SERVICE CARDS -->
-  <div *ngIf="!loading && services.length > 0" class="services-grid">
-    <article *ngFor="let service of services" class="service-card">
-      <!-- IMAGE -->
-      <div class="service-image">
-        <div class="service-image-placeholder">
-          <span>✨</span>
-        </div>
+  <!-- SERVICES -->
+  <ng-container *ngIf="!loading && services.length > 0">
+    <!-- SEARCH -->
+    <div class="services-search">
+      <div class="search-box">
+        <span class="search-icon" aria-hidden="true">
+          <lucide-icon [img]="Search"></lucide-icon>
+        </span>
+
+        <input
+          type="text"
+          [(ngModel)]="searchTerm"
+          (ngModelChange)="filterServices()"
+          placeholder="Buscar servicio por nombre..."
+          aria-label="Buscar servicio por nombre"
+        />
       </div>
+    </div>
 
-      <!-- CONTENT -->
-      <div class="service-content">
-        <h3>
-          {{ service.name }}
-        </h3>
+    <!-- NO SEARCH RESULTS -->
+    <div *ngIf="filteredServices.length === 0" class="empty-search">
+      <h3>No se encontraron servicios</h3>
 
-        <p *ngIf="service.description" class="service-description">
-          {{ service.description }}
-        </p>
+      <p>
+        No hay servicios que coincidan con
+        <strong>"{{ searchTerm }}"</strong>.
+      </p>
+      <button type="button" class="clear-search-button" (click)="clearSearch()">
+        LIMPIAR BÚSQUEDA
+      </button>
+    </div>
 
-        <!-- PRICE -->
-        <div *ngIf="service.price != null" class="service-prices">
-          <span class="original-price">
-            ${{ service.price | number: "1.2-2" }}
-          </span>
-
-          <!-- PERCENTAGE DISCOUNT -->
-          <ng-container
-            *ngIf="
-              service.discountType === 'PERCENTAGE' &&
-              service.discountValue != null
-            "
-          >
-            <strong class="final-price">
-              $
-              {{
-                service.price - (service.price * service.discountValue) / 100
-                  | number: "1.2-2"
-              }}
-            </strong>
-
-            <span class="discount-badge">
-              {{ service.discountValue }}% OFF
-            </span>
-
-            <div class="saving">
-              Ahorras $
-              {{
-                (service.price * service.discountValue) / 100 | number: "1.2-2"
-              }}
-            </div>
-          </ng-container>
-
-          <!-- FIXED AMOUNT DISCOUNT -->
-          <ng-container
-            *ngIf="
-              service.discountType === 'FIXED_AMOUNT' &&
-              service.discountValue != null
-            "
-          >
-            <strong class="final-price">
-              $
-              {{ service.price - service.discountValue | number: "1.2-2" }}
-            </strong>
-
-            <span class="discount-badge">
-              ${{ service.discountValue | number: "1.2-2" }} OFF
-            </span>
-
-            <div class="saving">
-              Ahorras $
-              {{ service.discountValue | number: "1.2-2" }}
-            </div>
-          </ng-container>
-        </div>
-        <!-- VALIDITY -->
-
-        <div
-          *ngIf="service.validFrom || service.validUntil"
-          class="service-validity"
-        >
-          <span class="validity-icon"></span>
-
-          <div>
-            <small>Vigencia</small>
-
-            <strong>
-              <ng-container *ngIf="service.validFrom">
-                {{ service.validFrom | date: "dd/MM/yyyy" }}
-              </ng-container>
-
-              <span *ngIf="service.validFrom && service.validUntil"> — </span>
-
-              <ng-container *ngIf="service.validUntil">
-                {{ service.validUntil | date: "dd/MM/yyyy" }}
-              </ng-container>
-            </strong>
+    <!-- SERVICE CARDS -->
+    <div *ngIf="filteredServices.length > 0" class="services-grid">
+      <article *ngFor="let service of filteredServices" class="service-card">
+        <!-- IMAGE -->
+        <div class="service-image">
+          <div class="service-image-placeholder">
+            <span>✨</span>
           </div>
         </div>
-        <!-- STATUS -->
-        <div class="service-status">
-          <span class="status-dot" [class.active]="service.active"></span>
 
-          {{ service.active ? "ACTIVO" : "INACTIVO" }}
-        </div>
+        <!-- CONTENT -->
+        <div class="service-content">
+          <h3>
+            {{ service.name }}
+          </h3>
 
-        <!-- ACTIONS -->
-        <div class="service-actions">
-          <button
-            type="button"
-            class="secondary-button"
-            (click)="openEditForm(service)"
+          <p *ngIf="service.description" class="service-description">
+            {{ service.description }}
+          </p>
+
+          <!-- PRICE -->
+          <div *ngIf="service.price != null" class="service-prices">
+            <span class="original-price">
+              ${{ service.price | number: "1.2-2" }}
+            </span>
+
+            <!-- PERCENTAGE DISCOUNT -->
+            <ng-container
+              *ngIf="
+                service.discountType === 'PERCENTAGE' &&
+                service.discountValue != null
+              "
+            >
+              <strong class="final-price">
+                $
+                {{
+                  service.price - (service.price * service.discountValue) / 100
+                    | number: "1.2-2"
+                }}
+              </strong>
+
+              <span class="discount-badge">
+                {{ service.discountValue }}% OFF
+              </span>
+
+              <div class="saving">
+                Ahorras $
+                {{
+                  (service.price * service.discountValue) / 100
+                    | number: "1.2-2"
+                }}
+              </div>
+            </ng-container>
+
+            <!-- FIXED AMOUNT DISCOUNT -->
+            <ng-container
+              *ngIf="
+                service.discountType === 'FIXED_AMOUNT' &&
+                service.discountValue != null
+              "
+            >
+              <strong class="final-price">
+                $
+                {{ service.price - service.discountValue | number: "1.2-2" }}
+              </strong>
+
+              <span class="discount-badge">
+                ${{ service.discountValue | number: "1.2-2" }} OFF
+              </span>
+
+              <div class="saving">
+                Ahorras $
+                {{ service.discountValue | number: "1.2-2" }}
+              </div>
+            </ng-container>
+          </div>
+
+          <!-- VALIDITY -->
+          <div
+            *ngIf="service.validFrom || service.validUntil"
+            class="service-validity"
           >
-            EDITAR
-          </button>
-          <button
-            type="button"
-            class="danger-button"
-            (click)="toggleServiceStatus(service)"
-          >
-            {{ service.active ? "DESACTIVAR" : "ACTIVAR" }}
-          </button>
+            <span class="validity-icon"></span>
+
+            <div>
+              <small>Vigencia</small>
+
+              <strong>
+                <ng-container *ngIf="service.validFrom">
+                  {{ service.validFrom | date: "dd/MM/yyyy" }}
+                </ng-container>
+
+                <span *ngIf="service.validFrom && service.validUntil"> — </span>
+
+                <ng-container *ngIf="service.validUntil">
+                  {{ service.validUntil | date: "dd/MM/yyyy" }}
+                </ng-container>
+              </strong>
+            </div>
+          </div>
+
+          <!-- STATUS -->
+          <div class="service-status">
+            <span class="status-dot" [class.active]="service.active"></span>
+
+            {{ service.active ? "ACTIVO" : "INACTIVO" }}
+          </div>
+
+          <!-- ACTIONS -->
+          <div class="service-actions">
+            <button
+              type="button"
+              class="secondary-button"
+              (click)="openEditForm(service)"
+            >
+              EDITAR
+            </button>
+
+            <button
+              type="button"
+              class="danger-button"
+              (click)="toggleServiceStatus(service)"
+            >
+              {{ service.active ? "DESACTIVAR" : "ACTIVAR" }}
+            </button>
+          </div>
         </div>
-      </div>
-    </article>
-  </div>
+      </article>
+    </div>
+  </ng-container>
 
   <!-- CREATE MODAL -->
   <div *ngIf="showCreateForm" class="modal-backdrop">
@@ -239,8 +275,8 @@
             [disabled]="saving"
           />
         </div>
-        <!-- VALIDITY -->
 
+        <!-- VALIDITY -->
         <div class="form-row">
           <div class="form-group">
             <label for="valid-from"> Válido desde </label>
@@ -266,6 +302,7 @@
             />
           </div>
         </div>
+
         <!-- DISCOUNT TYPE -->
         <div class="form-group">
           <label for="discount-type"> Tipo de descuento </label>
@@ -277,7 +314,6 @@
             [disabled]="true"
           >
             <option value="PERCENTAGE">Porcentaje</option>
-            >
           </select>
         </div>
 

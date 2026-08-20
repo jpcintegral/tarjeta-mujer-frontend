@@ -188,22 +188,19 @@ export class RegisterBusinessComponent implements OnInit {
         // IMAGEN ACTUAL DEL LOGO
         // ------------------------------------------------------
 
-        this.logoPreview =
-          business.logo?.formats?.small?.url ??
-          business.logo?.formats?.thumbnail?.url ??
-          business.logo?.url ??
-          null;
+        this.logoPreview = this.businessService.getImageUrl(
+          business.logo,
+          'small',
+        );
 
         // ------------------------------------------------------
         // IMAGEN ACTUAL DEL BANNER
         // ------------------------------------------------------
 
-        this.bannerPreview =
-          business.banner?.formats?.large?.url ??
-          business.banner?.formats?.medium?.url ??
-          business.banner?.formats?.small?.url ??
-          business.banner?.url ??
-          null;
+        this.bannerPreview = this.businessService.getImageUrl(
+          business.banner,
+          'large',
+        );
 
         this.loading = false;
       },
@@ -327,7 +324,12 @@ export class RegisterBusinessComponent implements OnInit {
 
     if (this.editing && this.business?.documentId) {
       this.businessService
-        .update(this.business.documentId, businessData)
+        .update(
+          this.business.documentId,
+          businessData,
+          this.logoFile,
+          this.bannerFile,
+        )
         .subscribe({
           next: (response) => {
             console.log('Negocio actualizado:', response);
@@ -361,31 +363,33 @@ export class RegisterBusinessComponent implements OnInit {
     // REGISTRAR
     // ========================================================
 
-    this.businessService.register(businessData).subscribe({
-      next: (response) => {
-        console.log('Negocio registrado:', response);
+    this.businessService
+      .register(businessData, this.logoFile, this.bannerFile)
+      .subscribe({
+        next: (response) => {
+          console.log('Negocio registrado:', response);
 
-        this.loading = false;
+          this.loading = false;
 
-        this.successMessage =
-          'Tu negocio fue registrado correctamente y está pendiente de aprobación.';
+          this.successMessage =
+            'Tu negocio fue registrado correctamente y está pendiente de aprobación.';
 
-        setTimeout(() => {
-          this.router.navigate(['/business/account']);
-        }, 1000);
-      },
+          setTimeout(() => {
+            this.router.navigate(['/business/account']);
+          }, 1000);
+        },
 
-      error: (error) => {
-        console.error('Error registrando negocio:', error);
+        error: (error) => {
+          console.error('Error registrando negocio:', error);
 
-        this.loading = false;
+          this.loading = false;
 
-        this.errorMessage =
-          error?.error?.error?.message ??
-          error?.error?.message ??
-          'No fue posible registrar el negocio.';
-      },
-    });
+          this.errorMessage =
+            error?.error?.error?.message ??
+            error?.error?.message ??
+            'No fue posible registrar el negocio.';
+        },
+      });
   }
 
   // ============================================================

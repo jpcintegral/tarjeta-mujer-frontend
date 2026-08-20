@@ -94,7 +94,7 @@
       <!-- HEADING -->
 
       <div class="business-heading">
-        <div>
+        <div class="business-title">
           <h1>
             {{ business.name }}
           </h1>
@@ -104,7 +104,7 @@
           </p>
         </div>
 
-        <div class="business-status-container">
+        <div class="business-actions">
           <span
             class="business-status"
             [ngClass]="getStatusClass(business.statusBusiness)"
@@ -114,13 +114,24 @@
             {{ getStatusLabel(business.statusBusiness) }}
           </span>
 
-          <button
-            type="button"
-            class="business-edit-button"
-            (click)="goToBusinessEdit()"
-          >
-            EDITAR INFORMACIÓN
-          </button>
+          <div class="business-action-buttons">
+            <button type="button" class="scan-card-button" (click)="scanCard()">
+              ESCANEAR TARJETA
+            </button>
+
+            <button
+              *ngIf="business.statusBusiness !== 'APPROVED'"
+              type="button"
+              class="business-edit-button"
+              (click)="goToBusinessEdit()"
+            >
+              EDITAR INFORMACIÓN
+            </button>
+
+            <button type="button" class="logout-button" (click)="logout()">
+              CERRAR SESIÓN
+            </button>
+          </div>
         </div>
       </div>
 
