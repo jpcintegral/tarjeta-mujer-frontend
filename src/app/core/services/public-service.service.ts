@@ -58,9 +58,8 @@ export class PublicServiceService {
       params = params.set('sort', sort.trim());
     }
 
-    return this.http.get<PublicServicesResponse>(this.apiUrl, { params });
+    return this.http.get<PublicServicesResponse>(`${this.apiUrl}`, { params });
   }
-
   /**
    * ============================================================
    * OBTENER UN SERVICIO
@@ -82,7 +81,9 @@ export class PublicServiceService {
         data: PublicService;
       }>(`${this.apiUrl}/${documentId}`)
       .pipe(map((response) => response.data));
-  } /**
+  }
+
+  /**
    * ============================================================
    * URL DE IMAGEN
    * ============================================================

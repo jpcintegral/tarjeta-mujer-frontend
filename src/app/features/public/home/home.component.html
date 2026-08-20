@@ -205,6 +205,14 @@
           </div>
         </article>
       </div>
+      <!-- INFINITE SCROLL TRIGGER -->
+      <div
+        #loadMoreTrigger
+        class="load-more-trigger"
+        *ngIf="services.length > 0"
+      >
+        <span *ngIf="loading">Cargando más beneficios...</span>
+      </div>
     </div>
   </section>
 
