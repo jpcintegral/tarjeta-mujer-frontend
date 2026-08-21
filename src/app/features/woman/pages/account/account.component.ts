@@ -235,7 +235,7 @@ export class AccountComponent implements OnInit {
   // ============================================================
 
   onCardGenerated(card: DigitalCard): void {
-    console.log('Tarjeta generada desde CardComponent:', card);
+    console.log('Tarjeta generada desde ProfileComponent:', card);
 
     this.card = card;
 

@@ -1,15 +1,20 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+
 import { CommonModule } from '@angular/common';
+
 import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+
 import { Router } from '@angular/router';
 
 import { WomanProfileService } from '../../../../core/services/woman-profile.service';
+
 import { DigitalCardService } from '../../../../core/services/digital-card.service';
+
 import { DigitalCard } from '../../../../core/models/digital-card.model';
 
 @Component({
@@ -22,6 +27,10 @@ import { DigitalCard } from '../../../../core/models/digital-card.model';
 export class ProfileComponent implements OnInit {
   profileForm: FormGroup;
 
+  // ============================================================
+  // INPUTS
+  // ============================================================
+
   @Input() profile: any = null;
 
   @Input() profileRegistered = false;
@@ -30,8 +39,23 @@ export class ProfileComponent implements OnInit {
 
   @Input() card: DigitalCard | null = null;
 
+  // ============================================================
+  // OUTPUTS
+  // ============================================================
+
   @Output() profileRegisteredChange = new EventEmitter<any>();
+
   @Output() profileUpdated = new EventEmitter<any>();
+
+  /**
+   * Informa a AccountComponent que se generó una tarjeta.
+   */
+  @Output() cardGenerated = new EventEmitter<DigitalCard>();
+
+  // ============================================================
+  // ESTADO
+  // ============================================================
+
   cardExpired = false;
 
   submitted = false;
@@ -43,6 +67,7 @@ export class ProfileComponent implements OnInit {
   errorMessage = '';
 
   successMessage = '';
+
   isEditing = false;
 
   constructor(
@@ -62,23 +87,18 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  // ============================================================
+  // INICIO
+  // ============================================================
+
   ngOnInit(): void {
     this.loadProfile();
   }
 
-  /**
-   * ============================================================
-   * OBTENER PERFIL DEL USUARIO AUTENTICADO
-   * ============================================================
-   *
-   * La respuesta ya contiene:
-   *
-   * user
-   *   └── woman_profile
-   *          └── digital_card
-   *
-   * No realizamos una consulta adicional para obtener la tarjeta.
-   */
+  // ============================================================
+  // OBTENER PERFIL DEL USUARIO AUTENTICADO
+  // ============================================================
+
   loadProfile(): void {
     this.loading = true;
 
@@ -96,7 +116,9 @@ export class ProfileComponent implements OnInit {
 
         if (!this.profileRegistered) {
           this.card = null;
+
           this.hasCard = false;
+
           this.cardExpired = false;
 
           this.loading = false;
@@ -129,9 +151,11 @@ export class ProfileComponent implements OnInit {
         console.error('Error obteniendo perfil:', error);
 
         this.profile = null;
+
         this.card = null;
 
         this.profileRegistered = false;
+
         this.hasCard = false;
 
         this.errorMessage =
@@ -142,11 +166,10 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  /**
-   * ============================================================
-   * COMPROBAR VENCIMIENTO DE TARJETA
-   * ============================================================
-   */
+  // ============================================================
+  // COMPROBAR VENCIMIENTO DE TARJETA
+  // ============================================================
+
   checkExpiration(): void {
     if (!this.card?.expiresAt) {
       this.cardExpired = true;
@@ -161,11 +184,10 @@ export class ProfileComponent implements OnInit {
     this.cardExpired = expiration.getTime() < now.getTime();
   }
 
-  /**
-   * ============================================================
-   * REGISTRO DEL PERFIL
-   * ============================================================
-   */
+  // ============================================================
+  // REGISTRO DEL PERFIL
+  // ============================================================
+
   onSubmit(): void {
     this.submitted = true;
 
@@ -192,6 +214,7 @@ export class ProfileComponent implements OnInit {
     this.womanProfileService.register(this.profileForm.value).subscribe({
       next: (response) => {
         this.loading = false;
+
         this.saving = false;
 
         this.successMessage = response.message;
@@ -204,8 +227,10 @@ export class ProfileComponent implements OnInit {
           response;
 
         this.profile = registeredProfile;
+
         this.profileRegistered = true;
 
+        // Informar a AccountComponent
         this.profileRegisteredChange.emit(registeredProfile);
       },
 
@@ -220,35 +245,69 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  /**
-   * ============================================================
-   * IR AL DASHBOARD
-   * ============================================================
-   *
-   * Se utiliza cuando la mujer ya tiene perfil pero todavía
-   * no tiene tarjeta.
-   */
+  // ============================================================
+  // IR AL DASHBOARD
+  // ============================================================
+
   goToDashboard(): void {
     this.router.navigate(['/woman']);
   }
 
-  /**
-   * Generar tarjeta
-   */
+  // ============================================================
+  // GENERAR TARJETA
+  // ============================================================
+
   generateCard(): void {
+    // No generar tarjeta si todavía no existe perfil.
+    if (!this.profileRegistered) {
+      return;
+    }
+
+    // Evitar generar otra tarjeta si ya existe.
+    if (this.hasCard) {
+      return;
+    }
+
     this.loading = true;
+
+    this.errorMessage = '';
+
+    this.successMessage = '';
 
     this.digitalCardService.generate().subscribe({
       next: (response) => {
-        this.card = response.data;
+        console.log('Tarjeta generada:', response);
+
+        const generatedCard: DigitalCard | null = response?.data ?? null;
+
+        if (!generatedCard) {
+          this.errorMessage = 'No fue posible obtener la tarjeta generada.';
+
+          this.loading = false;
+
+          return;
+        }
+
+        // ======================================================
+        // ACTUALIZAR ESTADO LOCAL
+        // ======================================================
+
+        this.card = generatedCard;
 
         this.hasCard = true;
 
         this.cardExpired = false;
 
-        this.loading = false;
+        // ======================================================
+        // AVISAR A ACCOUNT COMPONENT
+        // ======================================================
 
-        console.log('Tarjeta generada:', response);
+        this.cardGenerated.emit(generatedCard);
+
+        this.successMessage =
+          'Tu Tarjeta de la Mujer fue generada correctamente.';
+
+        this.loading = false;
       },
 
       error: (error) => {
@@ -262,14 +321,17 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  /**
-   * ============================================================
-   * VER TARJETA
-   * ============================================================
-   */
+  // ============================================================
+  // VER TARJETA
+  // ============================================================
+
   viewCard(): void {
     this.router.navigate(['/mujer/card']);
   }
+
+  // ============================================================
+  // GETTERS FORMULARIO
+  // ============================================================
 
   get firstName() {
     return this.profileForm.get('firstName');
@@ -287,14 +349,20 @@ export class ProfileComponent implements OnInit {
     return this.profileForm.get('birthDate');
   }
 
+  // ============================================================
+  // ACTUALIZAR PERFIL
+  // ============================================================
+
   updateProfile(): void {
     this.submitted = true;
 
     this.errorMessage = '';
+
     this.successMessage = '';
 
     if (this.profileForm.invalid) {
       this.profileForm.markAllAsTouched();
+
       return;
     }
 
@@ -306,8 +374,11 @@ export class ProfileComponent implements OnInit {
 
     const data = {
       firstName: this.profileForm.value.firstName,
+
       lastName: this.profileForm.value.lastName,
+
       secondLastName: this.profileForm.value.secondLastName,
+
       birthDate: this.profileForm.value.birthDate || null,
     };
 
@@ -342,6 +413,11 @@ export class ProfileComponent implements OnInit {
       },
     });
   }
+
+  // ============================================================
+  // EDITAR PERFIL
+  // ============================================================
+
   editProfile(): void {
     if (!this.profile) {
       return;
@@ -349,8 +425,11 @@ export class ProfileComponent implements OnInit {
 
     this.profileForm.patchValue({
       firstName: this.profile.firstName ?? '',
+
       lastName: this.profile.lastName ?? '',
+
       secondLastName: this.profile.secondLastName ?? '',
+
       birthDate: this.profile.birthDate
         ? this.profile.birthDate.substring(0, 10)
         : '',
@@ -359,16 +438,25 @@ export class ProfileComponent implements OnInit {
     this.isEditing = true;
 
     this.errorMessage = '';
+
     this.successMessage = '';
+
     this.submitted = false;
   }
+
+  // ============================================================
+  // CANCELAR EDICIÓN
+  // ============================================================
 
   cancelEdit(): void {
     if (this.profile) {
       this.profileForm.patchValue({
         firstName: this.profile.firstName ?? '',
+
         lastName: this.profile.lastName ?? '',
+
         secondLastName: this.profile.secondLastName ?? '',
+
         birthDate: this.profile.birthDate
           ? this.profile.birthDate.substring(0, 10)
           : '',
@@ -378,7 +466,9 @@ export class ProfileComponent implements OnInit {
     this.isEditing = false;
 
     this.errorMessage = '';
+
     this.successMessage = '';
+
     this.submitted = false;
   }
 }

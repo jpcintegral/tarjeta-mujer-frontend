@@ -26,13 +26,12 @@
       <!-- ========================================= -->
 
       <div class="form-group">
-        <label for="identifier"> Correo electrónico </label>
+        <label for="identifier"> Usuario </label>
 
         <input
           id="identifier"
-          type="email"
+          type="text"
           formControlName="identifier"
-          placeholder="correo@ejemplo.com"
           autocomplete="email"
         />
 
@@ -40,7 +39,7 @@
           class="form-error"
           *ngIf="identifier?.touched && identifier?.invalid"
         >
-          Ingresa un correo electrónico válido.
+          Ingresa un usuario.
         </small>
       </div>
 

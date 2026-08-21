@@ -42,14 +42,13 @@
       <!-- EMAIL -->
 
       <div class="form-group">
-        <label for="identifier"> Correo electrónico </label>
+        <label for="identifier"> Usuario</label>
 
         <input
           id="identifier"
-          type="email"
+          type="text"
           formControlName="identifier"
           autocomplete="email"
-          placeholder="correo@negocio.com"
           [disabled]="loading"
         />
 
@@ -58,11 +57,11 @@
           class="field-error"
         >
           <span *ngIf="identifier?.errors?.['required']">
-            El correo electrónico es obligatorio.
+            El usuario es obligatorio.
           </span>
 
           <span *ngIf="identifier?.errors?.['minlength']">
-            Ingresa un correo electrónico válido.
+            Ingresa un usuario válido.
           </span>
         </small>
       </div>
@@ -120,7 +119,7 @@
 
     <div class="back-section">
       <button type="button" (click)="goToWomanLogin()">
-        ← Iniciar sesión como mujer
+        ← Iniciar sesión como Usuario
       </button>
     </div>
   </div>

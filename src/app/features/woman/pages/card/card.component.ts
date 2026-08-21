@@ -1,9 +1,21 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
+
 import { CommonModule } from '@angular/common';
+
 import { Router } from '@angular/router';
+
 import { QRCodeComponent } from 'angularx-qrcode';
 
 import { DigitalCardService } from '../../../../core/services/digital-card.service';
+
 import { DigitalCard } from '../../../../core/models/digital-card.model';
 
 @Component({
@@ -13,7 +25,7 @@ import { DigitalCard } from '../../../../core/models/digital-card.model';
   templateUrl: './card.component.html',
   styleUrl: './card.component.scss',
 })
-export class CardComponent implements OnInit {
+export class CardComponent implements OnInit, OnChanges {
   // ============================================================
   // DATOS RECIBIDOS DESDE ACCOUNT
   // ============================================================
@@ -54,11 +66,59 @@ export class CardComponent implements OnInit {
   // ============================================================
 
   ngOnInit(): void {
+    // Si al momento de crear el componente
+    // ya existe una tarjeta, obtener su QR.
     if (!this.cardExists || !this.card) {
       return;
     }
 
     this.getValidQr();
+  }
+
+  // ============================================================
+  // CAMBIOS EN INPUTS
+  // ============================================================
+  //
+  // Este método es importante cuando:
+  //
+  // 1. AccountComponent se carga sin tarjeta.
+  //
+  // 2. El usuario registra su perfil.
+  //
+  // 3. El usuario genera la tarjeta desde ProfileComponent.
+  //
+  // 4. AccountComponent actualiza:
+  //
+  //      card = nueva tarjeta
+  //      hasCard = true
+  //
+  // 5. CardComponent recibe la nueva tarjeta.
+  //
+  // 6. Se obtiene automáticamente el QR.
+  //
+  // De esta forma NO es necesario recargar la página.
+  // ============================================================
+
+  ngOnChanges(changes: SimpleChanges): void {
+    const cardChange = changes['card'];
+
+    if (
+      cardChange &&
+      !cardChange.firstChange &&
+      cardChange.currentValue &&
+      cardChange.currentValue !== cardChange.previousValue
+    ) {
+      console.log(
+        'CardComponent: tarjeta actualizada:',
+        cardChange.currentValue,
+      );
+
+      this.qrToken = null;
+
+      this.errorMessage = '';
+
+      this.getValidQr();
+    }
   }
 
   // ============================================================
@@ -139,7 +199,10 @@ export class CardComponent implements OnInit {
           return;
         }
 
-        // Actualizar tarjeta local
+        // ======================================================
+        // ACTUALIZAR TARJETA LOCAL
+        // ======================================================
+
         this.card = renewedCard;
 
         this.cardExists = true;
@@ -147,15 +210,28 @@ export class CardComponent implements OnInit {
         this.cardExpired = false;
 
         // El QR anterior deja de utilizarse visualmente.
+
         this.qrToken = null;
 
         this.loading = false;
 
-        // Informar a AccountComponent
+        // ======================================================
+        // INFORMAR A ACCOUNT
+        // ======================================================
+
         this.cardRenewed.emit(renewedCard);
 
-        // Obtener el nuevo QR correspondiente a la tarjeta renovada.
-        this.getValidQr();
+        // ======================================================
+        // NO ES NECESARIO LLAMAR getValidQr() AQUÍ
+        //
+        // Al cambiar:
+        //
+        // this.card = renewedCard
+        //
+        // Angular ejecutará ngOnChanges()
+        // automáticamente y ahí se obtendrá
+        // el nuevo QR.
+        // ======================================================
       },
 
       error: (error: any) => {
@@ -165,6 +241,7 @@ export class CardComponent implements OnInit {
           error?.error?.error?.message ??
           error?.error?.message ??
           'No fue posible renovar la tarjeta.';
+
         this.loading = false;
       },
     });

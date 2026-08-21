@@ -68,14 +68,6 @@ export class LoginComponent {
 
     this.authService.login(credentials, 'WOMAN').subscribe({
       next: (response) => {
-        console.log('LOGIN RESPONSE:', response);
-
-        console.log('TOKEN:', response.jwt);
-
-        console.log('USER:', response.user);
-
-        console.log('ROLE:', response.user.role);
-
         this.loading = false;
 
         this.router.navigate(['/mujer/account']);
@@ -90,7 +82,7 @@ export class LoginComponent {
           error?.error?.error?.message ??
           error?.error?.message ??
           error?.message ??
-          'No fue posible iniciar sesión. Verifica tu correo y contraseña.';
+          'No fue posible iniciar sesión. Verifica tu usuario y contraseña.';
       },
     });
   }
