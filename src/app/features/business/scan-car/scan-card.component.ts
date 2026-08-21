@@ -1,4 +1,3 @@
-import { AdminApiToken } from './../../../../../../red-mujeres-backend/types/generated/contentTypes.d';
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
