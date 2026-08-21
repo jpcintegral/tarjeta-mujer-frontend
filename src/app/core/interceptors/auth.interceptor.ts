@@ -22,15 +22,6 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   // ============================================================
   // RESPETAR AUTHORIZATION EXPLÍCITO
-  //
-  // IMPORTANTE:
-  //
-  // El login obtiene un JWT NUEVO desde /auth/local
-  // y posteriormente /users/me utiliza ese JWT
-  // antes de guardarlo en localStorage.
-  //
-  // Si aquí obtenemos el token del localStorage,
-  // podríamos reemplazar el JWT nuevo por uno vencido.
   // ============================================================
 
   if (req.headers.has('Authorization')) {
@@ -57,8 +48,14 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   const token = authService.getToken(context);
 
+  // ============================================================
+  // NO HAY SESIÓN
+  // ============================================================
+
   if (!token) {
-    return next(req);
+    handleUnauthorized(context, authService, router);
+
+    return EMPTY;
   }
 
   // ============================================================
@@ -89,8 +86,6 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
       // ========================================================
       // CUALQUIER OTRO ERROR
-      //
-      // 403 NO CIERRA LA SESIÓN
       // ========================================================
 
       throw error;
@@ -117,7 +112,7 @@ function getAuthContext(url: string): AuthContext | null {
 }
 
 // ============================================================
-// MANEJAR 401
+// MANEJAR 401 / SESIÓN INVÁLIDA
 // ============================================================
 
 function handleUnauthorized(

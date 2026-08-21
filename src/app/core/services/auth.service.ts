@@ -61,20 +61,6 @@ export class AuthService {
       .post<LoginResponse>(`${this.apiUrl}/local`, credentials)
       .pipe(
         switchMap((response) => {
-          /**
-           * /auth/local actualmente devuelve:
-           *
-           * {
-           *   jwt,
-           *   user
-           * }
-           *
-           * pero NO devuelve role.
-           *
-           * Por eso consultamos /users/me utilizando
-           * temporalmente el JWT recibido.
-           */
-
           return this.getAuthenticatedUser(response.jwt).pipe(
             map((user) => ({
               ...response,
@@ -84,22 +70,11 @@ export class AuthService {
         }),
 
         switchMap((response) => {
-          /**
-           * Validamos el rol ANTES de guardar
-           * cualquier sesión.
-           */
-
           if (!this.isValidContext(response.user, context)) {
             return throwError(
               () => new Error(this.getInvalidContextMessage(context)),
             );
           }
-
-          /**
-           * El JWT solamente se guarda después
-           * de comprobar que el usuario pertenece
-           * al flujo correcto.
-           */
 
           this.saveSession(context, response.jwt, response.user);
 
@@ -273,7 +248,45 @@ export class AuthService {
   // ============================================================
 
   isAuthenticated(context: AuthContext = 'WOMAN'): boolean {
-    return !!this.getToken(context);
+    const token = this.getToken(context);
+
+    if (!token) {
+      return false;
+    }
+
+    if (this.isTokenExpired(token)) {
+      this.logout(context);
+
+      return false;
+    }
+
+    return true;
+  }
+
+  // ============================================================
+  // VALIDAR EXPIRACIÓN DEL JWT
+  // ============================================================
+
+  private isTokenExpired(token: string): boolean {
+    try {
+      const parts = token.split('.');
+
+      if (parts.length !== 3) {
+        return true;
+      }
+
+      const payload = JSON.parse(
+        atob(parts[1].replace(/-/g, '+').replace(/_/g, '/')),
+      );
+
+      if (!payload?.exp) {
+        return true;
+      }
+
+      return payload.exp * 1000 <= Date.now();
+    } catch {
+      return true;
+    }
   }
 
   // ============================================================
@@ -306,12 +319,6 @@ export class AuthService {
       .post<RegisterResponse>(`${this.apiUrl}/local/register`, data)
       .pipe(
         tap((response) => {
-          /**
-           * Actualmente el registro solamente soporta WOMAN.
-           *
-           * Posteriormente podremos manejar BUSINESS,
-           * CITY_HALL, etc. con el mismo sistema.
-           */
           this.saveSession('WOMAN', response.jwt, response.user);
         }),
       );
