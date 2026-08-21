@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
@@ -35,9 +35,30 @@ export class BusinessServiceService {
     );
   }
 
-  getByBusiness(businessId: number | string): Observable<any> {
-    return this.http.get(
-      `${this.apiUrl}/services?filters[business][documentId][$eq]=${businessId}&populate=*`,
+  getByBusiness(
+    businessId: string,
+    page: number = 1,
+    pageSize: number = 10,
+    search?: string,
+    sort: string = 'createdAt',
+    category?: number,
+  ) {
+    let params = new HttpParams()
+      .set('page', page)
+      .set('pageSize', pageSize)
+      .set('sort', sort);
+
+    if (search?.trim()) {
+      params = params.set('search', search.trim());
+    }
+
+    if (category !== undefined && category !== null) {
+      params = params.set('category', category);
+    }
+
+    return this.http.get<any>(
+      `${this.apiUrl}/services/business/${businessId}`,
+      { params },
     );
   }
 

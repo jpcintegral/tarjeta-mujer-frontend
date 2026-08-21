@@ -230,7 +230,6 @@
       <app-business-services
         *ngIf="business.documentId"
         [businessId]="business.documentId"
-        [services]="business.services ?? []"
         (servicesChanged)="onServicesChanged($event)"
       >
       </app-business-services>

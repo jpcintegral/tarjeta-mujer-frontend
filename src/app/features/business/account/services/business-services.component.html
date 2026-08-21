@@ -2,7 +2,7 @@
   <!-- HEADER -->
   <div class="services-header">
     <div>
-      <span class="section-label"> BENEFICIOS </span>
+      <span class="section-label">BENEFICIOS</span>
 
       <h2>Mis servicios</h2>
 
@@ -25,60 +25,103 @@
   </div>
 
   <!-- LOADING -->
-  <div *ngIf="loading" class="services-loading">
+  <div *ngIf="loading && services.length === 0" class="services-loading">
     <div class="spinner"></div>
 
     <span>Cargando servicios...</span>
   </div>
 
-  <!-- EMPTY -->
-  <div *ngIf="!loading && services.length === 0" class="empty-services">
-    <div class="empty-icon">✨</div>
+  <!-- CONTENIDO -->
+  <ng-container *ngIf="services.length > 0 || !loading">
+    <!-- BUSCADOR -->
+    <div class="services-toolbar">
+      <div class="services-search">
+        <div class="search-box">
+          <span class="search-icon" aria-hidden="true">
+            <lucide-icon [img]="Search"></lucide-icon>
+          </span>
 
-    <h3>Aún no tienes servicios</h3>
+          <input
+            type="text"
+            [(ngModel)]="searchTerm"
+            placeholder="Buscar servicio..."
+            aria-label="Buscar servicio"
+            (keyup.enter)="onSearch()"
+          />
+        </div>
 
-    <p>Agrega el primer beneficio que ofrecerá tu negocio.</p>
+        <button type="button" class="search-button" (click)="onSearch()">
+          BUSCAR
+        </button>
 
-    <button type="button" class="primary-button" (click)="openCreateForm()">
-      + AGREGAR SERVICIO
-    </button>
-  </div>
+        <button
+          *ngIf="searchTerm"
+          type="button"
+          class="clear-search-button"
+          (click)="clearSearch()"
+        >
+          LIMPIAR
+        </button>
+      </div>
 
-  <!-- SERVICES -->
-  <ng-container *ngIf="!loading && services.length > 0">
-    <!-- SEARCH -->
-    <div class="services-search">
-      <div class="search-box">
-        <span class="search-icon" aria-hidden="true">
-          <lucide-icon [img]="Search"></lucide-icon>
-        </span>
+      <!-- ORDENAMIENTO -->
+      <div class="services-sort">
+        <label for="service-sort"> Ordenar </label>
 
-        <input
-          type="text"
-          [(ngModel)]="searchTerm"
-          (ngModelChange)="filterServices()"
-          placeholder="Buscar servicio por nombre..."
-          aria-label="Buscar servicio por nombre"
-        />
+        <select
+          id="service-sort"
+          [(ngModel)]="sort"
+          (ngModelChange)="onSortChange()"
+        >
+          <option value="createdAt">Más recientes</option>
+
+          <option value="name">Nombre A-Z</option>
+
+          <option value="name_desc">Nombre Z-A</option>
+
+          <option value="price_asc">Precio menor</option>
+
+          <option value="price_desc">Precio mayor</option>
+        </select>
       </div>
     </div>
 
-    <!-- NO SEARCH RESULTS -->
-    <div *ngIf="filteredServices.length === 0" class="empty-search">
+    <!-- SIN SERVICIOS -->
+    <div
+      *ngIf="services.length === 0 && !searchTerm && !loading"
+      class="empty-services"
+    >
+      <div class="empty-icon">✨</div>
+
+      <h3>Aún no tienes servicios</h3>
+
+      <p>Agrega el primer beneficio que ofrecerá tu negocio.</p>
+
+      <button type="button" class="primary-button" (click)="openCreateForm()">
+        + AGREGAR SERVICIO
+      </button>
+    </div>
+
+    <!-- SIN RESULTADOS -->
+    <div
+      *ngIf="services.length === 0 && searchTerm && !loading"
+      class="empty-search"
+    >
       <h3>No se encontraron servicios</h3>
 
       <p>
         No hay servicios que coincidan con
         <strong>"{{ searchTerm }}"</strong>.
       </p>
+
       <button type="button" class="clear-search-button" (click)="clearSearch()">
         LIMPIAR BÚSQUEDA
       </button>
     </div>
 
-    <!-- SERVICE CARDS -->
-    <div *ngIf="filteredServices.length > 0" class="services-grid">
-      <article *ngFor="let service of filteredServices" class="service-card">
+    <!-- SERVICIOS -->
+    <div *ngIf="services.length > 0" class="services-grid">
+      <article *ngFor="let service of services" class="service-card">
         <!-- IMAGE -->
         <div class="service-image">
           <div class="service-image-placeholder">
@@ -102,7 +145,7 @@
               ${{ service.price | number: "1.2-2" }}
             </span>
 
-            <!-- PERCENTAGE DISCOUNT -->
+            <!-- PERCENTAGE -->
             <ng-container
               *ngIf="
                 service.discountType === 'PERCENTAGE' &&
@@ -123,6 +166,7 @@
 
               <div class="saving">
                 Ahorras $
+
                 {{
                   (service.price * service.discountValue) / 100
                     | number: "1.2-2"
@@ -130,7 +174,7 @@
               </div>
             </ng-container>
 
-            <!-- FIXED AMOUNT DISCOUNT -->
+            <!-- FIXED -->
             <ng-container
               *ngIf="
                 service.discountType === 'FIXED_AMOUNT' &&
@@ -143,11 +187,13 @@
               </strong>
 
               <span class="discount-badge">
-                ${{ service.discountValue | number: "1.2-2" }} OFF
+                ${{ service.discountValue | number: "1.2-2" }}
+                OFF
               </span>
 
               <div class="saving">
                 Ahorras $
+
                 {{ service.discountValue | number: "1.2-2" }}
               </div>
             </ng-container>
@@ -198,6 +244,7 @@
               type="button"
               class="danger-button"
               (click)="toggleServiceStatus(service)"
+              [disabled]="saving"
             >
               {{ service.active ? "DESACTIVAR" : "ACTIVAR" }}
             </button>
@@ -205,12 +252,29 @@
         </div>
       </article>
     </div>
+
+    <!-- INFINITE SCROLL TRIGGER -->
+    <div #loadMoreTrigger class="load-more-trigger" *ngIf="services.length > 0">
+      <span *ngIf="loading"> Cargando más beneficios... </span>
+    </div>
+
+    <!-- INFORMACIÓN PAGINACIÓN -->
+    <div *ngIf="services.length > 0" class="pagination-info">
+      Mostrando
+      {{ services.length }}
+      de
+      {{ total }}
+      servicios
+    </div>
   </ng-container>
 
-  <!-- CREATE MODAL -->
+  <!-- ======================================================
+       MODAL
+  ======================================================= -->
+
   <div *ngIf="showCreateForm" class="modal-backdrop">
     <div class="service-modal">
-      <!-- MODAL HEADER -->
+      <!-- HEADER -->
       <div class="modal-header">
         <div>
           <span class="section-label">
@@ -319,13 +383,7 @@
 
         <!-- DISCOUNT VALUE -->
         <div class="form-group">
-          <label for="discount-value">
-            {{
-              form.discountType === "PERCENTAGE"
-                ? "Descuento (%)"
-                : "Descuento ($)"
-            }}
-          </label>
+          <label for="discount-value"> Descuento (%) </label>
 
           <input
             id="discount-value"
@@ -333,7 +391,7 @@
             name="discountValue"
             [(ngModel)]="form.discountValue"
             min="0"
-            [max]="form.discountType === 'PERCENTAGE' ? 100 : null"
+            max="100"
             step="0.01"
             placeholder="10"
             required
