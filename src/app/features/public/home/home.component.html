@@ -17,11 +17,21 @@
       </p>
 
       <div class="hero-actions">
-        <a routerLink="/beneficios" class="btn btn-primary">
+        <a
+          href="#beneficios"
+          class="btn btn-primary"
+          (click)="scrollToBenefits($event)"
+        >
           Explorar beneficios
         </a>
 
-        <a routerLink="/registro" class="btn btn-glass"> Registrar comercio </a>
+        <a
+          href="/business/register"
+          class="btn btn-glass"
+          (click)="goToBusinessRegister($event)"
+        >
+          Registrar comercio
+        </a>
       </div>
     </div>
   </section>
@@ -30,7 +40,7 @@
        BENEFITS
        ========================================== -->
 
-  <section class="benefits-section">
+  <section id="beneficios" class="benefits-section">
     <div class="tm-container">
       <div class="section-heading">
         <span class="section-label"> DESCUBRE </span>
@@ -232,8 +242,12 @@
           </p>
         </div>
 
-        <a routerLink="/business/register" class="btn btn-primary">
-          Registrar mi comercio
+        <a
+          href="/business/register"
+          class="btn btn-glass"
+          (click)="goToBusinessRegister($event)"
+        >
+          Registrar comercio
         </a>
       </div>
     </div>

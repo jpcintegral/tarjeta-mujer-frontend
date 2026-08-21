@@ -191,64 +191,6 @@ export class AccountComponent implements OnInit {
   }
 
   // ============================================================
-  // GENERAR TARJETA
-  // ============================================================
-
-  generateCard(): void {
-    // No debe generarse tarjeta sin perfil
-    if (!this.hasProfile) {
-      return;
-    }
-
-    // No generar otra tarjeta si ya existe
-    if (this.hasCard) {
-      return;
-    }
-
-    this.loading = true;
-
-    this.errorMessage = '';
-
-    this.successMessage = '';
-
-    this.digitalCardService.generate().subscribe({
-      next: (response) => {
-        console.log('Tarjeta generada:', response);
-
-        const generatedCard = response?.data ?? null;
-
-        if (!generatedCard) {
-          this.errorMessage = 'No fue posible obtener la tarjeta generada.';
-
-          this.loading = false;
-
-          return;
-        }
-
-        this.card = this.mapCard(generatedCard);
-
-        this.hasCard = true;
-
-        this.cardExpired = false;
-
-        this.successMessage =
-          'Tu Tarjeta de la Mujer fue generada correctamente.';
-
-        this.loading = false;
-      },
-
-      error: (error) => {
-        console.error('Error generando tarjeta:', error);
-
-        this.errorMessage =
-          error?.error?.message ?? 'No fue posible generar la tarjeta.';
-
-        this.loading = false;
-      },
-    });
-  }
-
-  // ============================================================
   // PERFIL REGISTRADO
   //
   // ProfileComponent emite:

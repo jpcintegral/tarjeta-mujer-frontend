@@ -247,4 +247,22 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.publicServiceService.getImageUrl(service.business.logo, 'medium')
     );
   }
+  scrollToBenefits(event: Event): void {
+    event.preventDefault();
+
+    const benefitsSection = document.getElementById('beneficios');
+
+    if (benefitsSection) {
+      benefitsSection.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }
+  }
+
+  goToBusinessRegister(event: Event): void {
+    event.preventDefault();
+
+    this.router.navigate(['/business/register']);
+  }
 }
