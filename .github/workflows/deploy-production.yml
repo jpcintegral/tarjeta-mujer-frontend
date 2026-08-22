@@ -41,13 +41,21 @@ jobs:
             git fetch origin production_branch
             git reset --hard origin/production_branch
 
-            echo "Instalando dependencias..."
+            echo "======================================"
+            echo " INSTALANDO DEPENDENCIAS"
+            echo "======================================"
+
             npm ci
 
-            echo "Construyendo Angular..."
+            echo "======================================"
+            echo " CONSTRUYENDO ANGULAR - PRODUCTION"
+            echo "======================================"
+
             npm run build -- --configuration production
 
-            echo "Verificando build..."
+            echo "======================================"
+            echo " VERIFICANDO BUILD"
+            echo "======================================"
 
             BUILD_DIR="$PROJECT/dist/tarjeta-mujer-frontend/browser"
 
@@ -60,20 +68,50 @@ jobs:
             echo "Build encontrado:"
             ls -lh "$BUILD_DIR/index.html"
 
-            echo "Verificando aplicación..."
+            echo "Contenido del build:"
+            ls -lah "$BUILD_DIR" | head -20
 
-            HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+            echo "======================================"
+            echo " VERIFICANDO FRONTEND"
+            echo "======================================"
+
+            FRONTEND_STATUS=$(curl -L -s -o /dev/null -w "%{http_code}" \
               --max-time 15 \
               https://redrr.devscolima.com)
 
-            echo "HTTP Status: $HTTP_STATUS"
+            echo "Frontend HTTP Status: $FRONTEND_STATUS"
 
-            if [ "$HTTP_STATUS" != "200" ]; then
+            if [ "$FRONTEND_STATUS" != "200" ]; then
               echo "ERROR: El frontend no responde correctamente."
               exit 1
             fi
 
             echo "Frontend responde correctamente."
+
+            echo "======================================"
+            echo " VERIFICANDO API STRAPI"
+            echo "======================================"
+
+            API_URL="https://redback.devscolima.com/api/public-services?page=1&pageSize=10&sort=createdAt"
+
+            API_STATUS=$(curl -L -s -o /tmp/tarjeta-mujer-api-response.json -w "%{http_code}" \
+              --max-time 15 \
+              "$API_URL")
+
+            echo "API HTTP Status: $API_STATUS"
+
+            if [ "$API_STATUS" != "200" ]; then
+              echo "ERROR: La API pública no responde correctamente."
+              echo "Respuesta de la API:"
+              cat /tmp/tarjeta-mujer-api-response.json
+              exit 1
+            fi
+
+            echo "API pública responde correctamente."
+
+            echo "Respuesta de la API:"
+            head -c 500 /tmp/tarjeta-mujer-api-response.json
+            echo
 
             echo "======================================"
             echo " DEPLOY COMPLETADO"
