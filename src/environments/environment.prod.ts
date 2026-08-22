@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
 
-  apiUrl: 'https://redrr.devscolima.com/api',
-  strapiUrl: 'https://redrr.devscolima.com',
+  apiUrl: 'https://redback.devscolima.com/api',
+  strapiUrl: 'https://redback.devscolima.com',
 };
