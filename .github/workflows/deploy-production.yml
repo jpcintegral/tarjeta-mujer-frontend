@@ -45,7 +45,7 @@ jobs:
             npm ci
 
             echo "Construyendo Angular..."
-            npm run build
+            npm run build -- --configuration production
 
             echo "Verificando build..."
 
