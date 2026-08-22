@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
 
-  apiUrl: 'http://localhost:1337/api',
-  strapiUrl: 'http://localhost:1337',
+  apiUrl: 'https://redrr.devscolima.com/api',
+  strapiUrl: 'https://redrr.devscolima.com',
 };
