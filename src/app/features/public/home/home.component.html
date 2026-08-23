@@ -7,14 +7,11 @@
     <div class="hero-overlay"></div>
 
     <div class="tm-container hero-content">
-      <span class="hero-label"> RED DE APOYO PARA MUJERES </span>
+      <span class="hero-label"> RED DE APOYO CIUDADANO </span>
 
       <h1>Beneficios que conectan a nuestra comunidad</h1>
 
-      <p>
-        Descubre comercios, servicios y beneficios pensados para mujeres cerca
-        de ti.
-      </p>
+      <p>Descubre negocioss, servicios y beneficios cerca de ti.</p>
 
       <div class="hero-actions">
         <a
@@ -30,7 +27,7 @@
           class="btn btn-glass"
           (click)="goToBusinessRegister($event)"
         >
-          Registrar comercio
+          Registrar negocio
         </a>
       </div>
     </div>
@@ -47,7 +44,7 @@
 
         <h2>Beneficios cerca de ti</h2>
 
-        <p>Encuentra servicios y comercios que forman parte de nuestra red.</p>
+        <p>Encuentra servicios y Negocioss que forman parte de nuestra red.</p>
       </div>
 
       <div class="search-box">
@@ -57,7 +54,7 @@
           type="search"
           [(ngModel)]="search"
           (keyup.enter)="onSearch()"
-          placeholder="Buscar servicios o comercios..."
+          placeholder="Buscar servicios o Negocioss..."
         />
 
         <button type="button" class="search-button" (click)="onSearch()">
@@ -94,7 +91,7 @@
         <h3>No encontramos beneficios</h3>
 
         <p>
-          No encontramos servicios o comercios que coincidan con tu búsqueda.
+          No encontramos servicios o negocios que coincidan con tu búsqueda.
         </p>
 
         <button
@@ -108,7 +105,7 @@
       </div>
       <div class="services-grid" *ngIf="services.length > 0">
         <article class="service-card" *ngFor="let service of services">
-          <!-- IMAGEN DEL COMERCIO -->
+          <!-- IMAGEN DEL Negocios -->
           <div class="service-image">
             <img
               *ngIf="
@@ -124,7 +121,7 @@
               <div class="image-placeholder">
                 <span class="placeholder-icon"> ✦ </span>
 
-                <small> Beneficio para mujeres </small>
+                <small> Beneficio para el ciudadano </small>
               </div>
             </ng-template>
 
@@ -145,7 +142,7 @@
 
           <!-- CONTENIDO -->
           <div class="service-content">
-            <!-- COMERCIO -->
+            <!-- Negocios -->
             <h3>
               {{ service.business.name }}
             </h3>
@@ -233,12 +230,13 @@
     <div class="tm-container">
       <div class="business-card">
         <div>
-          <span class="section-label"> PARA COMERCIOS </span>
+          <span class="section-label"> PARA NEGOCIOS </span>
 
           <h2>Forma parte de nuestra red</h2>
 
           <p>
-            Ofrece beneficios a mujeres de tu comunidad y haz crecer tu negocio.
+            Ofrece beneficios a ciudadanos de tu comunidad y haz crecer tu
+            negocio.
           </p>
         </div>
 
@@ -247,7 +245,7 @@
           class="btn btn-glass"
           (click)="goToBusinessRegister($event)"
         >
-          Registrar comercio
+          Registrar Negocios
         </a>
       </div>
     </div>

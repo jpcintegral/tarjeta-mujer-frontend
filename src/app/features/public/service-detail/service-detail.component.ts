@@ -102,7 +102,7 @@ export class ServiceDetailComponent implements OnInit {
 
   /**
    * ============================================================
-   * IMAGEN DEL COMERCIO
+   * IMAGEN DEL Negocios
    * ============================================================
    *
    * Prioridad:
