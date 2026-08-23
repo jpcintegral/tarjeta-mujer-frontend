@@ -1,28 +1,120 @@
+/*
+============================================================
+RED DE APOYO CIUDADANO
+SERVICE DETAIL - IDENTIDAD AZUL PAN
+
+Color institucional base:
+#0043A1
+
+Concepto:
+- Azul institucional
+- Azul marino
+- Satinado
+- Elegante
+- Ciudadano
+- Informativo
+- Sobrio
+
+Compatible con el Home:
+home-pan-identity.scss
+============================================================
+*/
+
 .service-detail-page {
   max-width: 1100px;
 
   margin: 0 auto;
 
   padding: 40px 20px 70px;
+
+  /*
+   * Variables locales de la página.
+   *
+   * Se mantienen independientes para que el componente
+   * pueda utilizarse sin depender de variables externas.
+   */
+
+  --rac-primary: #0043a1;
+  --rac-primary-dark: #00347d;
+  --rac-primary-deep: #002b68;
+  --rac-primary-light: #1d5fba;
+
+  --rac-navy-950: #061a33;
+  --rac-navy-900: #082444;
+  --rac-navy-800: #0b3159;
+
+  --rac-satin-blue: #15569a;
+  --rac-steel-blue: #527493;
+
+  --rac-blue-100: #dce8f5;
+  --rac-blue-50: #f2f6fb;
+
+  --rac-white: #ffffff;
+
+  --rac-surface: #f7f9fc;
+
+  --rac-gray-900: #172333;
+  --rac-gray-800: #243346;
+  --rac-gray-700: #3d4d5e;
+  --rac-gray-600: #64748b;
+  --rac-gray-500: #7b8998;
+  --rac-gray-400: #a6b1bc;
+  --rac-gray-300: #c8d1da;
+  --rac-gray-200: #dce3ea;
+  --rac-gray-100: #e9eef3;
+
+  /*
+   * Verde reservado exclusivamente para ahorro.
+   */
+
+  --rac-success: #2f7d68;
+  --rac-success-light: #e5f1ed;
+
+  /*
+   * Sombras con ligero matiz azul.
+   */
+
+  --rac-shadow-sm: 0 5px 16px rgba(0, 43, 104, 0.08);
+
+  --rac-shadow-md: 0 12px 32px rgba(0, 43, 104, 0.12);
+
+  --rac-shadow-lg: 0 22px 55px rgba(0, 26, 58, 0.16);
+
+  --rac-transition: 0.25s ease;
 }
 
-/* ========================================= */
+/* ========================================================= */
 /* CARD PRINCIPAL */
-/* ========================================= */
+/* ========================================================= */
 
 .service-detail-card {
   overflow: hidden;
 
-  background: #ffffff;
+  background: var(--rac-white);
+
+  border: 1px solid rgba(0, 43, 104, 0.07);
 
   border-radius: 24px;
 
-  box-shadow: 0 12px 35px rgba(75, 35, 60, 0.1);
+  box-shadow: var(--rac-shadow-md);
+
+  transition:
+    box-shadow var(--rac-transition),
+    transform var(--rac-transition);
 }
 
-/* ========================================= */
+/*
+ * Un movimiento muy sutil.
+ * No exagerar porque esta es una página de información.
+ */
+
+.service-detail-card:hover {
+  box-shadow: var(--rac-shadow-lg);
+}
+
+/* ========================================================= */
 /* IMAGEN */
-/* ========================================= */
+/* ========================================================= */
 
 .detail-image {
   position: relative;
@@ -37,7 +129,38 @@
 
   justify-content: center;
 
-  background: linear-gradient(135deg, #6f345c, #96708d);
+  /*
+   * Azul institucional + marino.
+   */
+
+  background: linear-gradient(
+    135deg,
+    var(--rac-navy-950),
+    var(--rac-primary-dark) 48%,
+    var(--rac-primary) 100%
+  );
+}
+
+/*
+ * Reflejo satinado.
+ */
+
+.detail-image::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(255, 255, 255, 0.11),
+      transparent 28%
+    ),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.045), transparent 45%);
+
+  pointer-events: none;
 }
 
 .detail-image img {
@@ -46,13 +169,19 @@
   height: 100%;
 
   object-fit: cover;
+
+  display: block;
 }
 
-/* ========================================= */
+/* ========================================================= */
 /* PLACEHOLDER */
-/* ========================================= */
+/* ========================================================= */
 
 .image-placeholder {
+  position: relative;
+
+  z-index: 1;
+
   display: flex;
 
   flex-direction: column;
@@ -63,7 +192,7 @@
 
   gap: 8px;
 
-  color: #ffffff;
+  color: var(--rac-white);
 
   text-align: center;
 }
@@ -85,7 +214,9 @@
 
   border-radius: 50%;
 
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.1);
+
+  backdrop-filter: blur(8px);
 
   font-size: 1.5rem;
 }
@@ -97,42 +228,54 @@
 }
 
 .image-placeholder small {
-  opacity: 0.85;
+  opacity: 0.82;
 
   font-size: 0.85rem;
 }
 
-/* ========================================= */
+/* ========================================================= */
 /* DESCUENTO */
-/* ========================================= */
+/* ========================================================= */
 
 .discount {
   position: absolute;
+
+  z-index: 2;
 
   top: 22px;
 
   right: 22px;
 
-  padding: 12px 40px;
+  padding: 11px 22px;
+
+  border: 1px solid rgba(255, 255, 255, 0.25);
 
   border-radius: 10px;
 
-  background: #ffffff;
+  /*
+   * Blanco ligeramente translúcido.
+   * Evita que el descuento se vea como un elemento
+   * completamente independiente del diseño.
+   */
 
-  color: #71345b;
+  background: rgba(255, 255, 255, 0.94);
 
-  font-size: 1.2rem;
+  color: var(--rac-primary);
+
+  font-size: 1.05rem;
 
   font-weight: 800;
 
   letter-spacing: 0.3px;
 
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 7px 20px rgba(0, 25, 65, 0.18);
+
+  backdrop-filter: blur(8px);
 }
 
-/* ========================================= */
+/* ========================================================= */
 /* CONTENIDO */
-/* ========================================= */
+/* ========================================================= */
 
 .detail-content {
   padding: 38px;
@@ -143,7 +286,7 @@
 
   margin-bottom: 8px;
 
-  color: #977087;
+  color: var(--rac-primary);
 
   font-size: 0.78rem;
 
@@ -157,11 +300,13 @@
 .detail-content h1 {
   margin: 0;
 
-  color: #3f3039;
+  color: var(--rac-gray-900);
 
   font-size: 2.25rem;
 
   line-height: 1.2;
+
+  letter-spacing: -0.5px;
 }
 
 .description {
@@ -169,53 +314,81 @@
 
   margin: 16px 0 28px;
 
-  color: #70656c;
+  color: var(--rac-gray-600);
 
   font-size: 1rem;
 
   line-height: 1.7;
 }
 
-/* ========================================= */
+/* ========================================================= */
 /* PRECIOS */
-/* ========================================= */
+/* ========================================================= */
 
 .detail-prices {
   display: flex;
+
   align-items: center;
+
   gap: 18px;
+
   margin-top: 25px;
 }
 
 .price-original,
 .price-final {
   display: flex;
+
   flex-direction: column;
+
   justify-content: flex-start;
+
   gap: 5px;
+
   min-width: 150px;
+
   font-size: 1.25rem;
+}
+
+.price-original {
+  color: var(--rac-gray-500);
+}
+
+.price-original strong {
+  color: var(--rac-gray-400);
+
+  font-weight: 600;
+
+  text-decoration: line-through;
+}
+
+.price-final {
+  color: var(--rac-primary-dark);
 }
 
 .price-arrow {
   align-self: center;
+
   margin-top: 18px;
 
-  color: #8a526f;
+  color: var(--rac-primary);
+
   font-size: 1.9rem;
+
   font-weight: 600;
 }
-.final-price {
-  color: #71345b;
 
-  font-size: 1.25rem;
+.final-price {
+  color: var(--rac-primary-dark);
+
+  font-size: 1.35rem;
 
   font-weight: 800;
 }
 
-/* ========================================= */
+/* ========================================================= */
 /* AHORRO */
-/* ========================================= */
+/* ========================================================= */
 
 .saving {
   display: inline-flex;
@@ -228,11 +401,13 @@
 
   padding: 8px 12px;
 
+  border: 1px solid rgba(47, 125, 104, 0.1);
+
   border-radius: 8px;
 
-  background: #f5e9ef;
+  background: var(--rac-success-light);
 
-  color: #71345b;
+  color: var(--rac-success);
 
   font-size: 0.82rem;
 }
@@ -241,9 +416,9 @@
   font-weight: 800;
 }
 
-/* ========================================= */
+/* ========================================================= */
 /* INFORMACIÓN */
-/* ========================================= */
+/* ========================================================= */
 
 .detail-info {
   display: grid;
@@ -256,7 +431,7 @@
 
   padding-top: 28px;
 
-  border-top: 1px solid #eee6eb;
+  border-top: 1px solid var(--rac-gray-100);
 }
 
 .info-item {
@@ -268,7 +443,7 @@
 }
 
 .info-label {
-  color: #a2979e;
+  color: var(--rac-gray-400);
 
   font-size: 0.7rem;
 
@@ -280,29 +455,29 @@
 }
 
 .info-value {
-  color: #4f434b;
+  color: var(--rac-gray-700);
 
   font-size: 0.9rem;
 
   line-height: 1.5;
 }
 
-/* ========================================= */
-/* Negocios */
-/* ========================================= */
+/* ========================================================= */
+/* NEGOCIO */
+/* ========================================================= */
 
 .business-description {
   margin-top: 35px;
 
   padding-top: 28px;
 
-  border-top: 1px solid #eee6eb;
+  border-top: 1px solid var(--rac-gray-100);
 }
 
 .business-description h2 {
   margin: 0 0 10px;
 
-  color: #3f3039;
+  color: var(--rac-gray-900);
 
   font-size: 1.15rem;
 }
@@ -312,14 +487,14 @@
 
   margin: 0;
 
-  color: #70656c;
+  color: var(--rac-gray-600);
 
   line-height: 1.7;
 }
 
-/* ========================================= */
+/* ========================================================= */
 /* BOTÓN */
-/* ========================================= */
+/* ========================================================= */
 
 .detail-actions {
   margin-top: 35px;
@@ -334,13 +509,13 @@
 
   padding: 11px 18px;
 
-  border: 1px solid #8a526f;
+  border: 1px solid var(--rac-primary);
 
   border-radius: 10px;
 
   background: transparent;
 
-  color: #71345b;
+  color: var(--rac-primary);
 
   font-size: 0.88rem;
 
@@ -349,22 +524,29 @@
   cursor: pointer;
 
   transition:
-    background-color 0.2s ease,
-    color 0.2s ease,
-    transform 0.2s ease;
+    background var(--rac-transition),
+    color var(--rac-transition),
+    transform var(--rac-transition),
+    box-shadow var(--rac-transition);
 }
 
 .back-button:hover {
-  background: #71345b;
+  background: linear-gradient(
+    135deg,
+    var(--rac-primary),
+    var(--rac-primary-dark)
+  );
 
-  color: #ffffff;
+  color: var(--rac-white);
 
   transform: translateY(-1px);
+
+  box-shadow: 0 6px 16px rgba(0, 67, 161, 0.18);
 }
 
-/* ========================================= */
+/* ========================================================= */
 /* RESPONSIVE */
-/* ========================================= */
+/* ========================================================= */
 
 @media (max-width: 700px) {
   .service-detail-page {
@@ -383,6 +565,10 @@
     top: 15px;
 
     right: 15px;
+
+    padding: 9px 16px;
+
+    font-size: 0.95rem;
   }
 
   .detail-content {
@@ -401,11 +587,22 @@
     gap: 10px;
   }
 
+  .price-original,
+  .price-final {
+    min-width: 0;
+  }
+
   .final-price {
     font-size: 1.6rem;
   }
 
   .detail-info {
     grid-template-columns: 1fr;
+  }
+
+  .back-button {
+    width: 100%;
+
+    justify-content: center;
   }
 }

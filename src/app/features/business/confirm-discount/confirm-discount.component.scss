@@ -1,3 +1,7 @@
+/* ============================================================
+   CONFIRM DISCOUNT
+============================================================ */
+
 .confirm-discount-page {
   width: 100%;
   min-height: 100%;
@@ -6,6 +10,8 @@
   justify-content: center;
 
   padding: 2rem 1rem;
+
+  background: #f4f7fa;
 }
 
 .confirm-discount-card {
@@ -14,13 +20,17 @@
 
   padding: 2rem 2.25rem;
 
-  border: 1px solid #e7dfe4;
-  border-radius: 18px;
+  border: 1px solid #dce4eb;
+  border-radius: 20px;
 
   background: #ffffff;
 
-  box-shadow: 0 8px 30px rgba(60, 45, 55, 0.08);
+  box-shadow: 0 10px 35px rgba(25, 55, 80, 0.08);
 }
+
+/* ============================================================
+   HEADER
+============================================================ */
 
 .page-header {
   margin-bottom: 1.5rem;
@@ -31,30 +41,36 @@
 
   margin-bottom: 0.35rem;
 
-  color: #8a6177;
+  color: #426985;
 
   font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
 .page-header h1 {
   margin: 0;
 
-  color: #342e33;
+  color: #1f3545;
 
   font-size: 1.65rem;
+  line-height: 1.25;
+  font-weight: 700;
 }
 
 .page-header p {
   margin: 0.45rem 0 0;
 
-  color: #766d73;
+  color: #6d7d89;
 
   font-size: 0.9rem;
+  line-height: 1.5;
 }
 
-/* TARJETA */
+/* ============================================================
+   TARJETA VALIDADA
+============================================================ */
 
 .validated-card {
   display: flex;
@@ -63,12 +79,12 @@
   gap: 0.85rem;
 
   margin-bottom: 1.5rem;
-  padding: 0.9rem 1rem;
+  padding: 0.95rem 1rem;
 
-  border: 1px solid #d7e6dd;
-  border-radius: 13px;
+  border: 1px solid #cfe3d8;
+  border-radius: 14px;
 
-  background: #f7fbf9;
+  background: #f5faf7;
 }
 
 .validated-icon {
@@ -83,10 +99,11 @@
 
   border-radius: 50%;
 
-  background: #e1f1e8;
+  background: #dcefe4;
 
-  color: #397657;
+  color: #347653;
 
+  font-size: 1rem;
   font-weight: 700;
 }
 
@@ -95,15 +112,27 @@
 
   margin-bottom: 0.15rem;
 
-  color: #4c7d63;
+  color: #47755e;
 
   font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.validated-info {
+  min-width: 0;
 }
 
 .validated-info strong {
-  color: #342e33;
+  display: block;
+
+  color: #263b49;
+
+  font-size: 0.98rem;
+  font-weight: 700;
+
+  word-break: break-word;
 }
 
 .validated-meta {
@@ -112,40 +141,55 @@
 
   gap: 0.8rem;
 
-  margin-top: 0.2rem;
+  margin-top: 0.25rem;
 
-  color: #766d73;
+  color: #71808b;
 
   font-size: 0.72rem;
 }
 
-/* RESUMEN */
+.validated-meta strong {
+  display: inline;
+
+  color: #4c5e69;
+
+  font-size: inherit;
+}
+
+/* ============================================================
+   RESUMEN
+============================================================ */
 
 .discount-summary {
-  padding: 1.2rem;
+  padding: 1.25rem;
 
-  border: 1px solid #e3dce1;
-  border-radius: 14px;
+  border: 1px solid #dfe7ed;
+  border-radius: 15px;
 
-  background: #fcfafb;
+  background: #f8fafc;
 }
 
 .discount-summary h2 {
   margin: 0.2rem 0 0;
 
-  color: #342e33;
+  color: #243b4a;
 
   font-size: 1.2rem;
+  font-weight: 700;
 }
 
 .discount-summary > p {
   margin: 0.45rem 0 1rem;
 
-  color: #766d73;
+  color: #71808b;
 
   font-size: 0.82rem;
-  line-height: 1.45;
+  line-height: 1.5;
 }
+
+/* ============================================================
+   AMOUNTS
+============================================================ */
 
 .amount-row,
 .total-row {
@@ -155,21 +199,23 @@
 
   gap: 1rem;
 
-  padding: 0.7rem 0;
+  padding: 0.75rem 0;
 
-  border-bottom: 1px solid #ebe4e8;
+  border-bottom: 1px solid #e4e9ed;
 
-  color: #766d73;
+  color: #71808b;
 
   font-size: 0.82rem;
 }
 
 .amount-row strong {
-  color: #51494e;
+  color: #435461;
+
+  font-weight: 600;
 }
 
 .amount-row strong.discount {
-  color: #397657;
+  color: #347653;
 }
 
 .total-row {
@@ -177,31 +223,34 @@
 
   border-bottom: 0;
 
-  color: #342e33;
+  color: #243b4a;
 
   font-weight: 700;
 }
 
 .total-row strong {
-  color: #7d4f68;
+  color: #315d78;
 
-  font-size: 1.25rem;
+  font-size: 1.3rem;
 }
 
-/* ERROR */
+/* ============================================================
+   ERROR
+============================================================ */
 
 .error-state {
   margin-top: 1rem;
+
   padding: 1rem;
 
-  border: 1px solid #ead5d5;
+  border: 1px solid #efd5d5;
   border-radius: 12px;
 
   background: #fff8f8;
 }
 
 .error-state strong {
-  color: #693f3f;
+  color: #863f3f;
 
   font-size: 0.85rem;
 }
@@ -209,12 +258,15 @@
 .error-state p {
   margin: 0.25rem 0 0;
 
-  color: #856969;
+  color: #805f5f;
 
   font-size: 0.78rem;
+  line-height: 1.45;
 }
 
-/* ACTIONS */
+/* ============================================================
+   ACTIONS
+============================================================ */
 
 .form-actions {
   display: flex;
@@ -225,42 +277,82 @@
   margin-top: 1.4rem;
   padding-top: 1rem;
 
-  border-top: 1px solid #eee7eb;
+  border-top: 1px solid #e4e9ed;
 }
 
 .form-actions button {
   min-width: 145px;
-  min-height: 42px;
+  min-height: 43px;
 
-  padding: 0.7rem 1.1rem;
+  padding: 0.7rem 1.15rem;
 
-  border-radius: 9px;
+  border-radius: 10px;
 
   font-size: 0.78rem;
   font-weight: 700;
+  letter-spacing: 0.02em;
 
   cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.15s ease,
+    box-shadow 0.2s ease;
 }
 
+/* ============================================================
+   SECONDARY
+============================================================ */
+
 .secondary-button {
-  border: 1px solid #d6cbd1;
+  border: 1px solid #d3dde4;
 
   background: #ffffff;
 
-  color: #655a61;
+  color: #526572;
 }
 
-.primary-button {
-  border: 1px solid #9b6b86;
+.secondary-button:hover:not(:disabled) {
+  background: #f5f8fa;
 
-  background: #9b6b86;
+  border-color: #b9c9d4;
+
+  color: #34566c;
+
+  transform: translateY(-1px);
+}
+
+/* ============================================================
+   PRIMARY
+============================================================ */
+
+.primary-button {
+  border: 1px solid #315d78;
+
+  background: #315d78;
 
   color: #ffffff;
 }
 
 .primary-button:hover:not(:disabled) {
-  background: #875b73;
+  background: #274c63;
+
+  border-color: #274c63;
+
+  box-shadow: 0 6px 16px rgba(49, 93, 120, 0.2);
+
+  transform: translateY(-1px);
 }
+
+.primary-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+/* ============================================================
+   DISABLED
+============================================================ */
 
 button:disabled {
   opacity: 0.5;
@@ -268,33 +360,19 @@ button:disabled {
   cursor: not-allowed;
 }
 
-@media (max-width: 600px) {
-  .confirm-discount-page {
-    padding: 1rem 0.75rem;
-  }
+/* ============================================================
+   FOCUS
+============================================================ */
 
-  .confirm-discount-card {
-    padding: 1.25rem;
-  }
+button:focus-visible {
+  outline: 3px solid rgba(49, 93, 120, 0.2);
 
-  .form-actions {
-    flex-direction: column-reverse;
-  }
-
-  .form-actions button {
-    width: 100%;
-  }
-
-  .validated-meta {
-    flex-direction: column;
-
-    gap: 0.15rem;
-  }
+  outline-offset: 2px;
 }
 
 /* ============================================================
    SUCCESS MODAL
-   ============================================================ */
+============================================================ */
 
 .success-modal-backdrop {
   position: fixed;
@@ -309,7 +387,9 @@ button:disabled {
 
   padding: 1rem;
 
-  background: rgba(40, 32, 37, 0.55);
+  background: rgba(25, 45, 58, 0.55);
+
+  backdrop-filter: blur(2px);
 }
 
 .success-modal {
@@ -318,12 +398,12 @@ button:disabled {
 
   padding: 1.5rem;
 
-  border: 1px solid #e7dfe4;
-  border-radius: 18px;
+  border: 1px solid #dce4eb;
+  border-radius: 20px;
 
   background: #ffffff;
 
-  box-shadow: 0 20px 60px rgba(40, 30, 36, 0.2);
+  box-shadow: 0 20px 60px rgba(25, 55, 80, 0.2);
 
   animation: successModalIn 0.2s ease-out;
 }
@@ -331,18 +411,20 @@ button:disabled {
 @keyframes successModalIn {
   from {
     opacity: 0;
+
     transform: translateY(10px) scale(0.98);
   }
 
   to {
     opacity: 1;
+
     transform: translateY(0) scale(1);
   }
 }
 
 /* ============================================================
-   HEADER
-   ============================================================ */
+   SUCCESS MODAL HEADER
+============================================================ */
 
 .success-modal-header {
   display: flex;
@@ -363,9 +445,9 @@ button:disabled {
 
   border-radius: 50%;
 
-  background: #e1f1e8;
+  background: #dff0e7;
 
-  color: #397657;
+  color: #347653;
 
   font-size: 1.2rem;
   font-weight: 700;
@@ -374,7 +456,7 @@ button:disabled {
 .success-modal-header h2 {
   margin: 0.2rem 0 0;
 
-  color: #342e33;
+  color: #243b4a;
 
   font-size: 1.3rem;
   font-weight: 700;
@@ -383,17 +465,18 @@ button:disabled {
 .section-label {
   display: block;
 
-  color: #4c7d63;
+  color: #47755e;
 
   font-size: 0.65rem;
   font-weight: 700;
 
   letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 /* ============================================================
-   MESSAGE
-   ============================================================ */
+   SUCCESS MESSAGE
+============================================================ */
 
 .success-message-content {
   margin-top: 1.2rem;
@@ -402,25 +485,25 @@ button:disabled {
 .success-message-content p {
   margin: 0;
 
-  color: #766d73;
+  color: #71808b;
 
   font-size: 0.85rem;
   line-height: 1.5;
 }
 
 /* ============================================================
-   SUMMARY
-   ============================================================ */
+   SUCCESS SUMMARY
+============================================================ */
 
-.discount-summary {
+.success-modal .discount-summary {
   margin-top: 1.2rem;
 
   padding: 1rem;
 
-  border: 1px solid #e7dfe4;
-  border-radius: 12px;
+  border: 1px solid #dfe7ed;
+  border-radius: 13px;
 
-  background: #fcfafb;
+  background: #f8fafc;
 }
 
 .summary-row {
@@ -432,19 +515,19 @@ button:disabled {
 
   padding: 0.35rem 0;
 
-  color: #766d73;
+  color: #71808b;
 
   font-size: 0.8rem;
 }
 
 .summary-row strong {
-  color: #51494e;
+  color: #435461;
 
   text-align: right;
 }
 
 .discount-row strong {
-  color: #397657;
+  color: #347653;
 }
 
 .summary-divider {
@@ -452,26 +535,27 @@ button:disabled {
 
   margin: 0.65rem 0;
 
-  background: #e5dce2;
+  background: #e2e8ed;
 }
 
 .final-row {
   padding-top: 0.45rem;
 
-  color: #342e33;
+  color: #243b4a;
 
   font-size: 0.85rem;
+  font-weight: 700;
 }
 
 .final-row strong {
-  color: #7d4f68;
+  color: #315d78;
 
-  font-size: 1.1rem;
+  font-size: 1.15rem;
 }
 
 /* ============================================================
-   ACTIONS
-   ============================================================ */
+   SUCCESS MODAL ACTIONS
+============================================================ */
 
 .success-modal-actions {
   display: flex;
@@ -486,10 +570,10 @@ button:disabled {
 
   padding: 0.7rem 1.1rem;
 
-  border: 1px solid #9b6b86;
-  border-radius: 9px;
+  border: 1px solid #315d78;
+  border-radius: 10px;
 
-  background: #9b6b86;
+  background: #315d78;
 
   color: #ffffff;
 
@@ -497,26 +581,70 @@ button:disabled {
   font-weight: 700;
 
   cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.15s ease,
+    box-shadow 0.2s ease;
 }
 
 .success-modal-actions .primary-button:hover {
-  background: #875b73;
+  background: #274c63;
+
+  box-shadow: 0 6px 16px rgba(49, 93, 120, 0.2);
+
+  transform: translateY(-1px);
 }
 
 .success-modal-actions .primary-button:focus-visible {
-  outline: 3px solid rgba(155, 107, 134, 0.25);
+  outline: 3px solid rgba(49, 93, 120, 0.2);
+
   outline-offset: 2px;
 }
 
 /* ============================================================
    MOBILE
-   ============================================================ */
+============================================================ */
+
+@media (max-width: 600px) {
+  .confirm-discount-page {
+    padding: 1rem 0.75rem;
+  }
+
+  .confirm-discount-card {
+    padding: 1.25rem;
+
+    border-radius: 16px;
+  }
+
+  .page-header h1 {
+    font-size: 1.45rem;
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+  }
+
+  .form-actions button {
+    width: 100%;
+  }
+
+  .validated-meta {
+    flex-direction: column;
+
+    gap: 0.15rem;
+  }
+}
+
+/* ============================================================
+   SUCCESS MODAL MOBILE
+============================================================ */
 
 @media (max-width: 500px) {
   .success-modal {
     padding: 1.25rem;
 
-    border-radius: 15px;
+    border-radius: 16px;
   }
 
   .success-modal-actions {

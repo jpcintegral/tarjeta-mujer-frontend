@@ -1,25 +1,38 @@
 .business-page {
   width: 100%;
   min-height: 100%;
+
   padding: 24px 16px 40px;
+
   box-sizing: border-box;
+
+  background: var(--tm-blue-50, #f2f6fb);
 }
+
+// ============================================================
+// CARD PRINCIPAL
+// ============================================================
 
 .business-card {
   width: 100%;
   max-width: 1050px;
+
   margin: 0 auto;
+
   overflow: hidden;
 
   background: #ffffff;
+
+  border: 1px solid var(--tm-gray-200, #dce3ea);
+
   border-radius: 24px;
 
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 15px 40px rgba(6, 26, 51, 0.08);
 }
 
-/* =========================================
-   BANNER
-========================================= */
+// ============================================================
+// BANNER
+// ============================================================
 
 .business-banner {
   position: relative;
@@ -29,7 +42,7 @@
   display: flex;
   align-items: flex-end;
 
-  background: linear-gradient(135deg, #f3d8e5, #d9e8f5);
+  background: linear-gradient(135deg, #061a33 0%, #082444 45%, #15569a 100%);
 
   background-position: center;
   background-size: cover;
@@ -37,53 +50,57 @@
 }
 
 .business-banner.has-image {
-  background-color: #ddd;
+  background-color: var(--tm-navy-900, #082444);
 }
 
 .banner-overlay {
   position: absolute;
+
   inset: 0;
 
   background: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.05),
-    rgba(0, 0, 0, 0.45)
+    rgba(6, 26, 51, 0.08),
+    rgba(6, 26, 51, 0.72)
   );
 }
 
 .banner-content {
   position: relative;
+
   z-index: 2;
 
   width: 100%;
 
   display: flex;
+
   justify-content: center;
 
   transform: translateY(58px);
 }
 
-/* =========================================
-   LOGO
-========================================= */
+// ============================================================
+// LOGO
+// ============================================================
 
 .business-logo {
   width: 120px;
   height: 120px;
 
-  border-radius: 50%;
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
 
   overflow: hidden;
 
-  background: #ffffff;
-
   border: 5px solid #ffffff;
 
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  border-radius: 50%;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background: #ffffff;
+
+  box-shadow: 0 8px 24px rgba(6, 26, 51, 0.22);
 }
 
 .business-logo img {
@@ -98,17 +115,20 @@
   height: 100%;
 
   display: flex;
+
   align-items: center;
   justify-content: center;
 
-  background: linear-gradient(135deg, #ead5df, #d9e7ef);
+  background: linear-gradient(135deg, #dce8f5, #c8d1da);
+
+  color: var(--tm-primary, #0043a1);
 
   font-size: 42px;
 }
 
-/* =========================================
-   BUSINESS INFO
-========================================= */
+// ============================================================
+// BUSINESS INFO
+// ============================================================
 
 .business-info {
   padding: 88px 40px 36px;
@@ -116,28 +136,36 @@
 
 .business-heading {
   display: flex;
+
   align-items: flex-start;
+
   justify-content: space-between;
-  gap: 20px;
+
+  gap: 30px;
+}
+
+.business-title {
+  min-width: 0;
 }
 
 .business-heading h1 {
   margin: 0;
 
+  color: var(--tm-gray-900, #172333);
+
   font-size: 30px;
+
   line-height: 1.2;
 
   font-weight: 700;
-
-  color: #29252a;
 }
 
 .business-category {
   margin: 8px 0 0;
 
-  font-size: 14px;
+  color: var(--tm-gray-600, #64748b);
 
-  color: #777;
+  font-size: 14px;
 }
 
 .business-description {
@@ -145,18 +173,101 @@
 
   margin: 20px 0 0;
 
-  line-height: 1.7;
+  color: var(--tm-gray-700, #3d4d5e);
 
-  color: #666;
+  line-height: 1.7;
 }
 
-/* =========================================
-   STATUS
-========================================= */
+// ============================================================
+// BUSINESS ACTIONS
+// ============================================================
+
+.business-actions {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: flex-end;
+
+  gap: 10px;
+
+  flex-shrink: 0;
+}
+
+.business-action-buttons {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 8px;
+
+  min-height: 38px;
+
+  padding: 9px 15px;
+
+  border: 1px solid var(--tm-gray-300, #c8d1da);
+
+  border-radius: 9px;
+
+  background: #ffffff;
+
+  color: var(--tm-primary, #0043a1);
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.03em;
+
+  white-space: nowrap;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.business-action-buttons:hover {
+  background: var(--tm-blue-50, #f2f6fb);
+
+  border-color: var(--tm-primary, #0043a1);
+
+  color: var(--tm-primary-dark, #00347d);
+
+  transform: translateY(-1px);
+
+  box-shadow: 0 5px 12px rgba(0, 67, 161, 0.1);
+}
+
+.business-action-buttons:active {
+  transform: translateY(0);
+}
+
+// ============================================================
+// STATUS
+// ============================================================
+
+.business-status-container {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: flex-end;
+
+  gap: 10px;
+}
 
 .business-status {
   display: inline-flex;
+
   align-items: center;
+
   gap: 8px;
 
   padding: 8px 13px;
@@ -166,6 +277,7 @@
   white-space: nowrap;
 
   font-size: 12px;
+
   font-weight: 700;
 }
 
@@ -173,39 +285,196 @@
   width: 8px;
   height: 8px;
 
+  flex-shrink: 0;
+
   border-radius: 50%;
 
   background: currentColor;
 }
 
+// ============================================================
+// STATUS APPROVED
+// ============================================================
+
 .status-approved {
-  color: #287a50;
-  background: #e9f7ef;
+  color: var(--tm-success, #2f7d68);
+
+  background: #eaf6f1;
 }
+
+// ============================================================
+// STATUS PENDING
+// ============================================================
 
 .status-pending {
-  color: #9a6a12;
-  background: #fff6df;
+  color: #8a6418;
+
+  background: #fff7df;
 }
+
+// ============================================================
+// STATUS REJECTED
+// ============================================================
 
 .status-rejected {
-  color: #a23b3b;
-  background: #fdeaea;
+  color: #a43b3b;
+
+  background: #fff0f0;
 }
+
+// ============================================================
+// STATUS SUSPENDED
+// ============================================================
 
 .status-suspended {
-  color: #6b5a9c;
-  background: #f0ecfa;
+  color: var(--tm-primary-deep, #002b68);
+
+  background: var(--tm-blue-100, #dce8f5);
 }
+
+// ============================================================
+// STATUS UNKNOWN
+// ============================================================
 
 .status-unknown {
-  color: #666;
-  background: #f1f1f1;
+  color: var(--tm-gray-600, #64748b);
+
+  background: var(--tm-gray-100, #e9eef3);
 }
 
-/* =========================================
-   CONTACT
-========================================= */
+// ============================================================
+// EDIT BUTTON
+// ============================================================
+
+.business-edit-button {
+  min-height: 36px;
+
+  padding: 7px 14px;
+
+  border: 1px solid var(--tm-primary, #0043a1);
+
+  border-radius: 8px;
+
+  background: #ffffff;
+
+  color: var(--tm-primary, #0043a1);
+
+  font-size: 0.75rem;
+
+  font-weight: 700;
+
+  letter-spacing: 0.03em;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.business-edit-button:hover {
+  background: var(--tm-primary, #0043a1);
+
+  border-color: var(--tm-primary, #0043a1);
+
+  color: #ffffff;
+
+  transform: translateY(-1px);
+}
+
+.business-edit-button:active {
+  transform: translateY(0);
+}
+
+// ============================================================
+// LOGOUT
+// ============================================================
+
+.logout-button {
+  padding: 7px 14px;
+
+  border: 1px solid var(--tm-gray-300, #c8d1da);
+
+  border-radius: 8px;
+
+  background: #ffffff;
+
+  color: var(--tm-gray-700, #3d4d5e);
+
+  font-size: 0.75rem;
+
+  font-weight: 700;
+
+  letter-spacing: 0.03em;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.logout-button:hover {
+  background: var(--tm-gray-800, #243346);
+
+  border-color: var(--tm-gray-800, #243346);
+
+  color: #ffffff;
+
+  transform: translateY(-1px);
+}
+
+// ============================================================
+// SCAN CARD
+// ============================================================
+
+.scan-card-button {
+  padding: 7px 14px;
+
+  border: 1px solid var(--tm-primary, #0043a1);
+
+  border-radius: 8px;
+
+  background: #ffffff;
+
+  color: var(--tm-primary, #0043a1);
+
+  font-size: 0.75rem;
+
+  font-weight: 700;
+
+  letter-spacing: 0.03em;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.scan-card-button:hover {
+  background: var(--tm-primary, #0043a1);
+
+  border-color: var(--tm-primary, #0043a1);
+
+  color: #ffffff;
+
+  transform: translateY(-1px);
+}
+
+.scan-card-button:active {
+  transform: translateY(0);
+}
+
+// ============================================================
+// CONTACT
+// ============================================================
 
 .business-contact {
   display: grid;
@@ -219,17 +488,25 @@
 
 .contact-item {
   display: flex;
+
   align-items: flex-start;
+
   gap: 12px;
 
   padding: 15px;
 
+  border: 1px solid var(--tm-gray-200, #dce3ea);
+
   border-radius: 14px;
 
-  background: #fafafa;
+  background: var(--tm-gray-100, #e9eef3);
 }
 
 .contact-icon {
+  flex-shrink: 0;
+
+  color: var(--tm-primary, #0043a1);
+
   font-size: 19px;
 }
 
@@ -238,35 +515,37 @@
 
   margin-bottom: 3px;
 
-  font-size: 11px;
+  color: var(--tm-gray-600, #64748b);
 
-  color: #888;
+  font-size: 11px;
 }
 
 .contact-item strong {
   display: block;
 
-  font-size: 14px;
+  color: var(--tm-gray-800, #243346);
 
-  color: #3d383d;
+  font-size: 14px;
 
   word-break: break-word;
 }
 
-/* =========================================
-   REJECTION
-========================================= */
+// ============================================================
+// REJECTION
+// ============================================================
 
 .rejection-message {
   margin-top: 24px;
 
   padding: 16px 18px;
 
+  border: 1px solid #efd0d0;
+
+  border-left: 4px solid #b94a48;
+
   border-radius: 14px;
 
-  background: #fff1f1;
-
-  border-left: 4px solid #c94a4a;
+  background: #fff5f5;
 }
 
 .rejection-message strong {
@@ -277,21 +556,27 @@
   margin: 7px 0 0;
 
   color: #6d4444;
+
+  line-height: 1.5;
 }
 
-/* =========================================
-   SERVICES
-========================================= */
+// ============================================================
+// SERVICES
+// ============================================================
 
 .business-services {
   padding: 36px 40px 44px;
 
-  border-top: 1px solid #eeeeee;
+  border-top: 1px solid var(--tm-gray-200, #dce3ea);
+
+  background: #ffffff;
 }
 
 .section-heading {
   display: flex;
+
   align-items: center;
+
   justify-content: space-between;
 }
 
@@ -300,19 +585,21 @@
 
   margin-bottom: 5px;
 
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
+  color: var(--tm-gray-600, #64748b);
 
-  color: #999;
+  font-size: 11px;
+
+  font-weight: 700;
+
+  letter-spacing: 1.5px;
 }
 
 .section-heading h2 {
   margin: 0;
 
-  font-size: 24px;
+  color: var(--tm-gray-900, #172333);
 
-  color: #29252a;
+  font-size: 24px;
 }
 
 .service-count {
@@ -320,22 +607,26 @@
   height: 36px;
 
   display: flex;
+
   align-items: center;
   justify-content: center;
 
+  border: 1px solid var(--tm-blue-100, #dce8f5);
+
   border-radius: 50%;
 
-  background: #f4edf2;
+  background: var(--tm-blue-50, #f2f6fb);
+
+  color: var(--tm-primary, #0043a1);
 
   font-size: 13px;
-  font-weight: 700;
 
-  color: #655463;
+  font-weight: 700;
 }
 
-/* =========================================
-   EMPTY
-========================================= */
+// ============================================================
+// EMPTY SERVICES
+// ============================================================
 
 .empty-services {
   margin-top: 24px;
@@ -344,17 +635,23 @@
 
   text-align: center;
 
+  border: 1px solid var(--tm-gray-200, #dce3ea);
+
   border-radius: 18px;
 
-  background: #fafafa;
+  background: var(--tm-gray-100, #e9eef3);
 }
 
 .empty-icon {
+  color: var(--tm-primary, #0043a1);
+
   font-size: 34px;
 }
 
 .empty-services h3 {
   margin: 12px 0 8px;
+
+  color: var(--tm-gray-900, #172333);
 
   font-size: 18px;
 }
@@ -364,41 +661,51 @@
 
   margin: 0 auto 22px;
 
-  color: #777;
+  color: var(--tm-gray-600, #64748b);
 
   line-height: 1.6;
 }
 
+// ============================================================
+// PRIMARY BUTTON
+// ============================================================
+
 .primary-button {
-  border: 0;
+  border: 1px solid var(--tm-primary, #0043a1);
 
   padding: 12px 20px;
 
   border-radius: 10px;
 
-  background: #76566c;
+  background: var(--tm-primary, #0043a1);
 
-  color: white;
+  color: #ffffff;
 
   font-size: 13px;
+
   font-weight: 700;
 
   cursor: pointer;
 
   transition:
+    background-color 0.2s ease,
     transform 0.2s ease,
     box-shadow 0.2s ease;
 }
 
 .primary-button:hover {
+  background: var(--tm-primary-dark, #00347d);
+
+  border-color: var(--tm-primary-dark, #00347d);
+
   transform: translateY(-1px);
 
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 6px 16px rgba(0, 67, 161, 0.18);
 }
 
-/* =========================================
-   SERVICE GRID
-========================================= */
+// ============================================================
+// SERVICE GRID
+// ============================================================
 
 .services-grid {
   display: grid;
@@ -413,21 +720,24 @@
 .service-mini-card {
   overflow: hidden;
 
+  border: 1px solid var(--tm-gray-200, #dce3ea);
+
   border-radius: 16px;
 
-  background: #fafafa;
-
-  border: 1px solid #eeeeee;
+  background: #ffffff;
 
   transition:
     transform 0.2s ease,
-    box-shadow 0.2s ease;
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .service-mini-card:hover {
+  border-color: var(--tm-gray-300, #c8d1da);
+
   transform: translateY(-2px);
 
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 20px rgba(6, 26, 51, 0.08);
 }
 
 .service-mini-content {
@@ -437,33 +747,38 @@
 .service-mini-content h3 {
   margin: 0;
 
+  color: var(--tm-gray-900, #172333);
+
   font-size: 17px;
 }
 
-/* =========================================
-   LOADING / ERROR
-========================================= */
+// ============================================================
+// LOADING
+// ============================================================
 
 .business-loading {
   min-height: 400px;
 
   display: flex;
+
   flex-direction: column;
 
   align-items: center;
+
   justify-content: center;
 
   gap: 15px;
 
-  color: #777;
+  color: var(--tm-gray-600, #64748b);
 }
 
 .loading-spinner {
   width: 34px;
   height: 34px;
 
-  border: 3px solid #eeeeee;
-  border-top-color: #76566c;
+  border: 3px solid var(--tm-gray-200, #dce3ea);
+
+  border-top-color: var(--tm-primary, #0043a1);
 
   border-radius: 50%;
 
@@ -476,6 +791,10 @@
   }
 }
 
+// ============================================================
+// ERROR
+// ============================================================
+
 .business-error {
   max-width: 500px;
 
@@ -485,11 +804,13 @@
 
   text-align: center;
 
+  border: 1px solid var(--tm-gray-200, #dce3ea);
+
   border-radius: 18px;
 
-  background: white;
+  background: #ffffff;
 
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 30px rgba(6, 26, 51, 0.08);
 }
 
 .error-icon {
@@ -499,12 +820,13 @@
   margin: 0 auto 15px;
 
   display: flex;
+
   align-items: center;
   justify-content: center;
 
   border-radius: 50%;
 
-  background: #fdeaea;
+  background: #fff0f0;
 
   color: #b33d3d;
 
@@ -516,20 +838,30 @@
 
   padding: 10px 18px;
 
-  border: 0;
+  border: 1px solid var(--tm-primary, #0043a1);
 
   border-radius: 9px;
 
-  background: #76566c;
+  background: var(--tm-primary, #0043a1);
 
-  color: white;
+  color: #ffffff;
 
   cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
 }
 
-/* =========================================
-   RESPONSIVE
-========================================= */
+.business-error button:hover {
+  background: var(--tm-primary-dark, #00347d);
+
+  transform: translateY(-1px);
+}
+
+// ============================================================
+// RESPONSIVE
+// ============================================================
 
 @media (max-width: 700px) {
   .business-page {
@@ -555,15 +887,34 @@
 
   .business-heading {
     flex-direction: column;
-    gap: 12px;
+
+    gap: 16px;
   }
 
   .business-heading h1 {
     font-size: 24px;
   }
 
+  .business-actions {
+    width: 100%;
+
+    align-items: stretch;
+  }
+
+  .business-status-container {
+    width: 100%;
+
+    align-items: stretch;
+  }
+
   .business-status {
-    font-size: 11px;
+    width: fit-content;
+  }
+
+  .business-edit-button,
+  .scan-card-button,
+  .logout-button {
+    width: 100%;
   }
 
   .business-contact {
@@ -579,181 +930,35 @@
   }
 }
 
-.business-status-container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 10px;
-}
+// ============================================================
+// SMALL MOBILE
+// ============================================================
 
-.business-edit-button {
-  padding: 7px 14px;
-
-  border: 1px solid #a85578;
-  border-radius: 7px;
-
-  background: transparent;
-
-  color: #a85578;
-
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.03em;
-
-  cursor: pointer;
-
-  transition:
-    background 0.2s ease,
-    color 0.2s ease,
-    transform 0.2s ease;
-}
-
-.business-edit-button:hover {
-  background: #a85578;
-  color: #ffffff;
-}
-
-.business-edit-button:active {
-  transform: translateY(1px);
-}
-
-@media (max-width: 600px) {
-  .business-status-container {
-    align-items: stretch;
+@media (max-width: 420px) {
+  .business-page {
+    padding: 0 0 25px;
   }
 
-  .business-edit-button {
-    width: 100%;
-  }
-}
+  .business-card {
+    border-left: 0;
+    border-right: 0;
 
-.logout-button {
-  padding: 7px 14px;
-
-  border: 1px solid #a85578;
-  border-radius: 7px;
-
-  background: transparent;
-
-  color: #a85578;
-
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.03em;
-
-  cursor: pointer;
-
-  transition:
-    background 0.2s ease,
-    color 0.2s ease,
-    transform 0.2s ease;
-}
-
-.logout-button:hover {
-  background: #8f4562;
-  border-color: #8f4562;
-  color: #fff;
-}
-
-.scan-card-button {
-  padding: 7px 14px;
-
-  border: 1px solid #a85578;
-  border-radius: 7px;
-
-  background: transparent;
-
-  color: #a85578;
-
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.03em;
-
-  cursor: pointer;
-
-  transition:
-    background 0.2s ease,
-    color 0.2s ease,
-    transform 0.2s ease;
-}
-
-.scan-card-button:hover {
-  background: #a85578;
-  color: #ffffff;
-}
-
-.scan-card-button:active {
-  transform: translateY(1px);
-}
-
-@media (max-width: 600px) {
-  .business-status-container {
-    align-items: stretch;
+    border-radius: 0;
   }
 
-  .scan-card-button {
-    width: 100%;
+  .business-banner {
+    min-height: 200px;
   }
-}
 
-/* =========================================
-   BUSINESS HEADING
-========================================= */
+  .business-info {
+    padding: 70px 18px 25px;
+  }
 
-.business-heading {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 30px;
-}
+  .business-services {
+    padding: 25px 18px 30px;
+  }
 
-.business-title {
-  min-width: 0;
-}
-
-.business-heading h1 {
-  margin: 0;
-  font-size: 30px;
-  line-height: 1.2;
-  font-weight: 700;
-  color: #29252a;
-}
-
-.business-category {
-  margin: 8px 0 0;
-  font-size: 14px;
-  color: #777;
-}
-
-/* =========================================
-   BUSINESS ACTIONS
-========================================= */
-
-.business-actions {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 10px;
-  flex-shrink: 0;
-}
-
-.business-action-buttons {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 8px;
-
-  padding: 9px 15px;
-  border: 0;
-  border-radius: 9px;
-  color: #ffffff;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.03em;
-  white-space: nowrap;
-  cursor: pointer;
-  transition:
-    background 0.2s ease,
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+  .section-heading h2 {
+    font-size: 21px;
+  }
 }

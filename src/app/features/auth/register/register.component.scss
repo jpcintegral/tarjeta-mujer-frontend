@@ -1,13 +1,151 @@
+/* =========================================
+   RED DE APOYO CIUDADANO
+   REGISTRO - IDENTIDAD AZUL
+========================================= */
+
+/* =========================================
+   PÁGINA
+========================================= */
+
 .register-page {
+  /* =======================================================
+     IDENTIDAD
+     ======================================================= */
+
+  --rac-primary: #0043a1;
+  --rac-primary-dark: #00347d;
+  --rac-primary-deep: #002b68;
+  --rac-primary-light: #1d5fba;
+
+  --rac-navy-950: #061a33;
+  --rac-navy-900: #082444;
+  --rac-navy-800: #0b3159;
+
+  --rac-satin-blue: #15569a;
+
+  --rac-blue-100: #dce8f5;
+  --rac-blue-50: #f2f6fb;
+
+  --rac-white: #ffffff;
+
+  --rac-surface: #f7f9fc;
+
+  --rac-gray-900: #172333;
+  --rac-gray-800: #243346;
+  --rac-gray-700: #3d4d5e;
+  --rac-gray-600: #64748b;
+  --rac-gray-500: #7b8998;
+  --rac-gray-400: #a6b1bc;
+  --rac-gray-300: #c8d1da;
+  --rac-gray-200: #dce3ea;
+  --rac-gray-100: #e9eef3;
+
+  /* =======================================================
+     ESTADOS FUNCIONALES
+     ======================================================= */
+
+  --rac-danger: #a6535f;
+  --rac-danger-bg: #fbf2f3;
+  --rac-danger-border: #ead2d6;
+
+  --rac-success: #2f7d68;
+  --rac-success-light: #e5f1ed;
+
+  /* =======================================================
+     SOMBRAS
+     ======================================================= */
+
+  --rac-shadow-xs: 0 2px 8px rgba(0, 43, 104, 0.05);
+
+  --rac-shadow-sm: 0 5px 16px rgba(0, 43, 104, 0.08);
+
+  --rac-shadow-md: 0 12px 32px rgba(0, 43, 104, 0.12);
+
+  --rac-shadow-lg: 0 22px 55px rgba(0, 26, 58, 0.18);
+
+  /* =======================================================
+     RADIOS
+     ======================================================= */
+
+  --rac-radius-sm: 8px;
+  --rac-radius-md: 12px;
+  --rac-radius-lg: 18px;
+  --rac-radius-xl: 24px;
+
+  /* =======================================================
+     TRANSICIÓN
+     ======================================================= */
+
+  --rac-transition: 0.25s ease;
+
+  /* =======================================================
+     LAYOUT
+     ======================================================= */
+
   min-height: 100%;
+
   padding: 2rem 1rem 4rem;
+
   display: flex;
+
   justify-content: center;
+
+  position: relative;
+
+  overflow: hidden;
+
+  /*
+   * Fondo claro institucional.
+   *
+   * Se mantiene coherente con Login y Home.
+   */
+
+  background:
+    radial-gradient(circle at 8% 10%, rgba(0, 67, 161, 0.07), transparent 32%),
+    radial-gradient(
+      circle at 92% 90%,
+      rgba(21, 86, 154, 0.055),
+      transparent 32%
+    ),
+    linear-gradient(135deg, #f7f9fc 0%, #f2f6fb 52%, #edf3f9 100%);
 }
+
+/*
+ * Reflejo satinado muy discreto.
+ */
+
+.register-page::before {
+  content: "";
+
+  position: absolute;
+
+  width: 520px;
+
+  height: 520px;
+
+  right: -250px;
+
+  top: -280px;
+
+  border-radius: 50%;
+
+  background: radial-gradient(circle, rgba(0, 67, 161, 0.055), transparent 68%);
+
+  pointer-events: none;
+}
+
+/* =========================================
+   CONTENEDOR
+========================================= */
 
 .register-container {
   width: 100%;
+
   max-width: 520px;
+
+  position: relative;
+
+  z-index: 1;
 }
 
 /* =========================================
@@ -16,35 +154,58 @@
 
 .page-header {
   text-align: center;
+
   margin-bottom: 2rem;
 }
 
+/* =========================================
+   EYEBROW
+========================================= */
+
 .eyebrow {
   display: inline-block;
+
   margin-bottom: 0.5rem;
 
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  color: var(--rac-primary);
 
-  opacity: 0.7;
+  font-size: 0.75rem;
+
+  font-weight: 800;
+
+  letter-spacing: 0.12em;
+
+  text-transform: uppercase;
 }
+
+/* =========================================
+   TÍTULO
+========================================= */
 
 .page-header h1 {
   margin: 0;
 
+  color: var(--rac-gray-900);
+
   font-size: 2rem;
-  font-weight: 700;
+
+  font-weight: 800;
+
+  line-height: 1.2;
 }
+
+/* =========================================
+   DESCRIPCIÓN
+========================================= */
 
 .page-header p {
   margin: 0.75rem auto 0;
 
   max-width: 420px;
 
+  color: var(--rac-gray-600);
+
   line-height: 1.6;
-  opacity: 0.7;
 }
 
 /* =========================================
@@ -54,11 +215,15 @@
 .register-card {
   padding: 2rem;
 
-  border-radius: 18px;
+  border: 1px solid rgba(0, 43, 104, 0.07);
 
-  background: #ffffff;
+  border-radius: var(--rac-radius-lg);
 
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  background: var(--rac-white);
+
+  box-shadow:
+    0 12px 32px rgba(0, 43, 104, 0.09),
+    0 4px 12px rgba(0, 43, 104, 0.04);
 }
 
 /* =========================================
@@ -67,43 +232,68 @@
 
 .card-title {
   display: flex;
+
   align-items: flex-start;
+
   gap: 1rem;
 
   margin-bottom: 2rem;
 }
 
+/* =========================================
+   TITLE ICON
+========================================= */
+
 .title-icon {
   width: 42px;
+
   height: 42px;
 
   flex-shrink: 0;
 
   display: flex;
+
   align-items: center;
+
   justify-content: center;
 
-  border-radius: 50%;
+  border-radius: 12px;
+
+  /*
+   * Azul claro institucional.
+   */
+
+  background: var(--rac-blue-50);
+
+  border: 1px solid rgba(0, 67, 161, 0.08);
+
+  color: var(--rac-primary);
 
   font-size: 1.4rem;
-
-  background: #f8e8f0;
 }
+
+/* =========================================
+   CARD TITLE
+========================================= */
 
 .card-title h2 {
   margin: 0;
 
+  color: var(--rac-gray-900);
+
   font-size: 1.25rem;
+
+  font-weight: 750;
 }
 
 .card-title p {
   margin: 0.4rem 0 0;
 
+  color: var(--rac-gray-600);
+
   font-size: 0.9rem;
 
   line-height: 1.5;
-
-  opacity: 0.7;
 }
 
 /* =========================================
@@ -114,14 +304,25 @@
   margin-bottom: 1.25rem;
 }
 
+/* =========================================
+   LABEL
+========================================= */
+
 .form-group label {
   display: block;
 
   margin-bottom: 0.45rem;
 
+  color: var(--rac-gray-700);
+
   font-size: 0.9rem;
-  font-weight: 600;
+
+  font-weight: 650;
 }
+
+/* =========================================
+   INPUT
+========================================= */
 
 .form-group input {
   width: 100%;
@@ -130,29 +331,56 @@
 
   padding: 0.85rem 1rem;
 
-  border: 1px solid #dcdcdc;
+  border: 1px solid var(--rac-gray-200);
 
   border-radius: 10px;
 
+  outline: none;
+
+  color: var(--rac-gray-900);
+
+  font-family: inherit;
+
   font-size: 1rem;
 
-  background: #fff;
+  background: var(--rac-white);
 
   transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
+    border-color var(--rac-transition),
+    box-shadow var(--rac-transition),
+    background-color var(--rac-transition);
 }
+
+/* =========================================
+   INPUT HOVER
+========================================= */
+
+.form-group input:hover {
+  border-color: var(--rac-gray-300);
+}
+
+/* =========================================
+   INPUT FOCUS
+========================================= */
 
 .form-group input:focus {
   outline: none;
 
-  border-color: #b85c8a;
+  border-color: var(--rac-primary);
 
-  box-shadow: 0 0 0 3px rgba(184, 92, 138, 0.12);
+  background: var(--rac-white);
+
+  box-shadow: 0 0 0 3px rgba(0, 67, 161, 0.1);
 }
 
+/* =========================================
+   PLACEHOLDER
+========================================= */
+
 .form-group input::placeholder {
-  opacity: 0.5;
+  color: var(--rac-gray-400);
+
+  opacity: 1;
 }
 
 /* =========================================
@@ -162,15 +390,17 @@
 .field-error {
   margin-top: 0.4rem;
 
+  color: var(--rac-danger);
+
   font-size: 0.8rem;
 
   line-height: 1.4;
-
-  color: #b42318;
 }
 
 .form-group input.ng-invalid.ng-touched {
-  border-color: #d64545;
+  border-color: var(--rac-danger);
+
+  box-shadow: 0 0 0 3px rgba(166, 83, 95, 0.07);
 }
 
 /* =========================================
@@ -179,6 +409,7 @@
 
 .privacy-notice {
   display: flex;
+
   align-items: flex-start;
 
   gap: 0.75rem;
@@ -187,45 +418,69 @@
 
   padding: 1rem;
 
+  border: 1px solid rgba(0, 67, 161, 0.06);
+
   border-radius: 12px;
 
-  background: #faf7f9;
+  background: var(--rac-blue-50);
 }
+
+/* =========================================
+   NOTICE ICON
+========================================= */
 
 .notice-icon {
   width: 24px;
+
   height: 24px;
 
   flex-shrink: 0;
 
   display: flex;
+
   align-items: center;
+
   justify-content: center;
 
   border-radius: 50%;
 
-  font-size: 0.8rem;
-  font-weight: 700;
+  color: var(--rac-primary);
 
-  background: #ead3df;
+  font-size: 0.8rem;
+
+  font-weight: 800;
+
+  background: var(--rac-blue-100);
 }
+
+/* =========================================
+   PRIVACY TITLE
+========================================= */
 
 .privacy-notice strong {
   display: block;
 
   margin-bottom: 0.25rem;
 
+  color: var(--rac-gray-800);
+
   font-size: 0.9rem;
 }
 
+/* =========================================
+   PRIVACY TEXT
+========================================= */
+
 .privacy-notice p {
   margin: 0;
+
+  color: var(--rac-gray-600);
 
   font-size: 0.8rem;
 
   line-height: 1.5;
 
-  opacity: 0.7;
+  opacity: 1;
 }
 
 /* =========================================
@@ -235,6 +490,10 @@
 .form-actions {
   margin-top: 1.5rem;
 }
+
+/* =========================================
+   PRIMARY BUTTON
+========================================= */
 
 .primary-button {
   width: 100%;
@@ -246,26 +505,64 @@
   border-radius: 10px;
 
   font-size: 0.95rem;
+
   font-weight: 700;
 
   cursor: pointer;
 
-  background: #b85c8a;
-  color: #ffffff;
+  background: linear-gradient(
+    135deg,
+    var(--rac-primary),
+    var(--rac-primary-dark)
+  );
+
+  color: var(--rac-white);
+
+  box-shadow: 0 7px 18px rgba(0, 43, 104, 0.2);
 
   transition:
-    transform 0.15s ease,
-    opacity 0.15s ease;
+    transform var(--rac-transition),
+    background var(--rac-transition),
+    box-shadow var(--rac-transition),
+    opacity var(--rac-transition);
 }
+
+/* =========================================
+   PRIMARY BUTTON HOVER
+========================================= */
 
 .primary-button:hover:not(:disabled) {
   transform: translateY(-1px);
+
+  background: linear-gradient(
+    135deg,
+    var(--rac-primary-light),
+    var(--rac-primary-dark)
+  );
+
+  box-shadow: 0 10px 22px rgba(0, 43, 104, 0.24);
 }
+
+/* =========================================
+   PRIMARY BUTTON ACTIVE
+========================================= */
+
+.primary-button:active:not(:disabled) {
+  transform: translateY(0);
+
+  box-shadow: 0 5px 12px rgba(0, 43, 104, 0.17);
+}
+
+/* =========================================
+   PRIMARY BUTTON DISABLED
+========================================= */
 
 .primary-button:disabled {
   cursor: not-allowed;
 
   opacity: 0.6;
+
+  box-shadow: none;
 }
 
 /* =========================================
@@ -281,16 +578,32 @@
   border-radius: 10px;
 
   font-size: 0.9rem;
+
+  line-height: 1.5;
 }
+
+/* =========================================
+   ERROR MESSAGE
+========================================= */
 
 .error-message {
-  background: #fff1f0;
-  color: #b42318;
+  border: 1px solid var(--rac-danger-border);
+
+  background: var(--rac-danger-bg);
+
+  color: var(--rac-danger);
 }
 
+/* =========================================
+   SUCCESS MESSAGE
+========================================= */
+
 .success-message {
-  background: #effaf3;
-  color: #18794e;
+  border: 1px solid rgba(47, 125, 104, 0.12);
+
+  background: var(--rac-success-light);
+
+  color: var(--rac-success);
 }
 
 /* =========================================
@@ -301,16 +614,23 @@
   display: flex;
 
   justify-content: center;
+
   align-items: center;
 
   gap: 0.4rem;
 
   margin-top: 1.5rem;
 
+  color: var(--rac-gray-500);
+
   font-size: 0.9rem;
 
-  opacity: 0.8;
+  opacity: 1;
 }
+
+/* =========================================
+   LINK BUTTON
+========================================= */
 
 .link-button {
   border: none;
@@ -320,11 +640,94 @@
   background: transparent;
 
   font: inherit;
+
   font-weight: 700;
 
   cursor: pointer;
 
-  color: #b85c8a;
+  color: var(--rac-primary);
+
+  transition: color var(--rac-transition);
+}
+
+.link-button:hover {
+  color: var(--rac-primary-dark);
+
+  text-decoration: underline;
+}
+
+/* =========================================
+   BRAND ICON
+========================================= */
+
+.brand-icon {
+  width: 38px;
+
+  height: 38px;
+
+  min-width: 38px;
+
+  min-height: 38px;
+
+  display: block;
+
+  overflow: hidden;
+
+  border-radius: 12px;
+
+  /*
+   * Sustituye completamente la antigua
+   * identidad wine/purple.
+   */
+
+  background: linear-gradient(
+    135deg,
+    var(--rac-navy-900),
+    var(--rac-primary-dark) 52%,
+    var(--rac-primary)
+  );
+
+  box-shadow: 0 5px 14px rgba(0, 43, 104, 0.2);
+
+  position: relative;
+}
+
+/*
+ * Reflejo satinado.
+ */
+
+.brand-icon::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1),
+    transparent 48%
+  );
+
+  pointer-events: none;
+}
+
+.brand-icon img {
+  display: block;
+
+  width: 38px;
+
+  height: 38px;
+
+  max-width: none;
+
+  max-height: none;
+
+  object-fit: cover;
+
+  position: relative;
+
+  z-index: 1;
 }
 
 /* =========================================
@@ -352,36 +755,7 @@
 
   .title-icon {
     width: 38px;
+
     height: 38px;
   }
-}
-
-.brand-icon {
-  width: 38px;
-  height: 38px;
-
-  min-width: 38px;
-  min-height: 38px;
-
-  display: block;
-
-  overflow: hidden;
-
-  border-radius: 12px;
-
-  background: linear-gradient(135deg, var(--tm-wine), var(--tm-purple));
-
-  box-shadow: 0 5px 14px rgba(114, 47, 75, 0.22);
-}
-
-.brand-icon img {
-  display: block;
-
-  width: 38px;
-  height: 38px;
-
-  max-width: none;
-  max-height: none;
-
-  object-fit: cover;
 }

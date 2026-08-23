@@ -1,141 +1,357 @@
+/* ============================================================
+   SCAN CARD PAGE
+============================================================ */
+
 .scan-card-page {
   min-height: calc(100vh - 120px);
+
   display: flex;
   justify-content: center;
   align-items: center;
+
   padding: 32px 20px;
-  background: #f8f7f9;
+
+  box-sizing: border-box;
+
+  background: #f2f6fb;
 }
+
+/* ============================================================
+   CARD
+============================================================ */
 
 .scan-card {
   width: 100%;
   max-width: 620px;
+
+  overflow: hidden;
+
   background: #ffffff;
+
+  border: 1px solid #dce3ea;
+
   border-radius: 24px;
+
   padding: 32px;
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+
+  box-sizing: border-box;
+
+  box-shadow:
+    0 18px 45px rgba(6, 26, 51, 0.1),
+    0 4px 12px rgba(6, 26, 51, 0.04);
 }
+
+/* ============================================================
+   HEADER
+============================================================ */
 
 .scan-header {
   text-align: center;
+
   margin-bottom: 28px;
 }
 
 .section-kicker {
   display: block;
+
   margin-bottom: 8px;
+
+  color: #15569a;
+
   font-size: 0.75rem;
-  font-weight: 700;
+
+  font-weight: 800;
+
   letter-spacing: 0.12em;
-  color: #9a6b83;
+
+  text-transform: uppercase;
 }
 
 .scan-header h1 {
   margin: 0;
+
+  color: #172333;
+
   font-size: 2rem;
+
   font-weight: 700;
-  color: #2f2930;
+
+  line-height: 1.2;
 }
 
 .scan-header p {
-  margin: 12px auto 0;
   max-width: 460px;
+
+  margin: 12px auto 0;
+
+  color: #64748b;
+
   font-size: 0.95rem;
+
   line-height: 1.6;
-  color: #716a71;
 }
+
+/* ============================================================
+   SCANNER
+============================================================ */
 
 .scanner-container {
   position: relative;
+
   width: 100%;
   max-width: 500px;
+
   margin: 0 auto;
+
   overflow: hidden;
-  border-radius: 18px;
-  background: #111111;
+
   aspect-ratio: 1 / 1;
+
+  border: 1px solid #0b3159;
+
+  border-radius: 18px;
+
+  background: #061a33;
+
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04),
+    0 10px 25px rgba(6, 26, 51, 0.18);
 }
 
 .scanner-container ngx-scanner-qrcode {
   display: block;
+
   width: 100%;
   height: 100%;
 }
 
+/* ============================================================
+   SCAN MESSAGE
+============================================================ */
+
 .scan-message {
   margin-top: 20px;
+
   padding: 14px 18px;
+
+  border: 1px solid #dce8f5;
+
   border-radius: 12px;
+
   text-align: center;
+
+  color: #0b3159;
+
+  background: #f2f6fb;
+
   font-size: 0.9rem;
+
   font-weight: 600;
-  background: #f3edf1;
-  color: #6d4b5c;
+
+  line-height: 1.5;
 }
+
+/* ============================================================
+   ERROR
+============================================================ */
 
 .error-message {
   margin-top: 20px;
+
   padding: 14px 18px;
+
+  border: 1px solid #dce3ea;
+
+  border-left: 4px solid #00347d;
+
   border-radius: 12px;
+
   text-align: center;
+
+  color: #3d4d5e;
+
+  background: #e9eef3;
+
   font-size: 0.9rem;
+
+  font-weight: 600;
+
   line-height: 1.5;
-  background: #fcebed;
-  color: #a33f4d;
 }
+
+/* ============================================================
+   ACTIONS
+============================================================ */
 
 .scan-actions {
   display: flex;
+
   justify-content: center;
+
   margin-top: 28px;
 }
 
+/* ============================================================
+   SECONDARY BUTTON
+============================================================ */
+
 .secondary-button {
   min-width: 150px;
+
   padding: 12px 24px;
-  border: 1px solid #d8d1d6;
+
+  border: 1px solid #c8d1da;
+
   border-radius: 10px;
+
   background: #ffffff;
-  color: #4a4248;
+
+  color: #243346;
+
   font-size: 0.85rem;
+
   font-weight: 700;
+
   letter-spacing: 0.04em;
+
   cursor: pointer;
+
   transition:
     background-color 0.2s ease,
     border-color 0.2s ease,
-    transform 0.2s ease;
+    color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .secondary-button:hover:not(:disabled) {
-  background: #f7f3f5;
-  border-color: #bcaeb7;
+  border-color: #0043a1;
+
+  background: #f2f6fb;
+
+  color: #00347d;
+
   transform: translateY(-1px);
+
+  box-shadow: 0 5px 14px rgba(0, 67, 161, 0.1);
+}
+
+.secondary-button:active:not(:disabled) {
+  transform: translateY(0);
 }
 
 .secondary-button:disabled {
   opacity: 0.6;
+
   cursor: not-allowed;
 }
 
 /* ============================================================
+   OPTIONAL PRIMARY BUTTON
+   Si posteriormente se utiliza un botón principal
+============================================================ */
+
+.primary-button {
+  min-width: 150px;
+
+  padding: 12px 24px;
+
+  border: 1px solid #0043a1;
+
+  border-radius: 10px;
+
+  background: #0043a1;
+
+  color: #ffffff;
+
+  font-size: 0.85rem;
+
+  font-weight: 700;
+
+  letter-spacing: 0.04em;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.primary-button:hover:not(:disabled) {
+  border-color: #00347d;
+
+  background: #00347d;
+
+  transform: translateY(-1px);
+
+  box-shadow: 0 6px 16px rgba(0, 67, 161, 0.2);
+}
+
+.primary-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.primary-button:disabled {
+  opacity: 0.6;
+
+  cursor: not-allowed;
+}
+
+/* ============================================================
+   SUCCESS STATE
+============================================================ */
+
+.success-message {
+  margin-top: 20px;
+
+  padding: 14px 18px;
+
+  border: 1px solid rgba(47, 125, 104, 0.2);
+
+  border-left: 4px solid #2f7d68;
+
+  border-radius: 12px;
+
+  background: rgba(47, 125, 104, 0.07);
+
+  color: #2f7d68;
+
+  text-align: center;
+
+  font-size: 0.9rem;
+
+  font-weight: 600;
+
+  line-height: 1.5;
+}
+
+/* ============================================================
    RESPONSIVE
-   ============================================================ */
+============================================================ */
 
 @media (max-width: 600px) {
   .scan-card-page {
     min-height: calc(100vh - 80px);
+
     padding: 20px 12px;
+
     align-items: flex-start;
   }
 
   .scan-card {
     padding: 24px 16px;
+
     border-radius: 18px;
   }
 
   .scan-header {
     margin-bottom: 22px;
+  }
+
+  .section-kicker {
+    font-size: 0.7rem;
   }
 
   .scan-header h1 {
@@ -150,11 +366,20 @@
     border-radius: 14px;
   }
 
+  .scan-message,
+  .error-message,
+  .success-message {
+    font-size: 0.85rem;
+
+    padding: 12px 14px;
+  }
+
   .scan-actions {
     margin-top: 22px;
   }
 
-  .secondary-button {
+  .secondary-button,
+  .primary-button {
     width: 100%;
   }
 }

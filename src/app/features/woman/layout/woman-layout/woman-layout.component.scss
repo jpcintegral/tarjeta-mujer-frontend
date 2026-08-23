@@ -1,16 +1,101 @@
+/* ============================================================
+   RED DE APOYO CIUDADANO
+   USER / WOMAN LAYOUT
+   IDENTIDAD AZUL
+   ============================================================ */
+
 .woman-layout {
+  /* ==========================================================
+     IDENTIDAD
+     ========================================================== */
+
+  --rac-primary: #0043a1;
+  --rac-primary-dark: #00347d;
+  --rac-primary-deep: #002b68;
+  --rac-primary-light: #1d5fba;
+
+  --rac-navy-950: #061a33;
+  --rac-navy-900: #082444;
+  --rac-navy-800: #0b3159;
+
+  --rac-satin-blue: #15569a;
+
+  --rac-blue-100: #dce8f5;
+  --rac-blue-50: #f2f6fb;
+
+  --rac-white: #ffffff;
+
+  --rac-surface: #f7f9fc;
+
+  --rac-gray-900: #172333;
+  --rac-gray-800: #243346;
+  --rac-gray-700: #3d4d5e;
+  --rac-gray-600: #64748b;
+  --rac-gray-500: #7b8998;
+  --rac-gray-400: #a6b1bc;
+  --rac-gray-300: #c8d1da;
+  --rac-gray-200: #dce3ea;
+  --rac-gray-100: #e9eef3;
+
+  --rac-success: #2f7d68;
+  --rac-success-light: #e5f1ed;
+
+  /* ==========================================================
+     SOMBRAS
+     ========================================================== */
+
+  --rac-shadow-xs: 0 2px 8px rgba(0, 43, 104, 0.05);
+
+  --rac-shadow-sm: 0 5px 16px rgba(0, 43, 104, 0.08);
+
+  --rac-shadow-md: 0 12px 32px rgba(0, 43, 104, 0.12);
+
+  /* ==========================================================
+     RADIOS
+     ========================================================== */
+
+  --rac-radius-sm: 8px;
+  --rac-radius-md: 12px;
+  --rac-radius-lg: 18px;
+  --rac-radius-xl: 24px;
+
+  /* ==========================================================
+     TRANSICIÓN
+     ========================================================== */
+
+  --rac-transition: 0.25s ease;
+
+  /* ==========================================================
+     LAYOUT
+     ========================================================== */
+
   min-height: 100vh;
-  background: #faf7f9;
+
+  background: linear-gradient(
+    180deg,
+    var(--rac-surface) 0%,
+    #ffffff 45%,
+    var(--rac-surface) 100%
+  );
 }
 
-/* ========================================= */
-/* HEADER */
-/* ========================================= */
+/* ============================================================
+   HEADER
+   ============================================================ */
 
 .woman-header {
-  background: #ffffff;
-  border-bottom: 1px solid #eee6eb;
+  position: relative;
+
+  background: rgba(255, 255, 255, 0.96);
+
+  border-bottom: 1px solid rgba(0, 43, 104, 0.07);
+
+  box-shadow: 0 2px 12px rgba(0, 43, 104, 0.035);
 }
+
+/* ============================================================
+   HEADER CONTAINER
+   ============================================================ */
 
 .header-container {
   max-width: 1100px;
@@ -28,15 +113,29 @@
   gap: 20px;
 }
 
+/* ============================================================
+   BRAND
+   ============================================================ */
+
 .brand {
-  color: #71345b;
+  color: var(--rac-primary);
 
   font-size: 1.15rem;
 
   font-weight: 800;
 
   text-decoration: none;
+
+  transition: color var(--rac-transition);
 }
+
+.brand:hover {
+  color: var(--rac-primary-dark);
+}
+
+/* ============================================================
+   USER SECTION
+   ============================================================ */
 
 .user-section {
   display: flex;
@@ -46,41 +145,86 @@
   gap: 18px;
 }
 
+/* ============================================================
+   WELCOME
+   ============================================================ */
+
 .welcome {
-  color: #5f5159;
+  color: var(--rac-gray-600);
 
   font-size: 0.9rem;
+
+  line-height: 1.4;
 }
 
+/* ============================================================
+   LOGOUT
+   ============================================================ */
+
 .logout-button {
+  min-height: 36px;
+
   padding: 8px 14px;
 
-  border: 1px solid #71345b;
+  border: 1px solid rgba(0, 67, 161, 0.35);
 
-  border-radius: 8px;
+  border-radius: var(--rac-radius-sm);
 
   background: transparent;
 
-  color: #71345b;
+  color: var(--rac-primary);
+
+  font-family: inherit;
+
+  font-size: 0.82rem;
+
+  font-weight: 700;
 
   cursor: pointer;
+
+  transition:
+    background var(--rac-transition),
+    border-color var(--rac-transition),
+    color var(--rac-transition),
+    transform var(--rac-transition),
+    box-shadow var(--rac-transition);
 }
 
 .logout-button:hover {
-  background: #71345b;
+  background: linear-gradient(
+    135deg,
+    var(--rac-primary),
+    var(--rac-primary-dark)
+  );
 
-  color: #ffffff;
+  border-color: var(--rac-primary);
+
+  color: var(--rac-white);
+
+  transform: translateY(-1px);
+
+  box-shadow: 0 5px 14px rgba(0, 43, 104, 0.16);
 }
 
-/* ========================================= */
-/* NAVIGATION */
-/* ========================================= */
+.logout-button:active {
+  transform: translateY(0);
+
+  box-shadow: none;
+}
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
 
 .woman-nav {
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.98);
 
-  border-bottom: 1px solid #eee6eb;
+  border-bottom: 1px solid rgba(0, 43, 104, 0.06);
 }
+
+/* ============================================================
+   NAV CONTAINER
+   ============================================================ */
 
 .nav-container {
   max-width: 1100px;
@@ -94,10 +238,16 @@
   gap: 30px;
 }
 
+/* ============================================================
+   NAV LINKS
+   ============================================================ */
+
 .nav-container a {
+  position: relative;
+
   padding: 15px 0;
 
-  color: #766a72;
+  color: var(--rac-gray-600);
 
   font-size: 0.9rem;
 
@@ -106,21 +256,33 @@
   text-decoration: none;
 
   border-bottom: 2px solid transparent;
+
+  transition:
+    color var(--rac-transition),
+    border-color var(--rac-transition);
 }
+
+/* ============================================================
+   NAV HOVER
+   ============================================================ */
 
 .nav-container a:hover {
-  color: #71345b;
+  color: var(--rac-primary);
 }
+
+/* ============================================================
+   NAV ACTIVE
+   ============================================================ */
 
 .nav-container a.active {
-  color: #71345b;
+  color: var(--rac-primary);
 
-  border-bottom-color: #71345b;
+  border-bottom-color: var(--rac-primary);
 }
 
-/* ========================================= */
-/* CONTENT */
-/* ========================================= */
+/* ============================================================
+   CONTENT
+   ============================================================ */
 
 .woman-content {
   max-width: 1100px;
@@ -130,15 +292,17 @@
   padding: 10px 20px 70px;
 }
 
-/* ========================================= */
-/* RESPONSIVE */
-/* ========================================= */
+/* ============================================================
+   MOBILE
+   ============================================================ */
 
 @media (max-width: 700px) {
   .header-container {
     align-items: flex-start;
 
     flex-direction: column;
+
+    padding: 16px 16px;
   }
 
   .user-section {
@@ -151,9 +315,53 @@
     overflow-x: auto;
 
     gap: 22px;
+
+    scrollbar-width: none;
+  }
+
+  .nav-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-container a {
+    flex-shrink: 0;
+
+    white-space: nowrap;
   }
 
   .woman-content {
     padding: 25px 14px 50px;
+  }
+}
+
+/* ============================================================
+   SMALL MOBILE
+   ============================================================ */
+
+@media (max-width: 420px) {
+  .header-container {
+    gap: 14px;
+  }
+
+  .brand {
+    font-size: 1.05rem;
+  }
+
+  .welcome {
+    font-size: 0.82rem;
+  }
+
+  .logout-button {
+    padding: 7px 11px;
+
+    font-size: 0.78rem;
+  }
+
+  .nav-container {
+    gap: 18px;
+  }
+
+  .nav-container a {
+    font-size: 0.84rem;
   }
 }

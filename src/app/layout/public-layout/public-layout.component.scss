@@ -1,23 +1,40 @@
+/* ============================================================
+   RED DE APOYO CIUDADANO
+   PUBLIC LAYOUT
+   IDENTIDAD AZUL
+   ============================================================ */
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+
 .public-layout {
   min-height: 100vh;
+
   display: flex;
+
   flex-direction: column;
+
+  background: var(--rac-surface, #f7f9fc);
 }
 
 .page-content {
   flex: 1;
+
   padding-top: var(--tm-header-height);
 }
 
-/* ============================================
+/* ============================================================
    HEADER
-   ============================================ */
+   ============================================================ */
 
 .site-header {
   position: fixed;
+
   top: 0;
   left: 0;
   right: 0;
+
   z-index: 1000;
 
   height: var(--tm-header-height);
@@ -26,87 +43,163 @@
 
   backdrop-filter: blur(14px);
 
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  /*
+   * Línea muy sutil azulada.
+   */
+
+  border-bottom: 1px solid rgba(0, 43, 104, 0.07);
+
+  /*
+   * Sombra extremadamente discreta.
+   */
+
+  box-shadow: 0 2px 12px rgba(0, 43, 104, 0.035);
 }
+
+/* ============================================================
+   HEADER INNER
+   ============================================================ */
 
 .header-inner {
   height: 100%;
 
   display: flex;
+
   align-items: center;
+
   justify-content: space-between;
 
   gap: 30px;
 }
 
-/* ============================================
+/* ============================================================
    BRAND
-   ============================================ */
+   ============================================================ */
 
 .brand {
   display: flex;
+
   align-items: center;
 
   gap: 10px;
 
+  flex-shrink: 0;
+
   text-decoration: none;
 
-  color: var(--tm-wine);
-
-  flex-shrink: 0;
+  color: var(--rac-primary, #0043a1);
 }
+
+/* ============================================================
+   BRAND ICON
+   ============================================================ */
 
 .brand-icon {
   width: 38px !important;
+
   height: 38px !important;
 
   min-width: 38px;
+
   min-height: 38px;
+
   max-width: 38px;
+
   max-height: 38px;
 
   display: block;
 
   overflow: hidden;
 
+  position: relative;
+
   border-radius: 12px;
 
   flex: 0 0 38px;
 
-  box-shadow: 0 5px 14px rgba(114, 47, 75, 0.22);
+  /*
+   * Azul institucional + marino.
+   */
+
+  background: linear-gradient(
+    135deg,
+    var(--rac-navy-900, #082444),
+    var(--rac-primary-dark, #00347d),
+    var(--rac-primary, #0043a1)
+  );
+
+  box-shadow: 0 5px 14px rgba(0, 43, 104, 0.2);
+}
+
+/*
+ * Reflejo satinado discreto.
+ */
+
+.brand-icon::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1),
+    transparent 50%
+  );
+
+  pointer-events: none;
 }
 
 .brand-icon img {
   display: block;
 
   width: 38px !important;
+
   height: 38px !important;
 
   min-width: 38px;
+
   min-height: 38px;
+
   max-width: 38px;
+
   max-height: 38px;
 
   object-fit: cover;
 
   margin: 0;
+
   padding: 0;
 
   border: 0;
+
+  position: relative;
+
+  z-index: 1;
 }
+
+/* ============================================================
+   BRAND NAME
+   ============================================================ */
+
 .brand-name {
   font-size: 16px;
+
   font-weight: 700;
 
   white-space: nowrap;
+
+  color: var(--rac-gray-900, #172333);
 }
 
-/* ============================================
+/* ============================================================
    DESKTOP NAVIGATION
-   ============================================ */
+   ============================================================ */
 
 .desktop-navigation {
   display: flex;
+
   align-items: center;
 
   gap: 28px;
@@ -121,18 +214,23 @@
 
   text-decoration: none;
 
-  color: var(--tm-gray-600);
+  color: var(--rac-gray-600, #64748b);
 
   font-size: 14px;
+
   font-weight: 500;
 
-  transition: color var(--tm-transition);
+  transition: color var(--rac-transition, 0.25s ease);
 }
 
 .desktop-navigation a:hover,
 .desktop-navigation a.active {
-  color: var(--tm-wine);
+  color: var(--rac-primary, #0043a1);
 }
+
+/*
+ * Indicador activo.
+ */
 
 .desktop-navigation a.active::after {
   content: "";
@@ -148,33 +246,54 @@
 
   border-radius: 10px;
 
-  background: var(--tm-wine);
+  background: linear-gradient(
+    90deg,
+    var(--rac-primary-dark, #00347d),
+    var(--rac-primary, #0043a1)
+  );
 }
 
-/* ============================================
+/* ============================================================
    HEADER ACTIONS
-   ============================================ */
+   ============================================================ */
 
 .header-actions {
   display: flex;
+
   align-items: center;
 
   gap: 16px;
 }
 
+/* ============================================================
+   LOGIN LINK
+   ============================================================ */
+
 .login-link {
   text-decoration: none;
 
-  color: var(--tm-gray-700);
+  color: var(--rac-gray-700, #3d4d5e);
 
   font-size: 14px;
+
   font-weight: 600;
+
+  transition: color var(--rac-transition, 0.25s ease);
 }
+
+.login-link:hover {
+  color: var(--rac-primary, #0043a1);
+}
+
+/* ============================================================
+   HEADER BUTTON
+   ============================================================ */
 
 .header-button {
   display: inline-flex;
 
   align-items: center;
+
   justify-content: center;
 
   min-height: 42px;
@@ -183,70 +302,128 @@
 
   border-radius: 10px;
 
-  background: var(--tm-wine);
+  /*
+   * Azul institucional.
+   */
 
-  color: white;
+  background: linear-gradient(
+    135deg,
+    var(--rac-primary, #0043a1),
+    var(--rac-primary-dark, #00347d)
+  );
+
+  color: var(--rac-white, #ffffff);
 
   text-decoration: none;
 
   font-size: 14px;
+
   font-weight: 600;
 
-  box-shadow: var(--tm-shadow-sm);
+  box-shadow: 0 6px 16px rgba(0, 43, 104, 0.18);
 
   transition:
-    transform var(--tm-transition),
-    background var(--tm-transition);
+    transform var(--rac-transition, 0.25s ease),
+    background var(--rac-transition, 0.25s ease),
+    box-shadow var(--rac-transition, 0.25s ease);
 }
 
 .header-button:hover {
   transform: translateY(-1px);
 
-  background: var(--tm-wine-dark);
+  background: linear-gradient(
+    135deg,
+    var(--rac-primary-light, #1d5fba),
+    var(--rac-primary-dark, #00347d)
+  );
+
+  box-shadow: 0 9px 20px rgba(0, 43, 104, 0.23);
 }
 
-/* ============================================
+/* ============================================================
    MOBILE MENU BUTTON
-   ============================================ */
+   ============================================================ */
 
 .mobile-menu-button {
   display: none;
 
   width: 42px;
+
   height: 42px;
 
-  border: 0;
+  border: 1px solid var(--rac-gray-200, #dce3ea);
 
   border-radius: 10px;
 
-  background: var(--tm-gray-50);
+  background: var(--rac-blue-50, #f2f6fb);
 
-  color: var(--tm-gray-800);
+  color: var(--rac-gray-800, #243346);
 
   font-size: 22px;
 
   cursor: pointer;
+
+  transition:
+    background var(--rac-transition, 0.25s ease),
+    color var(--rac-transition, 0.25s ease),
+    border-color var(--rac-transition, 0.25s ease);
 }
 
-/* ============================================
+.mobile-menu-button:hover {
+  background: var(--rac-blue-100, #dce8f5);
+
+  border-color: rgba(0, 67, 161, 0.15);
+
+  color: var(--rac-primary, #0043a1);
+}
+
+/* ============================================================
    MOBILE NAVIGATION
-   ============================================ */
+   ============================================================ */
 
 .mobile-navigation {
   display: none;
 }
 
-/* ============================================
+/* ============================================================
    FOOTER
-   ============================================ */
+   ============================================================ */
 
 .site-footer {
   margin-top: auto;
 
-  background: var(--tm-gray-900);
+  background: linear-gradient(
+    135deg,
+    var(--rac-navy-950, #061a33),
+    var(--rac-navy-900, #082444) 55%,
+    var(--rac-navy-800, #0b3159)
+  );
 
-  color: white;
+  color: var(--rac-white, #ffffff);
 }
+
+/*
+ * Reflejo satinado muy discreto.
+ */
+
+.site-footer::before {
+  content: "";
+
+  display: block;
+
+  height: 1px;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+}
+
+/* ============================================================
+   FOOTER GRID
+   ============================================================ */
 
 .footer-grid {
   display: grid;
@@ -258,9 +435,17 @@
   padding: 70px 0;
 }
 
+/* ============================================================
+   FOOTER BRAND
+   ============================================================ */
+
 .footer-brand {
   max-width: 380px;
 }
+
+/* ============================================================
+   FOOTER LOGO
+   ============================================================ */
 
 .footer-logo {
   display: flex;
@@ -271,15 +456,50 @@
 
   margin-bottom: 18px;
 
+  color: var(--rac-white, #ffffff);
+
   font-size: 18px;
+
+  font-weight: 700;
 }
 
 .footer-logo .brand-icon {
-  width: 34px;
-  height: 34px;
+  width: 34px !important;
+
+  height: 34px !important;
+
+  min-width: 34px;
+
+  min-height: 34px;
+
+  max-width: 34px;
+
+  max-height: 34px;
+
+  flex: 0 0 34px;
 
   font-size: 18px;
+
+  border-radius: 10px;
 }
+
+.footer-logo .brand-icon img {
+  width: 34px !important;
+
+  height: 34px !important;
+
+  min-width: 34px;
+
+  min-height: 34px;
+
+  max-width: 34px;
+
+  max-height: 34px;
+}
+
+/* ============================================================
+   FOOTER DESCRIPTION
+   ============================================================ */
 
 .footer-brand p {
   margin: 0;
@@ -288,6 +508,10 @@
 
   line-height: 1.7;
 }
+
+/* ============================================================
+   FOOTER COLUMNS
+   ============================================================ */
 
 .footer-column {
   display: flex;
@@ -299,13 +523,23 @@
   gap: 10px;
 }
 
+/* ============================================================
+   FOOTER COLUMN TITLE
+   ============================================================ */
+
 .footer-column h3 {
   margin: 0 0 8px;
 
+  color: var(--rac-white, #ffffff);
+
   font-size: 14px;
 
-  color: white;
+  font-weight: 700;
 }
+
+/* ============================================================
+   FOOTER LINKS
+   ============================================================ */
 
 .footer-column a {
   color: rgba(255, 255, 255, 0.62);
@@ -314,16 +548,16 @@
 
   font-size: 14px;
 
-  transition: color var(--tm-transition);
+  transition: color var(--rac-transition, 0.25s ease);
 }
 
 .footer-column a:hover {
-  color: white;
+  color: var(--rac-white, #ffffff);
 }
 
-/* ============================================
+/* ============================================================
    FOOTER BOTTOM
-   ============================================ */
+   ============================================================ */
 
 .footer-bottom {
   padding: 18px 0;
@@ -335,9 +569,9 @@
   font-size: 13px;
 }
 
-/* ============================================
+/* ============================================================
    RESPONSIVE
-   ============================================ */
+   ============================================================ */
 
 @media (max-width: 900px) {
   .desktop-navigation,
@@ -353,10 +587,15 @@
     cursor: pointer;
   }
 
+  /* ========================================================
+     MOBILE NAVIGATION
+     ======================================================== */
+
   .mobile-navigation {
     position: fixed;
 
     top: var(--tm-header-height);
+
     left: 0;
     right: 0;
 
@@ -372,10 +611,14 @@
 
     backdrop-filter: blur(14px);
 
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    border-bottom: 1px solid rgba(0, 43, 104, 0.08);
 
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 10px 25px rgba(0, 43, 104, 0.1);
   }
+
+  /* ========================================================
+     MOBILE LINKS
+     ======================================================== */
 
   .mobile-navigation a {
     display: flex;
@@ -386,24 +629,33 @@
 
     padding: 0 10px;
 
-    color: var(--tm-gray-700);
+    color: var(--rac-gray-700, #3d4d5e);
 
     text-decoration: none;
 
     font-size: 15px;
+
     font-weight: 600;
 
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid rgba(0, 43, 104, 0.05);
+
+    transition:
+      color var(--rac-transition, 0.25s ease),
+      background var(--rac-transition, 0.25s ease);
   }
 
   .mobile-navigation a:hover,
   .mobile-navigation a.active {
-    color: var(--tm-wine);
+    color: var(--rac-primary, #0043a1);
   }
 
   .mobile-navigation a:last-child {
     border-bottom: 0;
   }
+
+  /* ========================================================
+     MOBILE REGISTER BUTTON
+     ======================================================== */
 
   .mobile-navigation .mobile-register-button {
     justify-content: center;
@@ -412,25 +664,39 @@
 
     border-radius: 10px;
 
-    background: var(--tm-wine);
+    background: linear-gradient(
+      135deg,
+      var(--rac-primary, #0043a1),
+      var(--rac-primary-dark, #00347d)
+    );
 
-    color: white;
+    color: var(--rac-white, #ffffff);
+
+    border-bottom: 0;
   }
 
   .mobile-navigation .mobile-register-button:hover {
-    background: var(--tm-wine-dark);
+    background: linear-gradient(
+      135deg,
+      var(--rac-primary-light, #1d5fba),
+      var(--rac-primary-dark, #00347d)
+    );
 
-    color: white;
+    color: var(--rac-white, #ffffff);
   }
+
+  /* ========================================================
+     FOOTER
+     ======================================================== */
 
   .footer-grid {
     grid-template-columns: 1fr 1fr;
   }
 }
 
-/* ============================================
+/* ============================================================
    SMALL MOBILE
-   ============================================ */
+   ============================================================ */
 
 @media (max-width: 600px) {
   .footer-grid {
@@ -439,5 +705,9 @@
     gap: 35px;
 
     padding: 50px 0;
+  }
+
+  .brand-name {
+    font-size: 15px;
   }
 }

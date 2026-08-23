@@ -69,7 +69,7 @@
 
       <!-- BUSCADOR -->
       <div
-        *ngIf="!loading && !error && services.length > 0"
+        *ngIf="!loading && !error && (services.length > 0 || searchTerm)"
         class="services-search"
       >
         <div class="search-input-wrapper">

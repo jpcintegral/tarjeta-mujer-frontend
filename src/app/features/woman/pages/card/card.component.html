@@ -5,10 +5,6 @@
 
   <div class="loading" *ngIf="loading">Cargando tu tarjeta...</div>
 
-  <!-- ========================================= -->
-  <!-- CONTENIDO -->
-  <!-- ========================================= -->
-
   <ng-container *ngIf="!loading">
     <!-- ========================================= -->
     <!-- SIN TARJETA -->
@@ -17,7 +13,7 @@
     <article class="empty-card" *ngIf="!cardExists">
       <div class="empty-icon">
         <span class="brand-icon">
-          <img src="/images/otro-colima.jpg" alt=" Tarjeta del Ciudadano" />
+          <img src="/images/otro-colima.jpg" alt="Red de Apoyo Ciudadano" />
         </span>
       </div>
 
@@ -27,169 +23,216 @@
     </article>
 
     <!-- ========================================= -->
-    <!-- TARJETA -->
+    <!-- TARJETA EXISTENTE -->
     <!-- ========================================= -->
 
     <ng-container *ngIf="cardExists && card">
-      <!-- ENCABEZADO -->
+      <!-- ========================================= -->
+      <!-- PAGE HEADER -->
+      <!-- ========================================= -->
 
-      <div class="page-header">
-        <span class="eyebrow"> MI TARJETA </span>
+      <header class="page-header">
+        <span class="eyebrow"> IDENTIFICACIÓN CIUDADANA </span>
 
         <h1>Mi Tarjeta del Ciudadano</h1>
 
-        <!-- ========================================= -->
-        <!-- AVISO -->
-        <!-- ========================================= -->
-
-        <div class="card-notice">
-          <span class="notice-icon"> ✓ </span>
-
-          <div>
-            <strong> Tu tarjeta está activa </strong>
-
-            <p>
-              Puedes utilizarla en los negocioss participantes de RED DE APOYO
-              CIUDADANO.
-            </p>
-          </div>
-        </div>
-      </div>
+        <p>
+          Tu identificación para acceder a los beneficios disponibles en la Red
+          de Apoyo Ciudadano.
+        </p>
+      </header>
 
       <!-- ========================================= -->
       <!-- TARJETA DIGITAL -->
       <!-- ========================================= -->
 
       <article class="digital-card">
-        <!-- CABECERA -->
-
-        <div class="card-header">
-          <div class="brand">
-            <span class="brand-icon">
-              <img src="/images/otro-colima.jpg" alt=" Tarjeta del Ciudadano" />
-            </span>
-
-            <div>
-              <strong> Tarjeta del Ciudadano </strong>
-
-              <small> RED DE APOYO CIUDADANO </small>
-            </div>
-          </div>
-
-          <span class="status">
-            {{ card.statusCard }}
-          </span>
-        </div>
-
         <!-- ========================================= -->
-        <!-- CONTENIDO -->
+        <!-- SUPERFICIE PRINCIPAL -->
         <!-- ========================================= -->
 
-        <div class="card-body">
-          <!-- INFORMACIÓN MUJER -->
-
-          <div class="woman-info">
-            <span class="section-label"> TITULAR </span>
-
-            <h2>
-              {{ profile?.firstName }}
-              {{ profile?.lastName }}
-              {{ profile?.secondLastName }}
-            </h2>
-
-            <p>Ciudadano registrado</p>
-          </div>
-
+        <div class="card-surface">
           <!-- ========================================= -->
-          <!-- QR -->
+          <!-- DECORACIÓN SATINADA -->
           <!-- ========================================= -->
 
-          <div class="qr-section">
-            <div class="qr-container">
-              <!-- QR REAL -->
+          <div class="satin-glow satin-glow-one"></div>
 
-              <div class="qr-code" *ngIf="qrToken && !generatingQr">
-                <qrcode
-                  [qrdata]="qrToken"
-                  [width]="220"
-                  [errorCorrectionLevel]="'M'"
-                  [elementType]="'canvas'"
-                >
-                </qrcode>
+          <div class="satin-glow satin-glow-two"></div>
+
+          <div class="satin-line satin-line-one"></div>
+
+          <div class="satin-line satin-line-two"></div>
+
+          <!-- ========================================= -->
+          <!-- HEADER DE TARJETA -->
+          <!-- ========================================= -->
+
+          <div class="card-header">
+            <!-- BRAND -->
+            <div class="card-brand">
+              <div class="brand-icon">
+                <img
+                  src="/images/otro-colima.jpg"
+                  alt="Red de Apoyo Ciudadano"
+                />
               </div>
 
-              <!-- GENERANDO QR -->
+              <div class="brand-text">
+                <strong> RED DE APOYO </strong>
 
-              <div class="qr-loading" *ngIf="generatingQr">
-                Generando código QR...
+                <span> CIUDADANO </span>
               </div>
             </div>
 
-            <span class="qr-label">
-              <p>Escanea para verificar</p>
-            </span>
-          </div>
-        </div>
+            <!-- STATUS -->
+            <div class="card-status">
+              <span class="status-dot"></span>
 
-        <!-- ========================================= -->
-        <!-- INFORMACIÓN TARJETA -->
-        <!-- ========================================= -->
-
-        <div class="card-information">
-          <!-- FOLIO -->
-
-          <div class="info-item">
-            <span class="info-label"> FOLIO </span>
-
-            <strong>
-              {{ card.folio }}
-            </strong>
+              <span>
+                {{ card.statusCard === "ACTIVE" ? "ACTIVA" : card.statusCard }}
+              </span>
+            </div>
           </div>
 
-          <!-- VIGENCIA -->
+          <!-- ========================================= -->
+          <!-- CUERPO -->
+          <!-- ========================================= -->
 
-          <div class="info-item">
-            <span class="info-label"> VIGENCIA </span>
+          <div class="card-body">
+            <!-- ========================================= -->
+            <!-- IDENTIDAD -->
+            <!-- ========================================= -->
 
-            <strong>
-              {{ card.issuedAt | date: "dd/MM/yyyy" }}
+            <div class="citizen-information">
+              <span class="section-label"> TITULAR </span>
 
-              -
+              <h2 class="citizen-name">
+                {{ profile?.firstName }}
 
-              {{ card.expiresAt | date: "dd/MM/yyyy" }}
-            </strong>
+                {{ profile?.lastName }}
+
+                {{ profile?.secondLastName }}
+              </h2>
+
+              <p class="citizen-type">Ciudadano registrado</p>
+            </div>
+
+            <!-- ========================================= -->
+            <!-- QR -->
+            <!-- ========================================= -->
+
+            <div class="qr-section">
+              <div class="qr-container">
+                <!-- QR REAL -->
+
+                <div class="qr-code" *ngIf="qrToken && !generatingQr">
+                  <qrcode
+                    [qrdata]="qrToken"
+                    [width]="190"
+                    [errorCorrectionLevel]="'M'"
+                    [elementType]="'canvas'"
+                  >
+                  </qrcode>
+                </div>
+
+                <!-- GENERANDO -->
+
+                <div class="qr-loading" *ngIf="generatingQr">
+                  Generando código QR...
+                </div>
+              </div>
+
+              <span class="qr-label"> ESCANEA PARA VERIFICAR </span>
+            </div>
           </div>
 
-          <!-- ESTADO -->
+          <!-- ========================================= -->
+          <!-- FOOTER DE TARJETA -->
+          <!-- ========================================= -->
 
-          <div class="info-item">
-            <span class="info-label"> ESTADO </span>
+          <div class="card-footer">
+            <!-- VIGENCIA -->
 
-            <strong class="active-text">
-              {{ card.statusCard }}
-            </strong>
+            <div class="card-detail">
+              <!-- ========================================= -->
+              <!-- FOLIO -->
+              <!-- ========================================= -->
+
+              <div class="citizen-folio">
+                <span> FOLIO </span>
+
+                <strong>
+                  {{ card.folio }}
+                </strong>
+              </div>
+            </div>
+
+            <!-- IDENTIDAD -->
+
+            <div class="card-detail card-detail-center">
+              <span> RED DE APOYO CIUDADANO </span>
+
+              <strong> BENEFICIOS PARA NUESTRA COMUNIDAD </strong>
+            </div>
+
+            <!-- ESTADO -->
+
+            <div class="card-detail card-detail-right">
+              <span> VIGENCIA </span>
+
+              <strong>
+                {{ card.issuedAt | date: "dd/MM/yyyy" }}
+
+                -
+
+                {{ card.expiresAt | date: "dd/MM/yyyy" }}
+              </strong>
+            </div>
           </div>
         </div>
       </article>
+
+      <!-- ========================================= -->
+      <!-- AVISO -->
+      <!-- ========================================= -->
+
+      <div class="card-notice">
+        <span class="notice-icon"> ✓ </span>
+
+        <div>
+          <strong> Tu tarjeta está activa </strong>
+
+          <p>
+            Puedes utilizarla en los negocios participantes de RED DE APOYO
+            CIUDADANO para acceder a los beneficios disponibles.
+          </p>
+        </div>
+      </div>
 
       <!-- ========================================= -->
       <!-- ACCIONES -->
       <!-- ========================================= -->
 
       <div class="card-actions">
+        <!-- ERROR -->
+
+        <div class="card-error" *ngIf="!loading && errorMessage">
+          {{ errorMessage }}
+        </div>
+
+        <!-- RENOVAR -->
+
         <button
           type="button"
           class="secondary-button"
           (click)="renewCard()"
           [disabled]="loading"
         >
-          <span *ngIf="!loading">⟳ Renovar tarjeta</span>
-          <span *ngIf="loading">Renovando tarjeta...</span>
-        </button>
+          <span *ngIf="!loading"> ⟳ Renovar tarjeta </span>
 
-        <div class="card-error" *ngIf="!loading && errorMessage">
-          {{ errorMessage }}
-        </div>
+          <span *ngIf="loading"> Renovando tarjeta... </span>
+        </button>
       </div>
     </ng-container>
   </ng-container>

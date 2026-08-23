@@ -1,180 +1,400 @@
+/* =========================================
+   RED DE APOYO CIUDADANO
+   LOGIN NEGOCIOS - IDENTIDAD AZUL
+========================================= */
+
 .business-auth-page {
+  /* =======================================================
+     IDENTIDAD
+     ======================================================= */
+
+  --rac-primary: #0043a1;
+  --rac-primary-dark: #00347d;
+  --rac-primary-deep: #002b68;
+  --rac-primary-light: #1d5fba;
+
+  --rac-navy-950: #061a33;
+  --rac-navy-900: #082444;
+  --rac-navy-800: #0b3159;
+
+  --rac-satin-blue: #15569a;
+
+  --rac-blue-100: #dce8f5;
+  --rac-blue-50: #f2f6fb;
+
+  --rac-white: #ffffff;
+
+  --rac-surface: #f7f9fc;
+
+  --rac-gray-900: #172333;
+  --rac-gray-800: #243346;
+  --rac-gray-700: #3d4d5e;
+  --rac-gray-600: #64748b;
+  --rac-gray-500: #7b8998;
+  --rac-gray-400: #a6b1bc;
+  --rac-gray-300: #c8d1da;
+  --rac-gray-200: #dce3ea;
+  --rac-gray-100: #e9eef3;
+
+  /* =======================================================
+     ERROR
+     ======================================================= */
+
+  --rac-danger: #a6535f;
+  --rac-danger-bg: #fbf2f3;
+  --rac-danger-border: #ead2d6;
+
+  /* =======================================================
+     SOMBRAS
+     ======================================================= */
+
+  --rac-shadow-sm: 0 5px 16px rgba(0, 43, 104, 0.08);
+
+  --rac-shadow-md: 0 12px 32px rgba(0, 43, 104, 0.12);
+
+  --rac-shadow-lg: 0 22px 55px rgba(0, 26, 58, 0.18);
+
+  /* =======================================================
+     RADIOS
+     ======================================================= */
+
+  --rac-radius-md: 12px;
+  --rac-radius-lg: 18px;
+  --rac-radius-xl: 24px;
+
+  /* =======================================================
+     TRANSICIÓN
+     ======================================================= */
+
+  --rac-transition: 0.25s ease;
+
+  /* =======================================================
+     PAGE
+     ======================================================= */
+
   min-height: 100vh;
 
   display: flex;
+
   align-items: center;
+
   justify-content: center;
+
+  position: relative;
+
+  overflow: hidden;
 
   padding: 30px 20px;
 
-  background: linear-gradient(135deg, #f7eef3, #eef3f7);
-
   box-sizing: border-box;
+
+  /*
+   * Fondo institucional.
+   *
+   * Misma familia visual que Login y Registro.
+   */
+
+  background:
+    radial-gradient(circle at 8% 10%, rgba(0, 67, 161, 0.07), transparent 32%),
+    radial-gradient(
+      circle at 92% 90%,
+      rgba(21, 86, 154, 0.055),
+      transparent 32%
+    ),
+    linear-gradient(135deg, #f7f9fc 0%, #f2f6fb 52%, #edf3f9 100%);
 }
+
+/* =========================================
+   SATINADO DE FONDO
+========================================= */
+
+.business-auth-page::before {
+  content: "";
+
+  position: absolute;
+
+  width: 600px;
+
+  height: 600px;
+
+  right: -300px;
+
+  top: -320px;
+
+  border-radius: 50%;
+
+  background: radial-gradient(circle, rgba(0, 67, 161, 0.055), transparent 68%);
+
+  pointer-events: none;
+}
+
+/* =========================================
+   CARD
+========================================= */
 
 .business-auth-card {
   width: 100%;
+
   max-width: 460px;
+
+  position: relative;
+
+  z-index: 1;
 
   padding: 40px;
 
-  background: #fff;
+  background: var(--rac-white);
 
-  border-radius: 24px;
+  border: 1px solid rgba(0, 43, 104, 0.07);
 
-  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
+  border-radius: var(--rac-radius-xl);
+
+  box-shadow:
+    0 15px 45px rgba(0, 43, 104, 0.1),
+    0 4px 12px rgba(0, 43, 104, 0.04);
 
   box-sizing: border-box;
 }
 
-/* ==============================
+/* =========================================
    BRAND
-================================ */
+========================================= */
 
 .auth-brand {
   display: flex;
 
-  align-items: center;
-
-  gap: 10px;
-
-  margin-bottom: 35px;
-
-  color: #76566c;
-
-  font-size: 11px;
-  font-weight: 800;
-
-  letter-spacing: 1.3px;
-}
-
-.auth-brand {
-  display: flex;
   justify-content: center;
+
   align-items: center;
 
   width: 100%;
 
   margin-bottom: 30px;
+
+  color: var(--rac-primary);
+
+  font-size: 11px;
+
+  font-weight: 800;
+
+  letter-spacing: 1.3px;
 }
+
+/* =========================================
+   BRAND ICON
+========================================= */
 
 .brand-icon {
   width: 60px;
+
   height: 60px;
 
   display: flex;
+
   align-items: center;
+
   justify-content: center;
 
-  border-radius: 20px;
-
-  background: #f1e3eb;
+  border-radius: 18px;
 
   overflow: hidden;
+
+  position: relative;
+
+  /*
+   * Mismo tratamiento de marca que Login/Registro.
+   */
+
+  background: linear-gradient(
+    135deg,
+    var(--rac-navy-900),
+    var(--rac-primary-dark) 52%,
+    var(--rac-primary)
+  );
+
+  box-shadow: 0 8px 20px rgba(0, 43, 104, 0.2);
+}
+
+/*
+ * Reflejo satinado.
+ */
+
+.brand-icon::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1),
+    transparent 48%
+  );
+
+  pointer-events: none;
 }
 
 .brand-icon img {
   display: block;
 
   width: 100%;
+
   height: 100%;
 
   object-fit: contain;
+
+  position: relative;
+
+  z-index: 1;
 }
 
-/* ==============================
+/* =========================================
    HEADER
-================================ */
+========================================= */
 
 .auth-header {
   margin-bottom: 28px;
 }
+
+/* =========================================
+   SECTION LABEL
+========================================= */
 
 .section-label {
   display: block;
 
   margin-bottom: 7px;
 
-  color: #999;
+  color: var(--rac-primary);
 
   font-size: 11px;
-  font-weight: 700;
+
+  font-weight: 800;
 
   letter-spacing: 1.5px;
+
+  text-transform: uppercase;
 }
+
+/* =========================================
+   HEADER TITLE
+========================================= */
 
 .auth-header h1 {
   margin: 0;
 
-  color: #29252a;
+  color: var(--rac-gray-900);
 
   font-size: 30px;
+
+  font-weight: 800;
+
+  line-height: 1.2;
 }
+
+/* =========================================
+   HEADER DESCRIPTION
+========================================= */
 
 .auth-header p {
   margin: 10px 0 0;
 
-  color: #777;
+  color: var(--rac-gray-600);
 
   line-height: 1.55;
 
   font-size: 14px;
 }
 
-/* ==============================
+/* =========================================
    FORM
-================================ */
+========================================= */
 
 .form-group {
   margin-bottom: 20px;
 }
+
+/* =========================================
+   LABEL
+========================================= */
 
 .form-group label {
   display: block;
 
   margin-bottom: 8px;
 
-  color: #444;
+  color: var(--rac-gray-700);
 
   font-size: 13px;
-  font-weight: 600;
+
+  font-weight: 650;
 }
+
+/* =========================================
+   INPUT
+========================================= */
 
 .form-group input {
   width: 100%;
 
   padding: 13px 14px;
 
-  border: 1px solid #ddd;
+  border: 1px solid var(--rac-gray-200);
 
   border-radius: 11px;
 
   outline: none;
 
-  background: #fff;
+  background: var(--rac-white);
+
+  color: var(--rac-gray-900);
 
   box-sizing: border-box;
 
   font: inherit;
 
   transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
+    border-color var(--rac-transition),
+    box-shadow var(--rac-transition),
+    background-color var(--rac-transition);
 }
+
+/* =========================================
+   INPUT HOVER
+========================================= */
+
+.form-group input:hover:not(:disabled) {
+  border-color: var(--rac-gray-300);
+}
+
+/* =========================================
+   INPUT FOCUS
+========================================= */
 
 .form-group input:focus {
-  border-color: #76566c;
+  border-color: var(--rac-primary);
 
-  box-shadow: 0 0 0 3px rgba(118, 86, 108, 0.08);
+  background: var(--rac-white);
+
+  box-shadow: 0 0 0 3px rgba(0, 67, 161, 0.1);
 }
+
+/* =========================================
+   INPUT DISABLED
+========================================= */
 
 .form-group input:disabled {
-  background: #f7f7f7;
+  background: var(--rac-gray-100);
+
+  color: var(--rac-gray-500);
+
+  cursor: not-allowed;
 }
 
-/* ==============================
+/* =========================================
    LOGIN BUTTON
-================================ */
+========================================= */
 
 .login-button {
   width: 100%;
@@ -185,37 +405,76 @@
 
   border-radius: 11px;
 
-  background: #76566c;
+  /*
+   * Azul institucional.
+   */
 
-  color: white;
+  background: linear-gradient(
+    135deg,
+    var(--rac-primary),
+    var(--rac-primary-dark)
+  );
+
+  color: var(--rac-white);
 
   font-size: 12px;
+
   font-weight: 800;
 
   letter-spacing: 0.4px;
 
   cursor: pointer;
 
+  box-shadow: 0 7px 18px rgba(0, 43, 104, 0.2);
+
   transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+    transform var(--rac-transition),
+    background var(--rac-transition),
+    box-shadow var(--rac-transition),
+    opacity var(--rac-transition);
 }
+
+/* =========================================
+   LOGIN BUTTON HOVER
+========================================= */
 
 .login-button:hover:not(:disabled) {
   transform: translateY(-1px);
 
-  box-shadow: 0 7px 18px rgba(118, 86, 108, 0.2);
+  background: linear-gradient(
+    135deg,
+    var(--rac-primary-light),
+    var(--rac-primary-dark)
+  );
+
+  box-shadow: 0 10px 22px rgba(0, 43, 104, 0.25);
 }
+
+/* =========================================
+   LOGIN BUTTON ACTIVE
+========================================= */
+
+.login-button:active:not(:disabled) {
+  transform: translateY(0);
+
+  box-shadow: 0 5px 12px rgba(0, 43, 104, 0.18);
+}
+
+/* =========================================
+   LOGIN BUTTON DISABLED
+========================================= */
 
 .login-button:disabled {
   opacity: 0.55;
 
   cursor: not-allowed;
+
+  box-shadow: none;
 }
 
-/* ==============================
+/* =========================================
    ERROR
-================================ */
+========================================= */
 
 .error-message {
   display: flex;
@@ -228,45 +487,55 @@
 
   padding: 12px 14px;
 
+  border: 1px solid var(--rac-danger-border);
+
   border-radius: 10px;
 
-  background: #fff0f0;
+  background: var(--rac-danger-bg);
 
-  color: #a23b3b;
+  color: var(--rac-danger);
 
   font-size: 13px;
+
+  line-height: 1.45;
 }
+
+/* =========================================
+   ERROR ICON
+========================================= */
 
 .error-icon {
   width: 22px;
+
   height: 22px;
 
   display: flex;
 
   align-items: center;
+
   justify-content: center;
 
   flex-shrink: 0;
 
   border-radius: 50%;
 
-  background: #a23b3b;
+  background: var(--rac-danger);
 
-  color: white;
+  color: var(--rac-white);
 
   font-weight: 700;
 }
 
-/* ==============================
+/* =========================================
    REGISTER
-================================ */
+========================================= */
 
 .register-section {
   margin-top: 30px;
 
   padding-top: 25px;
 
-  border-top: 1px solid #eee;
+  border-top: 1px solid var(--rac-gray-100);
 
   text-align: center;
 }
@@ -274,10 +543,14 @@
 .register-section p {
   margin: 0 0 10px;
 
-  color: #777;
+  color: var(--rac-gray-600);
 
   font-size: 13px;
 }
+
+/* =========================================
+   REGISTER BUTTON
+========================================= */
 
 .register-button {
   border: 0;
@@ -286,17 +559,26 @@
 
   background: transparent;
 
-  color: #76566c;
+  color: var(--rac-primary);
 
   font-size: 12px;
+
   font-weight: 800;
 
   cursor: pointer;
+
+  transition: color var(--rac-transition);
 }
 
-/* ==============================
+.register-button:hover {
+  color: var(--rac-primary-dark);
+
+  text-decoration: underline;
+}
+
+/* =========================================
    BACK
-================================ */
+========================================= */
 
 .back-section {
   margin-top: 20px;
@@ -311,20 +593,22 @@
 
   background: transparent;
 
-  color: #888;
+  color: var(--rac-gray-500);
 
   font-size: 12px;
 
   cursor: pointer;
+
+  transition: color var(--rac-transition);
 }
 
 .back-section button:hover {
-  color: #76566c;
+  color: var(--rac-primary);
 }
 
-/* ==============================
+/* =========================================
    MOBILE
-================================ */
+========================================= */
 
 @media (max-width: 520px) {
   .business-auth-page {

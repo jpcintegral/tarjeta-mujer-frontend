@@ -1,60 +1,212 @@
+/* =========================================================
+   ACCOUNT
+   RED DE APOYO CIUDADANO
+   IDENTIDAD AZUL #0043A1
+   ========================================================= */
+
 .account-page {
+  /* =======================================================
+     IDENTIDAD
+     ======================================================= */
+
+  --rac-primary: #0043a1;
+  --rac-primary-dark: #00347d;
+  --rac-primary-deep: #002b68;
+  --rac-primary-light: #1d5fba;
+
+  --rac-navy-950: #061a33;
+  --rac-navy-900: #082444;
+  --rac-navy-800: #0b3159;
+
+  --rac-satin-blue: #15569a;
+  --rac-steel-blue: #527493;
+
+  --rac-blue-100: #dce8f5;
+  --rac-blue-50: #f2f6fb;
+
+  --rac-white: #ffffff;
+  --rac-surface: #f7f9fc;
+
+  --rac-gray-900: #172333;
+  --rac-gray-800: #243346;
+  --rac-gray-700: #3d4d5e;
+  --rac-gray-600: #64748b;
+  --rac-gray-500: #7b8998;
+  --rac-gray-400: #a6b1bc;
+  --rac-gray-300: #c8d1da;
+  --rac-gray-200: #dce3ea;
+  --rac-gray-100: #e9eef3;
+
+  --rac-success: #2f7d68;
+  --rac-success-light: #e5f1ed;
+
+  /* =======================================================
+     SOMBRAS
+     ======================================================= */
+
+  --rac-shadow-xs: 0 2px 8px rgba(0, 43, 104, 0.05);
+  --rac-shadow-sm: 0 5px 16px rgba(0, 43, 104, 0.08);
+  --rac-shadow-md: 0 12px 32px rgba(0, 43, 104, 0.12);
+
+  /* =======================================================
+     LAYOUT
+     ======================================================= */
+
   width: 100%;
   max-width: 1100px;
+
   margin: 0 auto;
-  padding: 0rem 1.25rem 4rem;
+
+  padding: 0 1.25rem 4rem;
+
+  box-sizing: border-box;
 }
+
+/* =========================================================
+   HEADER
+   ========================================================= */
 
 .account-header {
   margin-bottom: 2rem;
 }
 
+/* =========================================================
+   EYEBROW
+   ========================================================= */
+
 .eyebrow {
   display: inline-block;
 
-  font-size: 0.75rem;
-  font-weight: 700;
-
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-
   margin-bottom: 0.5rem;
+
+  color: var(--rac-primary);
+
+  font-size: 0.75rem;
+
+  font-weight: 800;
+
+  letter-spacing: 0.1em;
+
+  text-transform: uppercase;
 }
+
+/* =========================================================
+   TITLE
+   ========================================================= */
 
 .account-header h1 {
   margin: 0;
 
+  color: var(--rac-gray-900);
+
   font-size: 2rem;
+
   line-height: 1.2;
+
+  font-weight: 800;
+
+  letter-spacing: -0.5px;
 }
 
+/* =========================================================
+   DESCRIPTION
+   ========================================================= */
+
 .account-header p {
+  max-width: 650px;
+
   margin-top: 0.75rem;
+
+  color: var(--rac-gray-600);
+
+  font-size: 0.95rem;
 
   line-height: 1.6;
 }
+
+/* =========================================================
+   ACCOUNT SECTIONS
+   ========================================================= */
 
 .account-section {
   margin-bottom: 2rem;
 }
 
+/* =========================================================
+   LOADING
+   ========================================================= */
+
 .loading {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  min-height: 180px;
+
   padding: 2rem;
 
+  color: var(--rac-gray-600);
+
   text-align: center;
+
+  background: var(--rac-white);
+
+  border: 1px solid var(--rac-gray-100);
+
+  border-radius: 18px;
+
+  box-shadow: var(--rac-shadow-sm);
 }
 
+/* =========================================================
+   ERROR
+   ========================================================= */
+
 .error-message {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
   margin-bottom: 1.5rem;
+
+  padding: 13px 15px;
+
+  border: 1px solid rgba(164, 59, 59, 0.16);
+
+  border-radius: 12px;
+
+  background: #fff5f5;
+
+  color: #9f3f3f;
+
+  font-size: 0.85rem;
+
+  line-height: 1.5;
 }
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
 
 @media (max-width: 768px) {
   .account-page {
     padding: 1.5rem 1rem 3rem;
   }
 
+  .account-header {
+    margin-bottom: 1.5rem;
+  }
+
   .account-header h1 {
     font-size: 1.7rem;
+  }
+
+  .account-header p {
+    font-size: 0.9rem;
   }
 
   .account-section {
